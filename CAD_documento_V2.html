@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-<head><!DOCTYPE html>
-<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -986,11 +984,354 @@
     margin-bottom: 16px;
   }
 
+
+  /* ── PROGRAMACIÓN COMPLEMENTARIA EN CRONOGRAMA ────────── */
+  .crono-evento.complementaria {
+    background: rgba(45,184,122,.06);
+    border-left: 2px solid #2DB87A;
+  }
+  .crono-evento.complementaria .crono-evento-titulo {
+    color: #2DB87A;
+  }
+  .crono-comp-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: #2DB87A;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
   @media print {
     body { background: white; color: black; }
     .portada { min-height: auto; break-after: page; }
     .seccion { break-inside: avoid; }
   }
+</style>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --negro:   #0A0A0A;
+    --blanco:  #F5F2ED;
+    --coral:   #F05A3A;
+    --azul:    #3A8FD4;
+    --verde:   #2DB87A;
+    --arena:   #E8E0D0;
+    --gris:    #3A3A3A;
+    --grisMed: #888888;
+    --grisOsc: #1A1A1A;
+    --violeta: #5B4FCF;
+    --amarillo:#F5C842;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  body {
+    background: var(--negro);
+    color: var(--blanco);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 48px;
+  }
+
+  .header {
+    border-bottom: 1px solid #222;
+    padding-bottom: 24px;
+    margin-bottom: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .header-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .12em;
+    margin-bottom: 8px;
+  }
+
+  .header-titulo {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--blanco);
+    letter-spacing: -.01em;
+  }
+
+  .header-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grisMed);
+    margin-top: 4px;
+  }
+
+  /* ── VERSIONES ──────────────────────────────────────── */
+  .versiones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+
+  .version {
+    padding: 32px 28px;
+    background: #0F0F0F;
+  }
+
+  .version-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+
+  .version-titulo {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blanco);
+    margin-bottom: 6px;
+    letter-spacing: -.01em;
+  }
+
+  .version-desc {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    margin-bottom: 28px;
+    letter-spacing: .04em;
+  }
+
+  /* ── JORNADAS ───────────────────────────────────────── */
+  .jornada {
+    margin-bottom: 4px;
+    background: var(--grisOsc);
+  }
+
+  .jornada-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #222;
+  }
+
+  .jornada-dia {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blanco);
+  }
+
+  .jornada-nombre {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .04em;
+  }
+
+  .jornada-count {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .jornada-count-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--grisMed);
+    letter-spacing: .1em;
+    text-align: right;
+  }
+
+  .jornada-slots {
+    padding: 10px 16px 12px;
+  }
+
+  .slot {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid #151515;
+    font-size: 12px;
+  }
+
+  .slot:last-child { border-bottom: none; }
+
+  .slot-hora {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 42px;
+    flex-shrink: 0;
+  }
+
+  .slot-desc {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--grisMed);
+    line-height: 1.4;
+  }
+
+  .slot-simul {
+    font-family: var(--mono);
+    font-size: 8px;
+    background: #2A2A2A;
+    color: var(--grisMed);
+    padding: 2px 5px;
+    letter-spacing: .06em;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  /* ── TOTAL ──────────────────────────────────────────── */
+  .totales {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 2px;
+  }
+
+  .total-bloque {
+    padding: 24px 28px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .total-num {
+    font-family: var(--mono);
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: 1;
+  }
+
+  .total-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .total-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .total-nota {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+  }
+
+  /* ── NOTA ───────────────────────────────────────────── */
+  .nota {
+    margin-top: 2px;
+    background: #111;
+    border-left: 3px solid var(--amarillo);
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .nota-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .nota-texto {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #AAA;
+    letter-spacing: .04em;
+    line-height: 1.7;
+  }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid #1A1A1A;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .06em;
+  }
+
+
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --negro:#0A0A0A; --blanco:#F5F2ED; --coral:#F05A3A; --azul:#3A8FD4;
+    --verde:#2DB87A; --arena:#E8E0D0; --gris:#3A3A3A; --grisMed:#888888;
+    --grisOsc:#1A1A1A; --violeta:#5B4FCF; --amarillo:#F5C842;
+    --mono:'Space Mono',monospace; --sans:'DM Sans',sans-serif;
+  }
+  body { background:var(--negro); color:var(--blanco); font-family:var(--sans); min-height:100vh; padding:48px; }
+
+  .header { border-bottom:1px solid #222; padding-bottom:24px; margin-bottom:48px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; }
+  .header-meta { font-family:var(--mono); font-size:10px; color:var(--grisMed); letter-spacing:.12em; margin-bottom:8px; }
+  .header-titulo { font-family:var(--mono); font-size:24px; font-weight:700; color:var(--blanco); }
+  .header-sub { font-family:var(--mono); font-size:11px; color:var(--grisMed); margin-top:4px; letter-spacing:.04em; }
+  .header-alcance { font-family:var(--mono); font-size:11px; color:var(--grisMed); text-align:right; line-height:1.8; }
+  .header-alcance strong { color:var(--blanco); font-weight:700; }
+
+  .comparativa { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:2px; }
+  .version-total { padding:28px 32px; }
+  .version-total-label { font-family:var(--mono); font-size:9px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; margin-bottom:6px; }
+  .version-total-titulo { font-family:var(--mono); font-size:14px; color:var(--grisMed); margin-bottom:16px; letter-spacing:.02em; }
+  .version-total-monto { font-family:var(--mono); font-size:36px; font-weight:700; letter-spacing:-.02em; line-height:1; }
+  .version-total-usd { font-family:var(--mono); font-size:10px; color:var(--grisMed); margin-top:6px; letter-spacing:.06em; }
+
+  .rubros-wrap { margin-bottom:2px; }
+  .rubros-header { display:grid; grid-template-columns:2.8fr 1.1fr 1.1fr 1fr; gap:0; padding:10px 20px; background:#0F0F0F; border-bottom:1px solid #2A2A2A; }
+  .col-label { font-family:var(--mono); font-size:9px; color:var(--grisMed); letter-spacing:.15em; text-transform:uppercase; }
+  .col-label:not(:first-child) { text-align:right; }
+  .rubro { border-bottom:1px solid #151515; }
+  .rubro-row { display:grid; grid-template-columns:2.8fr 1.1fr 1.1fr 1fr; gap:0; padding:16px 20px; align-items:center; }
+  .rubro-nombre-wrap { display:flex; align-items:flex-start; gap:12px; }
+  .rubro-icono { width:30px; height:30px; border-radius:2px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; margin-top:2px; }
+  .rubro-nombre { font-family:var(--mono); font-size:13px; font-weight:700; color:var(--blanco); }
+  .rubro-desc { font-family:var(--sans); font-size:11px; color:var(--grisMed); margin-top:3px; line-height:1.5; }
+  .rubro-sub { font-family:var(--mono); font-size:10px; color:#444; margin-top:6px; letter-spacing:.03em; }
+  .rubro-monto { font-family:var(--mono); font-size:12px; text-align:right; font-weight:700; }
+  .rubro-barra-wrap { display:flex; justify-content:flex-end; align-items:center; gap:8px; }
+  .rubro-pct { font-family:var(--mono); font-size:11px; color:var(--grisMed); text-align:right; min-width:32px; }
+  .rubro-barra { width:60px; height:3px; background:#2A2A2A; border-radius:1px; overflow:hidden; }
+  .rubro-barra-fill { height:100%; border-radius:1px; }
+
+  .total-row { display:grid; grid-template-columns:2.8fr 1.1fr 1.1fr 1fr; gap:0; padding:20px 20px; background:#0F0F0F; border-top:2px solid #333; align-items:baseline; }
+  .total-label { font-family:var(--mono); font-size:10px; font-weight:700; color:var(--grisMed); letter-spacing:.15em; text-transform:uppercase; }
+  .total-monto-a { font-family:var(--mono); font-size:18px; font-weight:700; color:var(--violeta); text-align:right; }
+  .total-monto-b { font-family:var(--mono); font-size:18px; font-weight:700; color:var(--verde); text-align:right; }
+  .total-diff { font-family:var(--mono); font-size:10px; color:var(--grisMed); text-align:right; }
+
+  .varios-row { display:grid; grid-template-columns:2.8fr 1.1fr 1.1fr 1fr; gap:0; padding:12px 20px; background:#0F0F0F; border-top:1px solid #222; align-items:center; }
+  .varios-label { font-family:var(--mono); font-size:10px; color:var(--grisMed); letter-spacing:.06em; font-style:italic; }
+  .varios-monto { font-family:var(--mono); font-size:11px; color:var(--grisMed); text-align:right; }
+
+  .alcance { background:#0F0F0F; padding:28px 28px; margin-bottom:2px; }
+  .alcance-titulo { font-family:var(--mono); font-size:9px; color:var(--grisMed); letter-spacing:.15em; text-transform:uppercase; margin-bottom:16px; }
+  .alcance-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+  .alcance-item { background:var(--grisOsc); padding:16px 18px; }
+  .alcance-num { font-family:var(--mono); font-size:26px; font-weight:700; letter-spacing:-.02em; line-height:1; margin-bottom:4px; }
+  .alcance-desc { font-family:var(--mono); font-size:9px; color:var(--grisMed); letter-spacing:.06em; line-height:1.6; }
+
+  .nota { background:#111; border-left:3px solid var(--amarillo); padding:16px 20px; display:flex; align-items:flex-start; gap:12px; margin-bottom:2px; }
+  .nota-icon { font-size:14px; flex-shrink:0; margin-top:1px; }
+  .nota-texto { font-family:var(--mono); font-size:10px; color:#AAA; letter-spacing:.04em; line-height:1.7; }
+
+  footer { margin-top:32px; padding-top:20px; border-top:1px solid #1A1A1A; display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--grisMed); letter-spacing:.06em; }
+
 </style>
 </head>
 <body>
@@ -1251,313 +1592,6 @@
   </div>
 </section>
 
-<!-- ── ESPACIOS ──────────────────────────────────────────────── -->
-
-<!-- CSS adicional para espacios -->
-<style>
-  /* ── ESPACIOS GCBA ───────────────────────────────────────── */
-  .espacios { background: var(--negro); }
-
-  .espacios-intro {
-    font-family: var(--sans);
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--grisMed);
-    max-width: 640px;
-    margin-bottom: 56px;
-  }
-
-  .venue-bloque {
-    margin-bottom: 56px;
-    border-top: 1px solid #222;
-    padding-top: 32px;
-  }
-
-  .venue-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: baseline;
-    margin-bottom: 24px;
-  }
-
-  .venue-nombre {
-    font-family: var(--mono);
-    font-size: clamp(20px, 2.5vw, 30px);
-    font-weight: 700;
-    color: var(--blanco);
-    letter-spacing: -.02em;
-  }
-
-  .venue-direccion {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--grisMed);
-    letter-spacing: .06em;
-    text-align: right;
-  }
-
-  .venue-salas {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2px;
-  }
-
-  .sala-card {
-    background: #111;
-    padding: 20px 22px;
-    border-left: 3px solid transparent;
-  }
-
-  .sala-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 6px;
-  }
-
-  .sala-nombre {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--blanco);
-  }
-
-  .sala-cap {
-    font-family: var(--mono);
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--blanco);
-    letter-spacing: -.02em;
-    white-space: nowrap;
-  }
-
-  .sala-cap-unit {
-    font-family: var(--mono);
-    font-size: 9px;
-    color: var(--grisMed);
-    display: block;
-    text-align: right;
-    letter-spacing: .08em;
-  }
-
-  .sala-tecnica {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    line-height: 1.6;
-    margin-bottom: 6px;
-    letter-spacing: .02em;
-  }
-
-  .sala-uso {
-    font-family: var(--mono);
-    font-size: 10px;
-    font-style: italic;
-    letter-spacing: .03em;
-  }
-
-  .venue-nota {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    font-style: italic;
-    margin-top: 16px;
-    letter-spacing: .04em;
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-  }
-
-  .venue-nota.urgente { color: var(--coral); }
-
-  /* ── ESPACIOS ALTERNATIVOS ───────────────────────────────── */
-  .alternativos { background: var(--grisOsc); }
-  .alternativos .seccion-titulo { color: var(--blanco); }
-  .alternativos .seccion-numero { color: var(--grisMed); }
-
-  .alt-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 2px;
-  }
-
-  .alt-card {
-    background: #111;
-    padding: 28px 24px;
-    border-top: 3px solid transparent;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .alt-nombre {
-    font-family: var(--mono);
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--blanco);
-    margin-bottom: 3px;
-    letter-spacing: -.01em;
-  }
-
-  .alt-barrio {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    letter-spacing: .08em;
-    margin-bottom: 16px;
-  }
-
-  .alt-cap {
-    font-family: var(--mono);
-    font-size: 36px;
-    font-weight: 700;
-    letter-spacing: -.02em;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .alt-cap-unit {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    letter-spacing: .08em;
-    margin-bottom: 20px;
-  }
-
-  .alt-separador {
-    height: 1px;
-    background: #222;
-    margin-bottom: 16px;
-  }
-
-  .alt-pros, .alt-contras {
-    font-family: var(--sans);
-    font-size: 13px;
-    line-height: 1.6;
-    margin-bottom: 8px;
-  }
-
-  .alt-pros { color: var(--blanco); }
-  .alt-contras { color: var(--grisMed); font-style: italic; }
-
-  .alt-uso {
-    margin-top: auto;
-    padding-top: 16px;
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    border-top: 1px solid #1A1A1A;
-  }
-
-  /* ── PROVINCIAS ──────────────────────────────────────────── */
-  .provincias { background: var(--negro); }
-
-  .prov-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-  }
-
-  .prov-card {
-    background: #0F0F0F;
-    padding: 28px 22px;
-    border-top: 3px solid #333;
-  }
-
-  .prov-nombre {
-    font-family: var(--mono);
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--blanco);
-    margin-bottom: 4px;
-    letter-spacing: -.01em;
-  }
-
-  .prov-dist {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    letter-spacing: .06em;
-    margin-bottom: 20px;
-    font-style: italic;
-  }
-
-  .prov-venues-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    color: var(--grisMed);
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .prov-venue {
-    font-family: var(--sans);
-    font-size: 13px;
-    color: var(--grisMed);
-    padding: 7px 0;
-    border-bottom: 1px solid #1A1A1A;
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    justify-content: space-between;
-  }
-
-  .prov-venue:last-child { border-bottom: none; }
-
-  .prov-cap {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: #666;
-    margin-left: auto;
-    letter-spacing: .02em;
-    white-space: nowrap;
-    text-align: right;
-  }
-  .prov-venue a {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 1px solid #333;
-    transition: border-color .15s, color .15s;
-  }
-
-  .prov-tec {
-    font-size: 13px;
-    margin-right: 4px;
-  }
-  .prov-leyenda {
-    margin-top: 32px;
-    padding-top: 20px;
-    border-top: 1px solid #1A1A1A;
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    letter-spacing: .06em;
-    line-height: 1.8;
-  }
-  .prov-leyenda span {
-    margin-right: 20px;
-    white-space: nowrap;
-  }
-
-  .prov-venue a:hover {
-    border-bottom-color: currentColor;
-    color: var(--blanco);
-  }
-  .prov-venue::before {
-    content: '——';
-    font-family: var(--mono);
-    font-size: 9px;
-    color: #333;
-    flex-shrink: 0;
-  }
-
-  @media (max-width: 768px) {
-    .venue-salas, .alt-grid, .prov-grid { grid-template-columns: 1fr; }
-  }
-</style>
-
 <!-- ── ESPACIOS GCBA ─────────────────────────────────────────── -->
 <section class="seccion espacios">
   <div class="seccion-header">
@@ -1755,60 +1789,568 @@
   </div>
 </section>
 
-<!-- ── ESPACIOS ALTERNATIVOS ─────────────────────────────────── -->
-<section class="seccion alternativos">
+<!-- ── PROGRAMACIÓN COMPLEMENTARIA ──────────────────────────── -->
+<section class="seccion" style="background:var(--grisOsc)">
   <div class="seccion-header">
     <span class="seccion-numero">07 ——</span>
-    <h2 class="seccion-titulo">Espacios<br>alternativos</h2>
-    <span class="seccion-numero" style="text-align:right">Privados y gestión federal</span>
+    <h2 class="seccion-titulo" style="color:var(--blanco)">Programación<br>complementaria</h2>
+    <span class="seccion-numero" style="text-align:right;color:var(--grisMed)">Espacios y programadores invitados</span>
   </div>
-  <div class="alt-grid">
 
-    <div class="alt-card" style="border-color:var(--verde)">
-      <div class="alt-nombre" style="color:var(--verde)"><a href="https://artlabpro.net" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">Artlab</a></div>
-      <div class="alt-barrio">Chacarita</div>
-      <div class="alt-cap" style="color:var(--verde)">200</div>
-      <div class="alt-cap-unit">personas</div>
-      <div class="alt-separador"></div>
-      <div class="alt-pros">✓ Hi-Fi · arte digital · Aloja festival MUTEK entre otros festivales digitales y fiestas de música electrónica</div>
-      <div class="alt-contras">○ Capacidad pequeña · técnica excelente</div>
-      <div class="alt-uso" style="color:var(--verde)">Eventos nocturnos jue y sáb</div>
+  <p style="font-family:var(--sans);font-size:14px;color:var(--grisMed);max-width:680px;margin-bottom:48px;line-height:1.7">
+    No son salas que sumamos al CAD — son espacios y programadores con agenda propia de los que seleccionamos lo que encaja con los ejes del CAD. Ellos programan → nosotros elegimos qué dialoga con arte digital, tecnología y cultura → lo sumamos al calendario como programación invitada.
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px;margin-bottom:2px">
+
+    <!-- ARTLAB -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--verde)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--verde);letter-spacing:.12em;margin-bottom:8px">MÚSICA · ARTE DIGITAL · NOCHE</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://artlabpro.net" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">Artlab</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Chacarita · Hi-Fi · Arte digital</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:6px">Círculo de sonido · vie · 23h</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:14px">Escucha Hi-Fi · sáb · 21h</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--verde)"><a href="https://artlabpro.net/iastudio/" target="_blank" style="color:var(--verde);text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">IA Studio ↗</a> — Lucas Turturro</div>
     </div>
 
-    <div class="alt-card" style="border-color:var(--grisMed)">
-      <div class="alt-nombre" style="color:var(--grisMed)"><a href="http://teatropera.com" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(136,136,128,.3)">Opera</a></div>
-      <div class="alt-barrio">Corrientes</div>
-      <div class="alt-cap" style="color:var(--grisMed)">2.500</div>
-      <div class="alt-cap-unit">personas</div>
-      <div class="alt-separador"></div>
-      <div class="alt-pros">Teatro · buena accesibilidad · buen sistema de sonido y acústica (mejor que Rex)</div>
-      <div class="alt-contras">○ Poca disponibilidad</div>
-      <div class="alt-uso" style="color:var(--grisMed)">Evento de cierre — opción B</div>
+    <!-- TEATRO EL NACIONAL -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid #BA7517">
+      <div style="font-family:var(--mono);font-size:9px;color:#BA7517;letter-spacing:.12em;margin-bottom:8px">TEATRO</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px">Teatro El Nacional</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Corrientes · CABA</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:6px">Obra de Rechimuzzi · ~21h</div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Estimado — no está programada aún. Posibilidad a confirmar.</div>
     </div>
 
-    <div class="alt-card" style="border-color:var(--azul)">
-      <div class="alt-nombre" style="color:var(--azul)"><a href="https://www.granrex.com.ar" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(58,143,212,.3)">Gran Rex</a></div>
-      <div class="alt-barrio">Corrientes</div>
-      <div class="alt-cap" style="color:var(--azul)">3.000</div>
-      <div class="alt-cap-unit">personas</div>
-      <div class="alt-separador"></div>
-      <div class="alt-pros">✓ Teatro · accesibilidad total</div>
-      <div class="alt-contras">○ Costo alto · seguro de sala · agenda ocupada</div>
-      <div class="alt-uso" style="color:var(--azul)">Evento de cierre — opción B</div>
+    <!-- CETC -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--coral)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--coral);letter-spacing:.12em;margin-bottom:8px">ARTES ESCÉNICAS · MÚSICA</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://teatrocolon.org.ar/centro-de-experimentacion-del-teatro-colon/" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(240,90,58,.3)">CETC · Sala Gerardo Gandini</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Centro de Experimentación · Teatro Colón</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:6px">Escuchas musicales performáticas I y II</div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Espacio de creación de nuevas obras de artes escénicas en el subsuelo del Colón.</div>
     </div>
 
-    <div class="alt-card" style="border-color:#5B4FCF">
-      <div class="alt-nombre" style="color:#5B4FCF"><a href="https://www.konex.org" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(91,79,207,.3)">Konex</a></div>
-      <div class="alt-barrio">Almagro</div>
-      <div class="alt-cap" style="color:#5B4FCF">4.000</div>
-      <div class="alt-cap-unit">personas</div>
-      <div class="alt-separador"></div>
-      <div class="alt-pros">Buena accesibilidad · varios espacios disponibles · espacio adecuado para eventos masivos</div>
-      <div class="alt-contras">○ Buen acuerdo 80/20</div>
-      <div class="alt-uso" style="color:#5B4FCF">Evento de cierre — opción B</div>
+    <!-- MAMBA -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--verde)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--verde);letter-spacing:.12em;margin-bottom:8px">EXHIBICIÓN · MUSEO</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://www.mamba.org.ar" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">MAMBA · Bosques Umbral</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Curaduria: Onome Ekeh · franja horaria amplia</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Artistas argentinos que exploran diseño, ciencia ficción e IA. La tecnología como extensión de un estado de conciencia — desde técnicas ancestrales hasta dispositivos digitales. Al ser museo, funciona con franja horaria amplia — sumarlo al calendario de actividades del CAD.</div>
+    </div>
+
+    <!-- OCÉANO INTERIOR -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--azul)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--azul);letter-spacing:.12em;margin-bottom:8px">EXHIBICIÓN</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px">Océano Interior</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Sede · a confirmar</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Obra expositiva construida por artistas, arquitectos y científicos. Sede y horarios a confirmar.</div>
+    </div>
+
+    <!-- DUNEPARK -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--violeta)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--violeta);letter-spacing:.12em;margin-bottom:8px">MÚSICA · ARTE DIGITAL</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://dunepark.club" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(91,79,207,.3)">Dunepark</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Villa Crespo · Araoz 740</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Club (200 pax, LED), VJ Room (instalaciones digitales) y Theater (300 pax). Música electrónica, performances y arte digital. Ver agenda de noviembre para definir qué suma al CAD.</div>
+    </div>
+
+    <!-- CEIArtE -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--amarillo)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--amarillo);letter-spacing:.12em;margin-bottom:8px">ARTE + EDUCACIÓN + IA</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://ceiarteuntref.edu.ar" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(245,200,66,.3)">CEIArtE · UNTREF</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Centro de Experimentación en Artes Electrónicas</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Obras digitales y realizaciones IA desarrolladas en marco educativo. Los proyectos de investigación de la UNTREF como parte de la programación del CAD.</div>
+    </div>
+
+    <!-- DOMO ARTE LATAM + PLANETARIO -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--grisMed)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--grisMed);letter-spacing:.12em;margin-bottom:8px">EXPERIENCIAS INMERSIVAS · FULLDOME</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px">Domo Arte Latam</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px"><a href="https://planetario.buenosaires.gob.ar" target="_blank" style="color:var(--grisMed);text-decoration:none;border-bottom:1px solid #333">+ Planetario Galileo Galilei ↗</a></div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Plataforma curatorial de arte digital inmersivo en domos y planetarios. Conjunción propuesta: Domo Arte Latam programa en el Planetario de Buenos Aires (360°, 8K, 360 butacas) durante el CAD.</div>
     </div>
 
   </div>
+
+  <div style="background:#111;border-left:3px solid var(--amarillo);padding:14px 20px;display:flex;align-items:flex-start;gap:12px">
+    <span style="font-size:14px;flex-shrink:0">⚠️</span>
+    <span style="font-family:var(--mono);font-size:10px;color:#AAA;letter-spacing:.04em;line-height:1.7">
+      Toda esta programación es invitada — no es producción propia del CAD. Los eventos aparecen en el cronograma en color verde para distinguirlos. Fechas y horarios a confirmar según programación definitiva de noviembre 2026.
+    </span>
+  </div>
+
+</section>
+
+<!-- ── CRONOGRAMA ────────────────────────────────────────────── -->
+<section class="seccion cronograma">
+  <div class="seccion-header">
+    <span class="seccion-numero" style="color:rgba(0,0,0,.4)">09 ——</span>
+    <h2 class="seccion-titulo">Cronograma<br>borrador</h2>
+    <span class="seccion-numero" style="color:rgba(0,0,0,.4);text-align:right">Para revisión</span>
+  </div>
+
+  <div class="crono-tabs">
+    <button class="crono-tab activo" onclick="setVersion('a')">VERSIÓN A · 4 jornadas · múltiples venues</button>
+    <button class="crono-tab" onclick="setVersion('b')">VERSIÓN B · 3 jornadas · Jue–Sáb · San Martín</button>
+  </div>
+
+  <!-- ══ VERSIÓN A ══ -->
+  <div class="crono-version activa" id="version-a">
+    <p class="crono-intro">
+      Cuatro jornadas durante el mes de noviembre 2026. Jue–Vie desde las 18h (para que no interceda con el horario laboral). Sáb–Dom desde las 14h. Máximo 2 eventos simultáneos por franja. El domingo cierra con evento nocturno.
+    </p>
+    <div class="crono-dias">
+      <!-- JUE -->
+      <div class="crono-dia">
+        <div class="crono-dia-nombre">Jue 13<br>nov</div>
+        <div class="crono-dia-subtitulo">Apertura del CAD</div>
+
+        <div class="crono-horario">18:00</div>
+        <div class="crono-evento">
+          <div class="crono-evento-titulo">Apertura del CAD — charla inaugural</div>
+          <div class="crono-evento-lugar">Sala Martín Coronado · San Martín</div>
+        </div>
+
+        <div class="crono-horario">20:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Geopolítica digital y el sur</div>
+          <div class="crono-evento-lugar">CC San Martín</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Periodismo e IA</div>
+          <div class="crono-evento-lugar">CC Recoleta · Villa Villa</div>
+        </div>
+
+        <div class="crono-horario">22:00</div>
+        <div class="crono-evento">
+          <div class="crono-evento-titulo">Evento de apertura</div>
+          <div class="crono-evento-lugar">Usina del Arte · Sala Sinfónica<br><span style="opacity:.6">o Artlab · Chacarita</span></div>
+        </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria</div>
+          <div class="crono-evento-titulo">Círculo de sonido · Artlab</div>
+          <div class="crono-evento-lugar">Artlab · Chacarita · 23h</div>
+        </div>
+      </div>
+
+      <!-- VIE -->
+      <div class="crono-dia">
+        <div class="crono-dia-nombre">Vie 14<br>nov</div>
+        <div class="crono-dia-subtitulo">Política, personas y arte</div>
+
+        <div class="crono-horario">18:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Política, redes y democracia</div>
+          <div class="crono-evento-lugar">Hall Alfredo Alcón · San Martín</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Escritura en la era de la IA</div>
+          <div class="crono-evento-lugar">CC Recoleta</div>
+        </div>
+
+        <div class="crono-horario">20:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Obra de teatro: Alejandra</div>
+          <div class="crono-evento-lugar">Sala Cunill Cabanellas · San Martín</div>
+        </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria</div>
+          <div class="crono-evento-titulo">Obra · Rechimuzzi · Teatro Nacional</div>
+          <div class="crono-evento-lugar">Teatro El Nacional · ~21h · a confirmar</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Historia y tecnología</div>
+          <div class="crono-evento-lugar">CC San Martín</div>
+        </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria</div>
+          <div class="crono-evento-titulo">Escuchas musicales performáticas · CETC</div>
+          <div class="crono-evento-lugar">Sala Gerardo Gandini · Teatro Colón</div>
+        </div>
+
+        <div class="crono-horario">22:00</div>
+        <div class="crono-evento">
+          <div class="crono-evento-titulo">Ciclo de cine — sesión 1</div>
+          <div class="crono-evento-lugar">Sala Leopoldo Lugones · San Martín</div>
+        </div>
+      </div>
+
+      <!-- SAB -->
+      <div class="crono-dia">
+        <div class="crono-dia-nombre">Sáb 15<br>nov</div>
+        <div class="crono-dia-subtitulo">Futuro, ciencia y economía</div>
+
+        <div class="crono-horario">16:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">¿Qué es la IA, de verdad?</div>
+          <div class="crono-evento-lugar">Hall Alfredo Alcón · San Martín</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Trabajo, educación y tecnología</div>
+          <div class="crono-evento-lugar">CC San Martín</div>
+        </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria · museo</div>
+          <div class="crono-evento-titulo">Bosques Umbral · MAMBA</div>
+          <div class="crono-evento-lugar">MAMBA · franja horaria amplia · todo el día</div>
+        </div>
+
+        <div class="crono-horario">18:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Ciencia, ambiente y digitalidad</div>
+          <div class="crono-evento-lugar">CC Recoleta · Villa Villa</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Ciclo de cine — sesión 2</div>
+          <div class="crono-evento-lugar">Sala Leopoldo Lugones</div>
+        </div>
+
+        <div class="crono-horario">20:00</div>
+        <div class="crono-evento">
+          <div class="crono-evento-titulo">Economía digital: quién gana, quién pierde</div>
+          <div class="crono-evento-lugar">Sala Casacuberta · San Martín</div>
+        </div>
+
+        <div class="crono-horario">22:00</div>
+        <div class="crono-evento">
+          <div class="crono-evento-titulo">Evento nocturno</div>
+          <div class="crono-evento-lugar">Usina del Arte · Sala de Cámara<br><span style="opacity:.6">o Artlab · Chacarita</span></div>
+        </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria</div>
+          <div class="crono-evento-titulo">Escucha Hi-Fi · Artlab</div>
+          <div class="crono-evento-lugar">Artlab · Chacarita · 21h</div>
+        </div>
+      </div>
+
+      <!-- DOM -->
+      <div class="crono-dia" style="background:rgba(0,0,0,.18)">
+        <div class="crono-dia-nombre">Dom 16<br>nov</div>
+        <div class="crono-dia-subtitulo">Cierre y fiesta<br><span style="font-size:9px;opacity:.6;font-weight:400">Todo en Usina del Arte</span></div>
+
+        <div class="crono-horario">14:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Charla de apertura del día</div>
+          <div class="crono-evento-lugar">Usina del Arte · Sala de Cámara</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Panel · a definir</div>
+          <div class="crono-evento-lugar">Usina del Arte · Nave Mayor</div>
+        </div>
+
+        <div class="crono-horario">16:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">¿Qué tiene para decir el sur?</div>
+          <div class="crono-evento-lugar">Usina del Arte · Sala de Cámara</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Comunicación y redes</div>
+          <div class="crono-evento-lugar">Usina del Arte · Nave Mayor</div>
+        </div>
+
+        <div class="crono-horario">18:00</div>
+        <div class="crono-evento">
+          <div class="crono-evento-titulo">Charla de cierre — síntesis del CAD</div>
+          <div class="crono-evento-lugar">Usina del Arte · Sala Sinfónica</div>
+        </div>
+
+        <div class="crono-horario">20:00</div>
+        <div class="crono-evento" style="background:rgba(255,255,255,.08);padding:10px;margin-top:4px">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:rgba(0,0,0,.5);margin-bottom:4px">CIERRE / FESTIVAL</div>
+          <div class="crono-evento-titulo" style="font-size:15px">Fiesta de cierre del CAD</div>
+          <div class="crono-evento-lugar">Usina del Arte · Plaza Verde</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ VERSIÓN B ══ -->
+  <div class="crono-version" id="version-b">
+    <p class="crono-intro">
+      Tres jornadas en el eje Corrientes — CC San Martín para actividades regulares y Teatro San Martín para los eventos de mayor capacidad. Jue–Vie desde las 18h. Sáb desde las 14h.
+    </p>
+    <div class="crono-dias">
+      <!-- VIE -->
+      <div class="crono-dia">
+        <div class="crono-dia-nombre">Vie 14<br>nov</div>
+        <div class="crono-dia-subtitulo">Apertura del CAD</div>
+
+        <div class="crono-horario">18:00</div>
+        <div class="crono-evento">
+          <div class="crono-evento-titulo">Apertura del CAD — charla inaugural</div>
+          <div class="crono-evento-lugar">Sala Martín Coronado · San Martín</div>
+        </div>
+
+        <div class="crono-horario">20:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Geopolítica digital y el sur</div>
+          <div class="crono-evento-lugar">CC San Martín</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Periodismo e IA</div>
+          <div class="crono-evento-lugar">Sala Casacuberta · San Martín</div>
+        </div>
+
+        <div class="crono-horario">22:00</div>
+        <div class="crono-evento">
+          <div class="crono-evento-titulo">Evento de apertura</div>
+          <div class="crono-evento-lugar">Hall Alfredo Alcón · San Martín<br><span style="opacity:.6">o Artlab · Chacarita</span></div>
+        </div>
+      </div>
+
+      <!-- SAB -->
+      <div class="crono-dia">
+        <div class="crono-dia-nombre">Sáb 15<br>nov</div>
+        <div class="crono-dia-subtitulo">Política, futuro y ciencia</div>
+
+        <div class="crono-horario">14:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Charla de apertura del día</div>
+          <div class="crono-evento-lugar">Sala Martín Coronado · San Martín</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Panel · a definir</div>
+          <div class="crono-evento-lugar">Hall Alfredo Alcón · San Martín</div>
+        </div>
+
+        <div class="crono-horario">16:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Política, redes y democracia</div>
+          <div class="crono-evento-lugar">Sala Martín Coronado · San Martín</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">¿Qué es la IA, de verdad?</div>
+          <div class="crono-evento-lugar">Hall Alfredo Alcón · San Martín</div>
+        </div>
+
+        <div class="crono-horario">18:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Historia y tecnología</div>
+          <div class="crono-evento-lugar">CC San Martín</div>
+        </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria</div>
+          <div class="crono-evento-titulo">Escuchas musicales performáticas · CETC</div>
+          <div class="crono-evento-lugar">Sala Gerardo Gandini · Teatro Colón</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Trabajo, educación y tecnología</div>
+          <div class="crono-evento-lugar">Sala Casacuberta · San Martín</div>
+        </div>
+
+        <div class="crono-horario">20:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Economía digital: quién gana, quién pierde</div>
+          <div class="crono-evento-lugar">Sala Martín Coronado · San Martín</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Escritura en la era de la IA</div>
+          <div class="crono-evento-lugar">Sala Cunill Cabanellas · San Martín</div>
+        </div>
+
+        <div class="crono-horario">22:00</div>
+        <div class="crono-evento">
+          <div class="crono-evento-titulo">Evento nocturno</div>
+          <div class="crono-evento-lugar">Hall Alfredo Alcón · San Martín<br><span style="opacity:.6">o Artlab · Chacarita</span></div>
+        </div>
+      </div>
+
+      <!-- DOM -->
+      <div class="crono-dia" style="background:rgba(0,0,0,.18)">
+        <div class="crono-dia-nombre">Dom 16<br>nov</div>
+        <div class="crono-dia-subtitulo">Cierre y fiesta<br><span style="font-size:9px;opacity:.6;font-weight:400">Todo en Usina del Arte</span></div>
+
+        <div class="crono-horario">14:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Charla de apertura del día</div>
+          <div class="crono-evento-lugar">Usina del Arte · Sala de Cámara</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Panel · a definir</div>
+          <div class="crono-evento-lugar">Usina del Arte · Nave Mayor</div>
+        </div>
+
+        <div class="crono-horario">16:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">¿Qué tiene para decir el sur?</div>
+          <div class="crono-evento-lugar">Usina del Arte · Sala de Cámara</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Comunicación y redes</div>
+          <div class="crono-evento-lugar">Usina del Arte · Nave Mayor</div>
+        </div>
+
+        <div class="crono-horario">18:00</div>
+        <div class="crono-evento">
+          <div class="crono-evento-titulo">Charla de cierre — síntesis del CAD</div>
+          <div class="crono-evento-lugar">Usina del Arte · Sala Sinfónica</div>
+        </div>
+
+        <div class="crono-horario">20:00</div>
+        <div class="crono-evento" style="background:rgba(255,255,255,.08);padding:10px;margin-top:4px">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:rgba(0,0,0,.5);margin-bottom:4px">CIERRE / FESTIVAL</div>
+          <div class="crono-evento-titulo" style="font-size:15px">Fiesta de cierre del CAD</div>
+          <div class="crono-evento-lugar">Usina del Arte · Plaza Verde</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="crono-nota">
+    Borrador para revisión de Pedro y Soledad. Horarios y sedes son tentativos. Artista del cierre a definir con Marcos.
+  </p>
+  <div class="nota-orientativa">
+    <span class="nota-orientativa-icon">⚠️</span>
+    <span class="nota-orientativa-texto">Los títulos y contenidos de las charlas son orientativos. La programación definitiva la definirá Soledad con el equipo de contenidos y cada referente.</span>
+  </div>
+</section>
+
+
+<script>
+function setVersion(v) {
+  document.querySelectorAll('.crono-version').forEach(el => el.classList.remove('activa'));
+  document.querySelectorAll('.crono-tab').forEach(el => el.classList.remove('activo'));
+  document.getElementById('version-' + v).classList.add('activa');
+  event.target.classList.add('activo');
+}
+</script>
+
+<!-- ── PROGRAMACIÓN COMPLEMENTARIA ──────────────────────────── -->
+<section class="seccion" style="background:var(--grisOsc)">
+  <div class="seccion-header">
+    <span class="seccion-numero">07 ——</span>
+    <h2 class="seccion-titulo" style="color:var(--blanco)">Programación<br>complementaria</h2>
+    <span class="seccion-numero" style="text-align:right;color:var(--grisMed)">Espacios y programadores invitados</span>
+  </div>
+
+  <p style="font-family:var(--sans);font-size:14px;color:var(--grisMed);max-width:680px;margin-bottom:48px;line-height:1.7">
+    No son salas que sumamos al CAD — son espacios y programadores con agenda propia de los que seleccionamos lo que encaja con los ejes del CAD. Ellos programan → nosotros elegimos qué dialoga con arte digital, tecnología y cultura → lo sumamos al calendario como programación invitada.
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px;margin-bottom:2px">
+
+    <!-- ARTLAB -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--verde)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--verde);letter-spacing:.12em;margin-bottom:8px">MÚSICA · ARTE DIGITAL · NOCHE</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://artlabpro.net" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">Artlab</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Chacarita · Hi-Fi · Arte digital</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:6px">Círculo de sonido · vie · 23h</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:14px">Escucha Hi-Fi · sáb · 21h</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--verde)"><a href="https://artlabpro.net/iastudio/" target="_blank" style="color:var(--verde);text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">IA Studio ↗</a> — Lucas Turturro</div>
+    </div>
+
+    <!-- TEATRO EL NACIONAL -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid #BA7517">
+      <div style="font-family:var(--mono);font-size:9px;color:#BA7517;letter-spacing:.12em;margin-bottom:8px">TEATRO</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px">Teatro El Nacional</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Corrientes · CABA</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:6px">Obra de Rechimuzzi · ~21h</div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Estimado — no está programada aún. Posibilidad a confirmar.</div>
+    </div>
+
+    <!-- CETC -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--coral)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--coral);letter-spacing:.12em;margin-bottom:8px">ARTES ESCÉNICAS · MÚSICA</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://teatrocolon.org.ar/centro-de-experimentacion-del-teatro-colon/" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(240,90,58,.3)">CETC · Sala Gerardo Gandini</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Centro de Experimentación · Teatro Colón</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:6px">Escuchas musicales performáticas I y II</div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Espacio de creación de nuevas obras de artes escénicas en el subsuelo del Colón.</div>
+    </div>
+
+    <!-- MAMBA -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--verde)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--verde);letter-spacing:.12em;margin-bottom:8px">EXHIBICIÓN · MUSEO</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://www.mamba.org.ar" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">MAMBA · Bosques Umbral</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Curaduria: Onome Ekeh · franja horaria amplia</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Artistas argentinos que exploran diseño, ciencia ficción e IA. La tecnología como extensión de un estado de conciencia — desde técnicas ancestrales hasta dispositivos digitales. Al ser museo, funciona con franja horaria amplia — sumarlo al calendario de actividades del CAD.</div>
+    </div>
+
+    <!-- OCÉANO INTERIOR -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--azul)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--azul);letter-spacing:.12em;margin-bottom:8px">EXHIBICIÓN</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px">Océano Interior</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Sede · a confirmar</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Obra expositiva construida por artistas, arquitectos y científicos. Sede y horarios a confirmar.</div>
+    </div>
+
+    <!-- DUNEPARK -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--violeta)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--violeta);letter-spacing:.12em;margin-bottom:8px">MÚSICA · ARTE DIGITAL</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://dunepark.club" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(91,79,207,.3)">Dunepark</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Villa Crespo · Araoz 740</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Club (200 pax, LED), VJ Room (instalaciones digitales) y Theater (300 pax). Música electrónica, performances y arte digital. Ver agenda de noviembre para definir qué suma al CAD.</div>
+    </div>
+
+    <!-- CEIArtE -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--amarillo)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--amarillo);letter-spacing:.12em;margin-bottom:8px">ARTE + EDUCACIÓN + IA</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://ceiarteuntref.edu.ar" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(245,200,66,.3)">CEIArtE · UNTREF</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Centro de Experimentación en Artes Electrónicas</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Obras digitales y realizaciones IA desarrolladas en marco educativo. Los proyectos de investigación de la UNTREF como parte de la programación del CAD.</div>
+    </div>
+
+    <!-- DOMO ARTE LATAM + PLANETARIO -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--grisMed)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--grisMed);letter-spacing:.12em;margin-bottom:8px">EXPERIENCIAS INMERSIVAS · FULLDOME</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px">Domo Arte Latam</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px"><a href="https://planetario.buenosaires.gob.ar" target="_blank" style="color:var(--grisMed);text-decoration:none;border-bottom:1px solid #333">+ Planetario Galileo Galilei ↗</a></div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Plataforma curatorial de arte digital inmersivo en domos y planetarios. Conjunción propuesta: Domo Arte Latam programa en el Planetario de Buenos Aires (360°, 8K, 360 butacas) durante el CAD.</div>
+    </div>
+
+  </div>
+
+  <div style="background:#111;border-left:3px solid var(--amarillo);padding:14px 20px;display:flex;align-items:flex-start;gap:12px">
+    <span style="font-size:14px;flex-shrink:0">⚠️</span>
+    <span style="font-family:var(--mono);font-size:10px;color:#AAA;letter-spacing:.04em;line-height:1.7">
+      Toda esta programación es invitada — no es producción propia del CAD. Los eventos aparecen en el cronograma en color verde para distinguirlos. Fechas y horarios a confirmar según programación definitiva de noviembre 2026.
+    </span>
+  </div>
+
 </section>
 
 <!-- ── PROVINCIAS ────────────────────────────────────────────── -->
@@ -1870,13 +2412,13 @@
 
   <div class="crono-tabs">
     <button class="crono-tab activo" onclick="setVersion('a')">VERSIÓN A · 4 jornadas · múltiples venues</button>
-    <button class="crono-tab" onclick="setVersion('b')">VERSIÓN B · 3 jornadas · San Martín</button>
+    <button class="crono-tab" onclick="setVersion('b')">VERSIÓN B · 3 jornadas · Jue–Sáb · San Martín</button>
   </div>
 
   <!-- ══ VERSIÓN A ══ -->
   <div class="crono-version activa" id="version-a">
     <p class="crono-intro">
-      Cuatro jornadas durante el mes de noviembre 2026. Jue–Vie desde las 18h (para que no interceda con el horario laboral). Sáb–Dom desde las 16h (puede llegar a ser antes). Máximo 2 eventos simultáneos por franja. El domingo cierra con evento nocturno.
+      Cuatro jornadas durante el mes de noviembre 2026. Jue–Vie desde las 18h (para que no interceda con el horario laboral). Sáb–Dom desde las 14h. Máximo 2 eventos simultáneos por franja. El domingo cierra con evento nocturno.
     </p>
     <div class="crono-dias">
       <!-- JUE -->
@@ -1907,6 +2449,11 @@
           <div class="crono-evento-titulo">Evento de apertura</div>
           <div class="crono-evento-lugar">Usina del Arte · Sala Sinfónica<br><span style="opacity:.6">o Artlab · Chacarita</span></div>
         </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria</div>
+          <div class="crono-evento-titulo">Círculo de sonido · Artlab</div>
+          <div class="crono-evento-lugar">Artlab · Chacarita · 23h</div>
+        </div>
       </div>
 
       <!-- VIE -->
@@ -1932,10 +2479,20 @@
           <div class="crono-evento-titulo">Obra de teatro: Alejandra</div>
           <div class="crono-evento-lugar">Sala Cunill Cabanellas · San Martín</div>
         </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria</div>
+          <div class="crono-evento-titulo">Obra · Rechimuzzi · Teatro Nacional</div>
+          <div class="crono-evento-lugar">Teatro El Nacional · ~21h · a confirmar</div>
+        </div>
         <div class="crono-evento">
           <div class="crono-simul">simultáneo</div>
           <div class="crono-evento-titulo">Historia y tecnología</div>
           <div class="crono-evento-lugar">CC San Martín</div>
+        </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria</div>
+          <div class="crono-evento-titulo">Escuchas musicales performáticas · CETC</div>
+          <div class="crono-evento-lugar">Sala Gerardo Gandini · Teatro Colón</div>
         </div>
 
         <div class="crono-horario">22:00</div>
@@ -1961,6 +2518,11 @@
           <div class="crono-evento-titulo">Trabajo, educación y tecnología</div>
           <div class="crono-evento-lugar">CC San Martín</div>
         </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria · museo</div>
+          <div class="crono-evento-titulo">Bosques Umbral · MAMBA</div>
+          <div class="crono-evento-lugar">MAMBA · franja horaria amplia · todo el día</div>
+        </div>
 
         <div class="crono-horario">18:00</div>
         <div class="crono-evento">
@@ -1985,12 +2547,29 @@
           <div class="crono-evento-titulo">Evento nocturno</div>
           <div class="crono-evento-lugar">Usina del Arte · Sala de Cámara<br><span style="opacity:.6">o Artlab · Chacarita</span></div>
         </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria</div>
+          <div class="crono-evento-titulo">Escucha Hi-Fi · Artlab</div>
+          <div class="crono-evento-lugar">Artlab · Chacarita · 21h</div>
+        </div>
       </div>
 
       <!-- DOM -->
       <div class="crono-dia" style="background:rgba(0,0,0,.18)">
         <div class="crono-dia-nombre">Dom 16<br>nov</div>
         <div class="crono-dia-subtitulo">Cierre y fiesta<br><span style="font-size:9px;opacity:.6;font-weight:400">Todo en Usina del Arte</span></div>
+
+        <div class="crono-horario">14:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Charla de apertura del día</div>
+          <div class="crono-evento-lugar">Usina del Arte · Sala de Cámara</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Panel · a definir</div>
+          <div class="crono-evento-lugar">Usina del Arte · Nave Mayor</div>
+        </div>
 
         <div class="crono-horario">16:00</div>
         <div class="crono-evento">
@@ -2023,7 +2602,7 @@
   <!-- ══ VERSIÓN B ══ -->
   <div class="crono-version" id="version-b">
     <p class="crono-intro">
-      Tres jornadas concentradas en el eje Corrientes — Teatro General San Martín y CC San Martín. Vie desde las 18h. Sáb–Dom desde las 16h (puede llegar a ser antes). Máximo 2 eventos simultáneos por franja. El domingo cierra con evento nocturno en Usina del Arte.
+      Tres jornadas en el eje Corrientes — CC San Martín para actividades regulares y Teatro San Martín para los eventos de mayor capacidad. Jue–Vie desde las 18h. Sáb desde las 14h.
     </p>
     <div class="crono-dias">
       <!-- VIE -->
@@ -2061,6 +2640,18 @@
         <div class="crono-dia-nombre">Sáb 15<br>nov</div>
         <div class="crono-dia-subtitulo">Política, futuro y ciencia</div>
 
+        <div class="crono-horario">14:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Charla de apertura del día</div>
+          <div class="crono-evento-lugar">Sala Martín Coronado · San Martín</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Panel · a definir</div>
+          <div class="crono-evento-lugar">Hall Alfredo Alcón · San Martín</div>
+        </div>
+
         <div class="crono-horario">16:00</div>
         <div class="crono-evento">
           <div class="crono-simul">simultáneo</div>
@@ -2078,6 +2669,11 @@
           <div class="crono-simul">simultáneo</div>
           <div class="crono-evento-titulo">Historia y tecnología</div>
           <div class="crono-evento-lugar">CC San Martín</div>
+        </div>
+        <div class="crono-evento complementaria">
+          <div class="crono-comp-label">programación complementaria</div>
+          <div class="crono-evento-titulo">Escuchas musicales performáticas · CETC</div>
+          <div class="crono-evento-lugar">Sala Gerardo Gandini · Teatro Colón</div>
         </div>
         <div class="crono-evento">
           <div class="crono-simul">simultáneo</div>
@@ -2108,6 +2704,18 @@
       <div class="crono-dia" style="background:rgba(0,0,0,.18)">
         <div class="crono-dia-nombre">Dom 16<br>nov</div>
         <div class="crono-dia-subtitulo">Cierre y fiesta<br><span style="font-size:9px;opacity:.6;font-weight:400">Todo en Usina del Arte</span></div>
+
+        <div class="crono-horario">14:00</div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Charla de apertura del día</div>
+          <div class="crono-evento-lugar">Usina del Arte · Sala de Cámara</div>
+        </div>
+        <div class="crono-evento">
+          <div class="crono-simul">simultáneo</div>
+          <div class="crono-evento-titulo">Panel · a definir</div>
+          <div class="crono-evento-lugar">Usina del Arte · Nave Mayor</div>
+        </div>
 
         <div class="crono-horario">16:00</div>
         <div class="crono-evento">
@@ -2316,2270 +2924,555 @@ function setVersion(v) {
   </div>
 
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAD — Congreso Argentino de Digitalidad</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap');
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --negro: #0A0A0A;
-    --blanco: #F5F2ED;
-    --coral: #F05A3A;
-    --azul: #3A8FD4;
-    --verde: #2DB87A;
-    --arena: #E8E0D0;
-    --gris: #3A3A3A;
-    --gris-medio: #888888;
-    --mono: 'Space Mono', monospace;
-    --sans: 'DM Sans', sans-serif;
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--negro);
-    color: var(--blanco);
-    font-family: var(--sans);
-    font-size: 16px;
-    line-height: 1.5;
-  }
-
-  /* ── PORTADA ─────────────────────────────────────────────── */
-  .portada {
-    background: var(--negro);
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    padding: 48px;
-    border-bottom: 1px solid #222;
-  }
-
-  .portada-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--gris-medio);
-    letter-spacing: .08em;
-  }
-
-  .portada-centro {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 80px 0 40px;
-  }
-
-  .portada-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: .2em;
-    color: var(--gris-medio);
-    text-transform: uppercase;
-    margin-bottom: 24px;
-  }
-
-  .portada-titulo {
-    font-family: var(--mono);
-    font-size: clamp(48px, 8vw, 96px);
-    font-weight: 700;
-    line-height: .95;
-    letter-spacing: -.02em;
-    color: var(--blanco);
-    margin-bottom: 48px;
-  }
-
-  .portada-titulo span {
-    display: block;
-  }
-
-  .portada-subtitulo {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--gris-medio);
-    letter-spacing: .06em;
-    max-width: 420px;
-    line-height: 1.8;
-  }
-
-  .portada-pie {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--gris-medio);
-    letter-spacing: .1em;
-    padding-top: 40px;
-    border-top: 1px solid #222;
-  }
-
-  .fecha-bloque {
-    font-family: var(--mono);
-    font-size: clamp(20px, 3vw, 32px);
-    font-weight: 700;
-    color: var(--blanco);
-    letter-spacing: -.01em;
-  }
-
-  /* ── SECCIONES ───────────────────────────────────────────── */
-  .seccion {
-    padding: 80px 48px;
-    border-bottom: 1px solid #222;
-  }
-
-  .seccion-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 64px;
-  }
-
-  .seccion-numero {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--gris-medio);
-    letter-spacing: .2em;
-  }
-
-  .seccion-titulo {
-    font-family: var(--mono);
-    font-size: clamp(28px, 4vw, 52px);
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -.02em;
-    color: var(--blanco);
-    flex: 1;
-    padding: 0 40px;
-  }
-
-  /* ── BLOQUE QUÉ ES ───────────────────────────────────────── */
-  .que-es {
-    background: var(--blanco);
-    color: var(--negro);
-  }
-
-  .que-es .seccion-titulo { color: var(--negro); }
-  .que-es .seccion-numero { color: var(--gris-medio); }
-
-  .que-es-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-  }
-
-  .que-es-texto {
-    font-family: var(--sans);
-    font-size: 17px;
-    line-height: 1.7;
-    color: var(--negro);
-    max-width: 520px;
-  }
-
-  .que-es-aside {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-
-  .dato-grande {
-    border-top: 2px solid var(--negro);
-    padding-top: 20px;
-  }
-
-  .dato-numero {
-    font-family: var(--mono);
-    font-size: 64px;
-    font-weight: 700;
-    line-height: 1;
-    color: var(--negro);
-  }
-
-  .dato-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: .15em;
-    color: var(--gris-medio);
-    text-transform: uppercase;
-    margin-top: 6px;
-  }
-
-  /* ── EJES ────────────────────────────────────────────────── */
-  .ejes {
-    background: var(--negro);
-  }
-
-  .ejes-lista {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-  }
-
-  .eje-item {
-    border-top: 1px solid #333;
-    padding: 32px 0;
-    padding-right: 40px;
-  }
-
-  .eje-item:nth-child(even) {
-    padding-left: 40px;
-    padding-right: 0;
-    border-left: 1px solid #333;
-  }
-
-  .eje-num {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--gris-medio);
-    letter-spacing: .15em;
-    margin-bottom: 12px;
-  }
-
-  .eje-pregunta {
-    font-family: var(--mono);
-    font-size: clamp(18px, 2.5vw, 28px);
-    font-weight: 700;
-    line-height: 1.1;
-    color: var(--blanco);
-    margin-bottom: 12px;
-    letter-spacing: -.01em;
-  }
-
-  .eje-desc {
-    font-family: var(--sans);
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--gris-medio);
-  }
-
-  /* ── REFERENTES ──────────────────────────────────────────── */
-  .referentes {
-    background: var(--coral);
-    color: var(--negro);
-  }
-
-  .referentes .seccion-titulo { color: var(--negro); }
-  .referentes .seccion-numero { color: rgba(0,0,0,.4); }
-
-  .ref-intro {
-    font-family: var(--sans);
-    font-size: 16px;
-    line-height: 1.7;
-    color: var(--negro);
-    max-width: 600px;
-    margin-bottom: 48px;
-    opacity: .8;
-  }
-
-  .ref-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 0;
-  }
-
-  .ref-item {
-    border-top: 1px solid rgba(0,0,0,.2);
-    padding: 20px 20px 20px 0;
-  }
-
-  .ref-nombre {
-    font-family: var(--mono);
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--negro);
-    margin-bottom: 4px;
-  }
-
-  .ref-area {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: rgba(0,0,0,.5);
-    letter-spacing: .1em;
-    text-transform: uppercase;
-  }
-
-  .ref-confirmar {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: rgba(0,0,0,.35);
-    letter-spacing: .1em;
-    font-style: italic;
-  }
-
-  /* ── FORMATO ─────────────────────────────────────────────── */
-  .formato {
-    background: var(--negro);
-  }
-
-  .formato-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-  }
-
-  .formato-bloque {
-    border-top: 1px solid #333;
-    padding-top: 28px;
-  }
-
-  .formato-titulo {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--blanco);
-    letter-spacing: .08em;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-  }
-
-  .formato-texto {
-    font-family: var(--sans);
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--gris-medio);
-  }
-
-  .formato-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 16px;
-  }
-
-  .tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: .08em;
-    border: 1px solid #444;
-    padding: 4px 10px;
-    color: var(--blanco);
-  }
-
-  /* ── CRONOGRAMA ──────────────────────────────────────────── */
-  .cronograma {
-    background: var(--azul);
-    color: var(--negro);
-  }
-
-  .cronograma .seccion-titulo { color: var(--negro); }
-  .cronograma .seccion-numero { color: rgba(0,0,0,.4); }
-
-  .crono-intro {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: rgba(0,0,0,.6);
-    letter-spacing: .05em;
-    margin-bottom: 48px;
-    max-width: 600px;
-    line-height: 1.7;
-  }
-
-  .crono-dias {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-  }
-
-  .crono-dia {
-    background: rgba(0,0,0,.08);
-    padding: 28px 24px;
-  }
-
-  .crono-dia-nombre {
-    font-family: var(--mono);
-    font-size: clamp(16px, 2vw, 22px);
-    font-weight: 700;
-    color: var(--negro);
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .crono-dia-subtitulo {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: rgba(0,0,0,.45);
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    margin-bottom: 24px;
-  }
-
-  .crono-horario {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--negro);
-    letter-spacing: .05em;
-    margin-top: 20px;
-    margin-bottom: 8px;
-    opacity: .6;
-  }
-
-  .crono-evento {
-    margin-bottom: 12px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid rgba(0,0,0,.1);
-  }
-
-  .crono-evento:last-child {
-    border-bottom: none;
-  }
-
-  .crono-evento-titulo {
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--negro);
-    line-height: 1.3;
-    margin-bottom: 2px;
-  }
-
-  .crono-evento-lugar {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: rgba(0,0,0,.5);
-    letter-spacing: .04em;
-  }
-
-  .crono-simul {
-    font-family: var(--mono);
-    font-size: 9px;
-    letter-spacing: .1em;
-    background: var(--negro);
-    color: var(--blanco);
-    padding: 2px 6px;
-    display: inline-block;
-    margin-bottom: 4px;
-  }
-
-  .crono-nota {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: rgba(0,0,0,.5);
-    letter-spacing: .05em;
-    margin-top: 28px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(0,0,0,.15);
-    line-height: 1.6;
-  }
-
-  /* ── REGISTRO ────────────────────────────────────────────── */
-  .registro {
-    background: var(--negro);
-  }
-
-  .registro-setup {
-    background: #1A1A1A;
-    padding: 32px;
-    margin-bottom: 48px;
-    border-left: 3px solid var(--verde);
-  }
-
-  .registro-setup-titulo {
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--verde);
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-
-  .registro-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .registro-item {
-    font-family: var(--mono);
-    font-size: 13px;
-    color: var(--blanco);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .registro-item::before {
-    content: '——';
-    color: var(--verde);
-    font-size: 11px;
-  }
-
-  .registro-escalas {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-  }
-
-  .escala-bloque {
-    background: #111;
-    padding: 28px;
-  }
-
-  .escala-tipo {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--blanco);
-    margin-bottom: 6px;
-  }
-
-  .escala-pax {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--gris-medio);
-    letter-spacing: .08em;
-    margin-bottom: 16px;
-  }
-
-  .escala-linea {
-    font-family: var(--sans);
-    font-size: 13px;
-    color: var(--gris-medio);
-    margin-bottom: 4px;
-  }
-
-  .escala-edicion {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--verde);
-    font-style: italic;
-    margin-top: 10px;
-  }
-
-  .escala-no {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: #555;
-    font-style: italic;
-    margin-top: 10px;
-  }
-
-  /* ── COMUNIDAD ───────────────────────────────────────────── */
-  .comunidad {
-    background: var(--verde);
-    color: var(--negro);
-  }
-
-  .comunidad .seccion-titulo { color: var(--negro); }
-  .comunidad .seccion-numero { color: rgba(0,0,0,.4); }
-
-  .com-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 2px;
-  }
-
-  .com-bloque {
-    background: rgba(255,255,255,.15);
-    padding: 32px 28px;
-  }
-
-  .com-fase {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .2em;
-    color: var(--negro);
-    text-transform: uppercase;
-    margin-bottom: 24px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .com-fase::before {
-    content: '';
-    display: block;
-    width: 28px;
-    height: 2px;
-    background: var(--negro);
-    opacity: .4;
-  }
-
-  .com-item {
-    font-family: var(--sans);
-    font-size: 14px;
-    color: var(--negro);
-    line-height: 1.5;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(0,0,0,.1);
-  }
-
-  .com-item:last-child { border-bottom: none; }
-
-  /* ── ENTRADAS ────────────────────────────────────────────── */
-  .entradas {
-    background: var(--negro);
-  }
-
-  .entradas-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-  }
-
-  .entrada-bloque {
-    padding: 40px;
-  }
-
-  .entrada-bloque.libre {
-    background: #111;
-    border-top: 3px solid var(--verde);
-  }
-
-  .entrada-bloque.paga {
-    background: #111;
-    border-top: 3px solid var(--coral);
-  }
-
-  .entrada-tipo {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  .libre .entrada-tipo { color: var(--verde); }
-  .paga .entrada-tipo { color: var(--coral); }
-
-  .entrada-titulo {
-    font-family: var(--mono);
-    font-size: clamp(20px, 2.5vw, 32px);
-    font-weight: 700;
-    color: var(--blanco);
-    margin-bottom: 32px;
-    line-height: 1.1;
-  }
-
-  .entrada-lista {
-    list-style: none;
-  }
-
-  .entrada-lista li {
-    font-family: var(--sans);
-    font-size: 15px;
-    color: var(--gris-medio);
-    padding: 10px 0;
-    border-bottom: 1px solid #222;
-    display: flex;
-    align-items: baseline;
-    gap: 10px;
-  }
-
-  .entrada-lista li::before {
-    content: '——';
-    font-family: var(--mono);
-    font-size: 10px;
-    color: #444;
-    flex-shrink: 0;
-  }
-
-  .paga-evento {
-    margin-bottom: 16px;
-    padding: 16px;
-    background: #1A1A1A;
-  }
-
-  .paga-nombre {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--blanco);
-    margin-bottom: 4px;
-  }
-
-  .paga-nota {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--gris-medio);
-    font-style: italic;
-  }
-
-  .accesibilidad {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--coral);
-    margin-top: 20px;
-    font-style: italic;
-  }
-
-  /* ── PRÓXIMOS PASOS ──────────────────────────────────────── */
-  .pasos {
-    background: var(--arena);
-    color: var(--negro);
-  }
-
-  .pasos .seccion-titulo { color: var(--negro); }
-  .pasos .seccion-numero { color: rgba(0,0,0,.4); }
-
-  .pasos-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 40px;
-  }
-
-  .pasos-bloque-titulo {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: .2em;
-    text-transform: uppercase;
-    color: var(--negro);
-    margin-bottom: 24px;
-    padding-bottom: 12px;
-    border-bottom: 2px solid var(--negro);
-  }
-
-  .paso-item {
-    font-family: var(--sans);
-    font-size: 14px;
-    color: var(--negro);
-    padding: 12px 0;
-    border-bottom: 1px solid rgba(0,0,0,.12);
-    line-height: 1.5;
-    display: flex;
-    gap: 10px;
-    align-items: baseline;
-  }
-
-  .paso-item::before {
-    content: attr(data-n);
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--gris-medio);
-    flex-shrink: 0;
-    letter-spacing: .05em;
-  }
-
-  .paso-urgente::before { color: var(--coral); }
-
-  /* ── PIE ─────────────────────────────────────────────────── */
-  .pie {
-    background: var(--negro);
-    padding: 40px 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .pie-logo {
-    font-family: var(--mono);
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--blanco);
-    letter-spacing: .05em;
-  }
-
-  .pie-meta {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--gris-medio);
-    letter-spacing: .1em;
-    text-align: right;
-  }
-
-  /* ── DIVIDER ─────────────────────────────────────────────── */
-  .div-seccion {
-    background: var(--negro);
-    padding: 40px 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    border-bottom: 1px solid #222;
-  }
-
-  .div-num {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--gris-medio);
-    letter-spacing: .2em;
-  }
-
-  .div-nombre {
-    font-family: var(--mono);
-    font-size: clamp(24px, 3.5vw, 42px);
-    font-weight: 700;
-    color: var(--blanco);
-    letter-spacing: -.02em;
-  }
-
-  .div-sub {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--gris-medio);
-    letter-spacing: .06em;
-  }
-
-  @media (max-width: 768px) {
-    .portada, .seccion, .div-seccion { padding: 32px 24px; }
-    .que-es-grid, .ejes-lista, .crono-dias, .formato-grid,
-    .com-grid, .entradas-grid, .pasos-grid, .registro-escalas { grid-template-columns: 1fr; }
-    .eje-item:nth-child(even) { border-left: none; padding-left: 0; }
-  }
-
-
-  /* ── AGENDA PROVINCIAL ───────────────────────────────── */
-  .agenda-prov {
-    background: var(--negro);
-    border-top: 1px solid #1A1A1A;
-  }
-
-  .agenda-prov-intro {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--grisMed);
-    letter-spacing: .06em;
-    max-width: 700px;
-    margin-bottom: 48px;
-    line-height: 1.7;
-  }
-
-  .agenda-prov-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
-  }
-
-  .agenda-ciudad {
-    background: #0F0F0F;
-    padding: 32px 28px;
-  }
-
-  .agenda-ciudad-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 8px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #222;
-  }
-
-  .agenda-ciudad-nombre {
-    font-family: var(--mono);
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--blanco);
-    letter-spacing: -.01em;
-  }
-
-  .agenda-ciudad-venue {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    letter-spacing: .06em;
-    font-style: italic;
-  }
-
-  .agenda-dia {
-    margin-top: 20px;
-  }
-
-  .agenda-dia-label {
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .15em;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid #1A1A1A;
-  }
-
-  .agenda-slot {
-    display: grid;
-    grid-template-columns: 52px 1fr;
-    gap: 0 12px;
-    padding: 10px 0;
-    border-bottom: 1px solid #151515;
-    align-items: start;
-  }
-
-  .agenda-slot:last-child { border-bottom: none; }
-
-  .agenda-hora {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 700;
-    padding-top: 2px;
-  }
-
-  .agenda-evento-titulo {
-    font-family: var(--sans);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--blanco);
-    line-height: 1.3;
-    margin-bottom: 3px;
-  }
-
-  .agenda-evento-sub {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    letter-spacing: .03em;
-  }
-
-  .agenda-definir {
-    font-family: var(--mono);
-    font-size: 9px;
-    color: #444;
-    letter-spacing: .08em;
-    font-style: italic;
-    margin-top: 2px;
-  }
-
-  @media (max-width: 768px) {
-    .agenda-prov-grid { grid-template-columns: 1fr; }
-  }
-
-
-  .nota-orientativa {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    background: #141414;
-    border: 1px solid #2A2A2A;
-    border-left: 3px solid #F5C842;
-    padding: 14px 18px;
-    margin-top: 24px;
-    border-radius: 2px;
-  }
-  .nota-orientativa-icon {
-    font-size: 16px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .nota-orientativa-texto {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: #AAAAAA;
-    letter-spacing: .04em;
-    line-height: 1.7;
-  }
-
-  @media print {
-    body { background: white; color: black; }
-    .portada { min-height: auto; break-after: page; }
-    .seccion { break-inside: avoid; }
-  }
-</style>
-</head>
-<body>
-
-<!-- ── PORTADA ──────────────────────────────────────────────── -->
-<section class="portada">
-  <div class="portada-meta">
-    <span>GELATINA — DOCUMENTO DE TRABAJO</span>
-    <span>NOVIEMBRE 2026 / BUENOS AIRES</span>
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ── PROGRAMACIÓN COMPLEMENTARIA ────────────────────── -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section style="background:#0A0A0A;padding:64px 48px;border-top:2px solid #222">
+  <div style="border-bottom:1px solid #222;padding-bottom:20px;margin-bottom:16px">
+    <span style="font-family:'Space Mono',monospace;font-size:9px;color:#555;letter-spacing:.15em">——</span>
+    <h2 style="font-family:'Space Mono',monospace;font-size:clamp(24px,3.5vw,44px);font-weight:700;color:#F5F2ED;margin-top:8px;letter-spacing:-.02em">Programación<br>complementaria</h2>
   </div>
-  <div class="portada-centro">
-    <p class="portada-label">Congreso Argentino de Digitalidad</p>
-    <h1 class="portada-titulo">
-      <span>CAD</span>
-      <span>——</span>
-      <span>Brief</span>
-      <span>Interno</span>
-    </h1>
-    <p class="portada-subtitulo">
-      Un espacio de intercambio de ideas sobre el fenómeno digital y sus cruces con la política, la cultura, el arte, la economía, la ciencia y la historia. Pensado desde Argentina, para el público general.
-    </p>
-  </div>
-  <div class="portada-pie">
-    <div class="fecha-bloque">13 ———— 16.11<br>2026</div>
-    <div>
-      <div style="color:var(--blanco);font-family:var(--mono);font-size:11px;letter-spacing:.1em">PRIMERA EDICIÓN</div>
-      <div style="margin-top:4px;font-family:var(--mono);font-size:11px;letter-spacing:.06em">buenos-aires / argentina</div>
-    </div>
-  </div>
-</section>
-
-<!-- ── QUÉ ES ────────────────────────────────────────────────── -->
-<section class="seccion que-es">
-  <div class="seccion-header">
-    <span class="seccion-numero">01 ——</span>
-    <h2 class="seccion-titulo">¿Qué es<br>el CAD?</h2>
-    <span class="seccion-numero" style="text-align:right">Presentación</span>
-  </div>
-  <div class="que-es-grid">
-    <div>
-      <p class="que-es-texto">
-        El Congreso Argentino de Digitalidad es un evento de alcance nacional que Gelatina organiza por primera vez en noviembre de 2026. Es un espacio de intercambio de ideas sobre el fenómeno digital y sus cruces con la política, la cultura, el arte, la economía, la ciencia y la historia.
-      </p>
-      <p class="que-es-texto" style="margin-top:24px">
-        Pensado desde Argentina y para el público general, con la misma vocación de masividad y profundidad que define a Gelatina: <strong>accesible pero riguroso, entretenido pero serio.</strong>
-      </p>
-      <p class="que-es-texto" style="margin-top:24px">
-        La mayoría de las actividades se realizan en CABA, con actividades descentralizadas en La Plata, Rosario, Córdoba y Mendoza. Todas las actividades, salvo eventos y obras de teatro, se registran y publican en los canales de Gelatina.
-      </p>
-    </div>
-    <div class="que-es-aside">
-      <div class="dato-grande">
-        <div class="dato-numero">4</div>
-        <div class="dato-label">Jornadas — Jueves a domingo</div>
-      </div>
-      <div class="dato-grande">
-        <div class="dato-numero">6</div>
-        <div class="dato-label">Ejes temáticos</div>
-      </div>
-      <div class="dato-grande">
-        <div class="dato-numero">5</div>
-        <div class="dato-label">Ciudades — CABA + 4 provincias</div>
-      </div>
-      <div class="dato-grande">
-        <div class="dato-numero" style="font-size:40px">Primera<br>edición</div>
-        <div class="dato-label">Argentina · 2026</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── POR QUÉ AHORA ─────────────────────────────────────────── -->
-<section class="seccion" style="background:var(--negro)">
-  <div class="seccion-header">
-    <span class="seccion-numero">02 ——</span>
-    <h2 class="seccion-titulo">¿Por qué<br>ahora?</h2>
-    <span class="seccion-numero" style="text-align:right">Contexto</span>
-  </div>
-  <div style="max-width:720px;margin:0 auto">
-    <p style="font-family:var(--sans);font-size:clamp(18px,2.5vw,26px);line-height:1.6;color:var(--blanco);font-weight:300">
-      Estamos en medio de una revolución tecnológica que transforma al mismo tiempo cómo producimos, cómo nos informamos, cómo nos relacionamos y cómo nos pensamos a nosotros mismos.
-    </p>
-    <p style="font-family:var(--sans);font-size:17px;line-height:1.7;color:var(--gris-medio);margin-top:32px">
-      Y sin embargo, el debate público sobre este fenómeno en Argentina es escaso, fragmentado y casi siempre importado. El CAD propone una reflexión propia, situada, con perspectiva popular y mirada desde el sur. Por eso convoca no solo a referentes argentinos sino también a voces de América Latina y del mundo.
-    </p>
-    <div style="margin-top:48px;padding:28px;border-left:3px solid var(--coral);background:#111">
-      <p style="font-family:var(--mono);font-size:15px;font-weight:700;color:var(--blanco);line-height:1.4">
-        Se trata de una conversación global con anclaje regional.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ── EJES ──────────────────────────────────────────────────── -->
-<section class="seccion ejes">
-  <div class="seccion-header">
-    <span class="seccion-numero">03 ——</span>
-    <h2 class="seccion-titulo">Los seis<br>ejes</h2>
-    <span class="seccion-numero" style="text-align:right">Programa temático</span>
-  </div>
-  <div class="ejes-lista">
-    <div class="eje-item">
-      <div class="eje-num">01 ——</div>
-      <div class="eje-pregunta">¿Quién es dueño<br>del futuro?</div>
-      <div class="eje-desc">Poder, plataformas, inteligencia artificial, geopolítica, economía digital y concentración de capital. ¿Quién decide cómo se desarrolla la tecnología y para quién?</div>
-    </div>
-    <div class="eje-item">
-      <div class="eje-num">02 ——</div>
-      <div class="eje-pregunta">¿Qué le está<br>pasando a la política?</div>
-      <div class="eje-desc">Representación, redes y democracia, información y movimientos sociales en la era digital. ¿Puede la política dar respuestas a esta época?</div>
-    </div>
-    <div class="eje-item">
-      <div class="eje-num">03 ——</div>
-      <div class="eje-pregunta">¿Qué le está<br>pasando a las personas?</div>
-      <div class="eje-desc">Subjetividad, salud mental, cuerpo, deseo, identidad y vínculos en la era digital. ¿Qué nos está haciendo esta transformación?</div>
-    </div>
-    <div class="eje-item">
-      <div class="eje-num">04 ——</div>
-      <div class="eje-pregunta">¿Qué puede<br>hacer el arte?</div>
-      <div class="eje-desc">Cine, series, música, teatro y literatura frente a la revolución tecnológica. El arte como forma de conocimiento, resistencia e imaginación de futuros posibles.</div>
-    </div>
-    <div class="eje-item">
-      <div class="eje-num">05 ——</div>
-      <div class="eje-pregunta">¿Cómo se piensa el presente<br>desde el sur?</div>
-      <div class="eje-desc">¿Qué tiene para decir el sur sobre una revolución que se diseña en el centro? Con referentes latinoamericanos e internacionales que aportan perspectivas de otros territorios.</div>
-    </div>
-    <div class="eje-item">
-      <div class="eje-num">06 ——</div>
-      <div class="eje-pregunta">¿Cómo vamos<br>a vivir?</div>
-      <div class="eje-desc">Trabajo, educación, ciencia y medio ambiente. ¿Qué mundo estamos construyendo y qué mundo queremos construir?</div>
-    </div>
-  </div>
-</section>
-
-<!-- ── REFERENTES ────────────────────────────────────────────── -->
-<section class="seccion referentes">
-  <div class="seccion-header">
-    <span class="seccion-numero" style="color:rgba(0,0,0,.4)">04 ——</span>
-    <h2 class="seccion-titulo">Los<br>referentes</h2>
-    <span class="seccion-numero" style="color:rgba(0,0,0,.4);text-align:right">Co-programación</span>
-  </div>
-  <p class="ref-intro">
-    El CAD convoca a un grupo de referentes que aportan desde sus disciplinas a los ejes del congreso y co-programan las actividades de su área junto al equipo de Gelatina. Cada referente propone entre tres y cinco actividades: una principal de mayor escala y otras de formato más íntimo o experimental.
-  </p>
-  <div class="ref-grid">
-    <div class="ref-item">
-      <div class="ref-nombre">Pedro Rosemblat</div>
-      <div class="ref-area">Política</div>
-    </div>
-    <div class="ref-item">
-      <div class="ref-nombre">Nico Guthmann</div>
-      <div class="ref-area">Periodismo</div>
-    </div>
-    <div class="ref-item">
-      <div class="ref-nombre">Michel Nieva</div>
-      <div class="ref-area">Literatura y ficción</div>
-    </div>
-    <div class="ref-item">
-      <div class="ref-nombre">Tomás García</div>
-      <div class="ref-area">Inteligencia Artificial</div>
-    </div>
-    <div class="ref-item">
-      <div class="ref-nombre">Marcos Aramburu</div>
-      <div class="ref-area">Música</div>
-    </div>
-    <div class="ref-item">
-      <div class="ref-nombre">Julia Rosemberg</div>
-      <div class="ref-area">Historia</div>
-    </div>
-    <div class="ref-item">
-      <div class="ref-nombre">Ofelia Fernández</div>
-      <div class="ref-area">Comunicación</div>
-      <div class="ref-confirmar">a confirmar</div>
-    </div>
-    <div class="ref-item" style="opacity:.5">
-      <div class="ref-nombre">A confirmar</div>
-      <div class="ref-area">Tecnología</div>
-    </div>
-    <div class="ref-item" style="opacity:.5">
-      <div class="ref-nombre">A confirmar</div>
-      <div class="ref-area">Educación</div>
-    </div>
-    <div class="ref-item" style="opacity:.5">
-      <div class="ref-nombre">A confirmar</div>
-      <div class="ref-area">Trabajo</div>
-    </div>
-    <div class="ref-item" style="opacity:.5">
-      <div class="ref-nombre">A confirmar</div>
-      <div class="ref-area">Cine</div>
-    </div>
-    <div class="ref-item" style="opacity:.5">
-      <div class="ref-nombre">A confirmar</div>
-      <div class="ref-area">Economía</div>
-    </div>
-    <div class="ref-item" style="opacity:.5">
-      <div class="ref-nombre">A confirmar</div>
-      <div class="ref-area">Ciencia</div>
-    </div>
-    <div class="ref-item" style="opacity:.5">
-      <div class="ref-nombre">A confirmar</div>
-      <div class="ref-area">Ambiente</div>
-    </div>
-    <div class="ref-item" style="opacity:.5">
-      <div class="ref-nombre">A confirmar</div>
-      <div class="ref-area">Geopolítica</div>
-    </div>
-  </div>
-  <p style="font-family:var(--mono);font-size:12px;color:rgba(0,0,0,.4);margin-top:32px;font-style:italic">
-    El CAD también convoca a personalidades de América Latina y del mundo que dialogan con los ejes desde otras experiencias y territorios.
-  </p>
-</section>
-
-<!-- ── FORMATO ───────────────────────────────────────────────── -->
-<section class="seccion formato">
-  <div class="seccion-header">
-    <span class="seccion-numero">05 ——</span>
-    <h2 class="seccion-titulo">Formato</h2>
-    <span class="seccion-numero" style="text-align:right">Actividades</span>
-  </div>
-  <div class="formato-grid">
-    <div class="formato-bloque">
-      <div class="formato-titulo">Estructura de actividades</div>
-      <p class="formato-texto">
-        Cada referente propone entre tres y cinco actividades dentro de su área. Una actividad principal de mayor escala y convocatoria, y otras de formato más íntimo o experimental.
-      </p>
-      <div class="formato-tags">
-        <span class="tag">Charlas</span>
-        <span class="tag">Paneles</span>
-        <span class="tag">Entrevistas</span>
-        <span class="tag">Talleres</span>
-        <span class="tag">Ciclos de cine</span>
-        <span class="tag">Eventos</span>
-        <span class="tag">Teatro</span>
-      </div>
-    </div>
-    <div class="formato-bloque">
-      <div class="formato-titulo">Registro y distribución</div>
-      <p class="formato-texto">
-        Todas las actividades, salvo eventos y obras de teatro, se registran y publican en los canales de Gelatina.
-      </p>
-      <p class="formato-texto" style="margin-top:16px">
-        <strong style="color:var(--blanco)">El CAD no termina el día que termina:</strong> su contenido se convierte en material editorial para los meses siguientes.
-      </p>
-    </div>
-    <div class="formato-bloque">
-      <div class="formato-titulo">Entradas</div>
-      <p class="formato-texto">La mayoría de las actividades son de entrada libre y gratuita.</p>
-      <p class="formato-texto" style="margin-top:12px">Eventos con producción artística específica (obras de teatro, eventos en sala, experiencias nocturnas, fiesta de cierre) tienen entrada paga.</p>
-      <p style="font-family:var(--mono);font-size:11px;color:var(--coral);margin-top:12px;font-style:italic">
-        Precios a definir con criterio de accesibilidad.
-      </p>
-    </div>
-    <div class="formato-bloque">
-      <div class="formato-titulo">Setup audiovisual base</div>
-      <p class="formato-texto">4 cámaras fijas (la 4ta enfocada al público) · 1 operador · sonido extraído de consola. Post producción de imagen y sonido con finish para plataformas YT e IG.</p>
-      <p class="formato-texto" style="margin-top:12px">Eventos y obras de teatro no se registran.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ── ESPACIOS ──────────────────────────────────────────────── -->
-
-<!-- CSS adicional para espacios -->
-<style>
-  /* ── ESPACIOS GCBA ───────────────────────────────────────── */
-  .espacios { background: var(--negro); }
-
-  .espacios-intro {
-    font-family: var(--sans);
-    font-size: 15px;
-    line-height: 1.7;
-    color: var(--grisMed);
-    max-width: 640px;
-    margin-bottom: 56px;
-  }
-
-  .venue-bloque {
-    margin-bottom: 56px;
-    border-top: 1px solid #222;
-    padding-top: 32px;
-  }
-
-  .venue-header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: baseline;
-    margin-bottom: 24px;
-  }
-
-  .venue-nombre {
-    font-family: var(--mono);
-    font-size: clamp(20px, 2.5vw, 30px);
-    font-weight: 700;
-    color: var(--blanco);
-    letter-spacing: -.02em;
-  }
-
-  .venue-direccion {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--grisMed);
-    letter-spacing: .06em;
-    text-align: right;
-  }
-
-  .venue-salas {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2px;
-  }
-
-  .sala-card {
-    background: #111;
-    padding: 20px 22px;
-    border-left: 3px solid transparent;
-  }
-
-  .sala-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 6px;
-  }
-
-  .sala-nombre {
-    font-family: var(--mono);
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--blanco);
-  }
-
-  .sala-cap {
-    font-family: var(--mono);
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--blanco);
-    letter-spacing: -.02em;
-    white-space: nowrap;
-  }
-
-  .sala-cap-unit {
-    font-family: var(--mono);
-    font-size: 9px;
-    color: var(--grisMed);
-    display: block;
-    text-align: right;
-    letter-spacing: .08em;
-  }
-
-  .sala-tecnica {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    line-height: 1.6;
-    margin-bottom: 6px;
-    letter-spacing: .02em;
-  }
-
-  .sala-uso {
-    font-family: var(--mono);
-    font-size: 10px;
-    font-style: italic;
-    letter-spacing: .03em;
-  }
-
-  .venue-nota {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    font-style: italic;
-    margin-top: 16px;
-    letter-spacing: .04em;
-    display: flex;
-    align-items: baseline;
-    gap: 6px;
-  }
-
-  .venue-nota.urgente { color: var(--coral); }
-
-  /* ── ESPACIOS ALTERNATIVOS ───────────────────────────────── */
-  .alternativos { background: var(--grisOsc); }
-  .alternativos .seccion-titulo { color: var(--blanco); }
-  .alternativos .seccion-numero { color: var(--grisMed); }
-
-  .alt-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 2px;
-  }
-
-  .alt-card {
-    background: #111;
-    padding: 28px 24px;
-    border-top: 3px solid transparent;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .alt-nombre {
-    font-family: var(--mono);
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--blanco);
-    margin-bottom: 3px;
-    letter-spacing: -.01em;
-  }
-
-  .alt-barrio {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    letter-spacing: .08em;
-    margin-bottom: 16px;
-  }
-
-  .alt-cap {
-    font-family: var(--mono);
-    font-size: 36px;
-    font-weight: 700;
-    letter-spacing: -.02em;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .alt-cap-unit {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    letter-spacing: .08em;
-    margin-bottom: 20px;
-  }
-
-  .alt-separador {
-    height: 1px;
-    background: #222;
-    margin-bottom: 16px;
-  }
-
-  .alt-pros, .alt-contras {
-    font-family: var(--sans);
-    font-size: 13px;
-    line-height: 1.6;
-    margin-bottom: 8px;
-  }
-
-  .alt-pros { color: var(--blanco); }
-  .alt-contras { color: var(--grisMed); font-style: italic; }
-
-  .alt-uso {
-    margin-top: auto;
-    padding-top: 16px;
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    border-top: 1px solid #1A1A1A;
-  }
-
-  /* ── PROVINCIAS ──────────────────────────────────────────── */
-  .provincias { background: var(--negro); }
-
-  .prov-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-  }
-
-  .prov-card {
-    background: #0F0F0F;
-    padding: 28px 22px;
-    border-top: 3px solid #333;
-  }
-
-  .prov-nombre {
-    font-family: var(--mono);
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--blanco);
-    margin-bottom: 4px;
-    letter-spacing: -.01em;
-  }
-
-  .prov-dist {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    letter-spacing: .06em;
-    margin-bottom: 20px;
-    font-style: italic;
-  }
-
-  .prov-venues-label {
-    font-family: var(--mono);
-    font-size: 9px;
-    color: var(--grisMed);
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-
-  .prov-venue {
-    font-family: var(--sans);
-    font-size: 13px;
-    color: var(--grisMed);
-    padding: 7px 0;
-    border-bottom: 1px solid #1A1A1A;
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    justify-content: space-between;
-  }
-
-  .prov-venue:last-child { border-bottom: none; }
-
-  .prov-cap {
-    font-family: var(--mono);
-    font-size: 10px;
-    color: #666;
-    margin-left: auto;
-    letter-spacing: .02em;
-    white-space: nowrap;
-    text-align: right;
-  }
-  .prov-venue a {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 1px solid #333;
-    transition: border-color .15s, color .15s;
-  }
-
-  .prov-tec {
-    font-size: 13px;
-    margin-right: 4px;
-  }
-  .prov-leyenda {
-    margin-top: 32px;
-    padding-top: 20px;
-    border-top: 1px solid #1A1A1A;
-    font-family: var(--mono);
-    font-size: 10px;
-    color: var(--grisMed);
-    letter-spacing: .06em;
-    line-height: 1.8;
-  }
-  .prov-leyenda span {
-    margin-right: 20px;
-    white-space: nowrap;
-  }
-
-  .prov-venue a:hover {
-    border-bottom-color: currentColor;
-    color: var(--blanco);
-  }
-  .prov-venue::before {
-    content: '——';
-    font-family: var(--mono);
-    font-size: 9px;
-    color: #333;
-    flex-shrink: 0;
-  }
-
-  @media (max-width: 768px) {
-    .venue-salas, .alt-grid, .prov-grid { grid-template-columns: 1fr; }
-  }
-</style>
-
-<!-- ── ESPACIOS GCBA ─────────────────────────────────────────── -->
-<section class="seccion espacios">
-  <div class="seccion-header">
-    <span class="seccion-numero">06 ——</span>
-    <h2 class="seccion-titulo">Espacios<br>CABA</h2>
-    <span class="seccion-numero" style="text-align:right">Gestión GCBA</span>
-  </div>
-  <p class="espacios-intro">
-    Salas de gestión del Ministerio de Cultura de la Ciudad de Buenos Aires. San Martín, Usina del Arte, CC Recoleta y CC San Martín se gestionan bajo la misma resolución — una única gestión para cubrir todas las sedes.
+  <p style="font-family:'DM Sans',sans-serif;font-size:14px;color:#888;max-width:680px;margin-bottom:48px;line-height:1.7">
+    Espacios, festivales e instituciones cuya programación de noviembre se articula con los ejes del CAD. No son producción propia — seleccionamos lo que encaja y lo sumamos al calendario como programación invitada.
   </p>
 
-  <!-- SAN MARTÍN -->
-  <div class="venue-bloque">
-    <div class="venue-header">
-      <div>
-        <div class="venue-nombre"><a href="https://complejoteatral.gob.ar/teatro-san-martin" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid #333">Teatro General San Martín</a></div>
-      </div>
-      <div class="venue-direccion">Corrientes 1530 · Centro · GCBA</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2px">
+
+    <!-- MAMBA -->
+    <div style="background:#0F0F0F;padding:28px 24px;border-top:3px solid #2DB87A">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#2DB87A;letter-spacing:.12em;margin-bottom:8px">EXHIBICIÓN</div>
+      <div style="font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:#F5F2ED;margin-bottom:4px">Bosques Umbral</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:#888;margin-bottom:16px">MAMBA · Curaduria: Onome Ekeh</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#888;line-height:1.6;margin-bottom:12px">Artistas argentinos que exploran diseño, ciencia ficción e inteligencia artificial. La tecnología como extensión de un estado de conciencia — desde técnicas ancestrales hasta dispositivos digitales.</div>
+      <a href="https://www.mamba.org.ar" target="_blank" style="font-family:'Space Mono',monospace;font-size:10px;color:#2DB87A;text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">mamba.org.ar ↗</a>
     </div>
-    <div class="venue-salas">
-      <div class="sala-card" style="border-color:#5B4FCF">
-        <div class="sala-top">
-          <div class="sala-nombre">Sala Cunill Cabanellas</div>
-          <div>
-            <div class="sala-cap" style="color:#5B4FCF">200</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">Configuración variable · escenario y platea desplazables</div>
-        <div class="sala-uso" style="color:#5B4FCF">Teatro experimental · obras de menor escala</div>
-      </div>
-      <div class="sala-card" style="border-color:#5B4FCF">
-        <div class="sala-top">
-          <div class="sala-nombre">Sala Leopoldo Lugones</div>
-          <div>
-            <div class="sala-cap" style="color:#5B4FCF">233</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">Sala de cine · proyección 35mm y digital · piso 10</div>
-        <div class="sala-uso" style="color:#5B4FCF">Ciclo de cine del CAD</div>
-      </div>
-      <div class="sala-card" style="border-color:#5B4FCF">
-        <div class="sala-top">
-          <div class="sala-nombre">Sala Casacuberta</div>
-          <div>
-            <div class="sala-cap" style="color:#5B4FCF">566</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">Platea semicircular · tablado levadizo (escenario / piso / foso)</div>
-        <div class="sala-uso" style="color:#5B4FCF">Teatro · paneles grandes · formatos mixtos</div>
-      </div>
-      <div class="sala-card" style="border-color:#5B4FCF">
-        <div class="sala-top">
-          <div class="sala-nombre">Sala Martín Coronado</div>
-          <div>
-            <div class="sala-cap" style="color:#5B4FCF">1.049</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">Escenario italiano · foso levadizo para orquesta · 9 ascensores de escena</div>
-        <div class="sala-uso" style="color:#5B4FCF">Teatro · charlas grandes · apertura / cierre</div>
-      </div>
-      <div class="sala-card" style="border-color:#5B4FCF">
-        <div class="sala-top">
-          <div class="sala-nombre">Hall Alfredo Alcón</div>
-          <div>
-            <div class="sala-cap" style="color:#5B4FCF">4.000</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">Espacio abierto · acceso libre · sin butacas fijas</div>
-        <div class="sala-uso" style="color:#5B4FCF">Charlas masivas · entrada libre</div>
-      </div>
+
+    <!-- OCÉANO INTERIOR -->
+    <div style="background:#0F0F0F;padding:28px 24px;border-top:3px solid #3A8FD4">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#3A8FD4;letter-spacing:.12em;margin-bottom:8px">EXHIBICIÓN</div>
+      <div style="font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:#F5F2ED;margin-bottom:4px">Océano Interior</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:#888;margin-bottom:16px">Sede · a confirmar</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#888;line-height:1.6">Obra expositiva construida por artistas, arquitectos y científicos. Sede a confirmar.</div>
     </div>
-    <p class="venue-nota urgente">* Iniciar gestión de reserva con urgencia.</p>
+
+    <!-- CETC -->
+    <div style="background:#0F0F0F;padding:28px 24px;border-top:3px solid #F05A3A">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#F05A3A;letter-spacing:.12em;margin-bottom:8px">ARTES ESCÉNICAS</div>
+      <div style="font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:#F5F2ED;margin-bottom:4px">CETC · Sala Gerardo Gandini</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:#888;margin-bottom:16px">Centro de Experimentación · Teatro Colón</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#888;line-height:1.6;margin-bottom:12px">Espacio de creación de nuevas obras de artes escénicas en el subsuelo del Colón. Posibles obras: Escuchas musicales performáticas I y II.</div>
+      <a href="https://teatrocolon.org.ar/centro-de-experimentacion-del-teatro-colon/" target="_blank" style="font-family:'Space Mono',monospace;font-size:10px;color:#F05A3A;text-decoration:none;border-bottom:1px solid rgba(240,90,58,.3)">teatrocolon.org.ar ↗</a>
+    </div>
+
+    <!-- DUNEPARK -->
+    <div style="background:#0F0F0F;padding:28px 24px;border-top:3px solid #5B4FCF">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#5B4FCF;letter-spacing:.12em;margin-bottom:8px">MÚSICA · ARTE DIGITAL</div>
+      <div style="font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:#F5F2ED;margin-bottom:4px">Dunepark</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:#888;margin-bottom:16px">Villa Crespo · Araoz 740</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#888;line-height:1.6;margin-bottom:12px">Centro cultural con Club (200 pax, LED), VJ Room (instalaciones digitales inmersivas) y Theater (300 pax). Música electrónica, performances y arte digital. Ver agenda de noviembre para identificar qué suma al CAD.</div>
+      <a href="https://dunepark.club" target="_blank" style="font-family:'Space Mono',monospace;font-size:10px;color:#5B4FCF;text-decoration:none;border-bottom:1px solid rgba(91,79,207,.3)">dunepark.club ↗</a>
+    </div>
+
+    <!-- CEIArtE UNTREF -->
+    <div style="background:#0F0F0F;padding:28px 24px;border-top:3px solid #F5C842">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#F5C842;letter-spacing:.12em;margin-bottom:8px">ARTE + EDUCACIÓN + IA</div>
+      <div style="font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:#F5F2ED;margin-bottom:4px">CEIArtE · UNTREF</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:#888;margin-bottom:16px">Centro de Experimentación en Artes Electrónicas</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#888;line-height:1.6;margin-bottom:12px">Convocarlos para que obras digitales y realizaciones IA desarrolladas en el marco educativo de la UNTREF puedan exhibirse en el CAD. Sus proyectos de investigación como parte de la programación del congreso.</div>
+      <a href="https://ceiarteuntref.edu.ar" target="_blank" style="font-family:'Space Mono',monospace;font-size:10px;color:#F5C842;text-decoration:none;border-bottom:1px solid rgba(245,200,66,.3)">ceiarteuntref.edu.ar ↗</a>
+    </div>
+
+    <!-- DOMO ARTE LATAM + PLANETARIO -->
+    <div style="background:#0F0F0F;padding:28px 24px;border-top:3px solid #888">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;color:#888;letter-spacing:.12em;margin-bottom:8px">EXPERIENCIAS INMERSIVAS</div>
+      <div style="font-family:'Space Mono',monospace;font-size:16px;font-weight:700;color:#F5F2ED;margin-bottom:4px">Domo Arte Latam</div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:#888;margin-bottom:16px">+ Planetario Galileo Galilei · Palermo</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:12px;color:#888;line-height:1.6;margin-bottom:12px">Plataforma curatorial que convierte domos y planetarios en escenarios de arte digital inmersivo. Conjunción propuesta: Domo Arte Latam programa en el Planetario de Buenos Aires (360°, 8K, 360 butacas) durante el CAD. Arte digital, IA y experiencias visuales/musicales fulldome.</div>
+      <a href="https://planetario.buenosaires.gob.ar" target="_blank" style="font-family:'Space Mono',monospace;font-size:10px;color:#888;text-decoration:none;border-bottom:1px solid #333">planetario.buenosaires.gob.ar ↗</a>
+    </div>
+
   </div>
 
-  <!-- USINA DEL ARTE -->
-  <div class="venue-bloque">
-    <div class="venue-header">
-      <div class="venue-nombre"><a href="https://www.buenosaires.gob.ar/cultura/usina-del-arte" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid #333">Usina del Arte</a></div>
-      <div class="venue-direccion">Caffarena 1 · La Boca · GCBA</div>
-    </div>
-    <div class="venue-salas">
-      <div class="sala-card" style="border-color:var(--verde)">
-        <div class="sala-top">
-          <div class="sala-nombre">Sala de Cámara</div>
-          <div>
-            <div class="sala-cap" style="color:var(--verde)">280</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">2 niveles de palcos · montapiano · sistema acústico variable</div>
-        <div class="sala-uso" style="color:var(--verde)">Música de cámara · teatro · paneles íntimos</div>
-      </div>
-      <div class="sala-card" style="border-color:var(--verde)">
-        <div class="sala-top">
-          <div class="sala-nombre">Nave Mayor / Exposiciones</div>
-          <div>
-            <div class="sala-cap" style="color:var(--verde)">500</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">Espacio industrial · puente grúa original · planta flexible</div>
-        <div class="sala-uso" style="color:var(--verde)">Instalaciones · charlas experimentales · lanzamientos</div>
-      </div>
-      <div class="sala-card" style="border-color:var(--verde)">
-        <div class="sala-top">
-          <div class="sala-nombre">Sala Sinfónica</div>
-          <div>
-            <div class="sala-cap" style="color:var(--verde)">1.200</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">3 niveles de platea · escenario móvil · reflector acústico</div>
-        <div class="sala-uso" style="color:var(--verde)">Eventos · charlas grandes</div>
-      </div>
-      <div class="sala-card" style="border-color:var(--verde)">
-        <div class="sala-top">
-          <div class="sala-nombre">Plaza Verde / Calle Interna</div>
-          <div>
-            <div class="sala-cap" style="color:var(--verde)">2.300</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">Al aire libre · escenario fijo · 2.300 m² de parque</div>
-        <div class="sala-uso" style="color:var(--verde)">Eventos · fiesta de cierre del CAD — opción A</div>
-      </div>
-    </div>
-    <p class="venue-nota urgente">* Iniciar gestión de reserva con urgencia.</p>
-  </div>
-
-  <!-- CC RECOLETA + CC SAN MARTÍN -->
-  <div class="venue-bloque">
-    <div class="venue-header">
-      <div class="venue-nombre"><a href="https://ccrecoleta.gob.ar" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid #333">CC Recoleta</a> + <a href="https://ccsanmartin.gob.ar" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid #333">CC San Martín</a></div>
-      <div class="venue-direccion">Otros espacios GCBA</div>
-    </div>
-    <div class="venue-salas">
-      <div class="sala-card" style="border-color:var(--azul)">
-        <div class="sala-top">
-          <div class="sala-nombre">CC San Martín · Sala de cine</div>
-          <div>
-            <div class="sala-cap" style="color:var(--azul)">200</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">Proyección · Corrientes</div>
-        <div class="sala-uso" style="color:var(--azul)">Ciclo de cine</div>
-      </div>
-      <div class="sala-card" style="border-color:var(--coral)">
-        <div class="sala-top">
-          <div class="sala-nombre">CC Recoleta · Sala Villa Villa</div>
-          <div>
-            <div class="sala-cap" style="color:var(--coral)">350</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">Teatro · sala multipropósito · Recoleta</div>
-        <div class="sala-uso" style="color:var(--coral)">Paneles · charlas íntimas</div>
-      </div>
-      <div class="sala-card" style="border-color:var(--azul)">
-        <div class="sala-top">
-          <div class="sala-nombre">CC San Martín · Múltiples salas</div>
-          <div>
-            <div class="sala-cap" style="color:var(--azul)">400</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">Conferencias · muestras · congresos · Corrientes</div>
-        <div class="sala-uso" style="color:var(--azul)">Actividades paralelas · paneles</div>
-      </div>
-      <div class="sala-card" style="border-color:var(--coral)">
-        <div class="sala-top">
-          <div class="sala-nombre">CC Recoleta · Patios y terrazas</div>
-          <div>
-            <div class="sala-cap" style="color:var(--coral)">600</div>
-            <span class="sala-cap-unit">pax.</span>
-          </div>
-        </div>
-        <div class="sala-tecnica">Al aire libre · espacio abierto · Recoleta</div>
-        <div class="sala-uso" style="color:var(--coral)">Charlas abiertas · música al aire libre</div>
-      </div>
-    </div>
-  </div>
-  <div class="prov-leyenda">
-    <span>🟢 Buen sonido + pantalla LED o proyector de alta luminosidad</span>
-    <span>🟡 Cumple solo una de las dos condiciones</span>
-    <span>⚪ A chequear — sin información técnica confirmada</span>
+  <div style="margin-top:2px;background:#111;border-left:3px solid #F5C842;padding:14px 20px;display:flex;align-items:flex-start;gap:12px">
+    <span style="font-size:14px;flex-shrink:0">⚠️</span>
+    <span style="font-family:'Space Mono',monospace;font-size:10px;color:#AAA;letter-spacing:.04em;line-height:1.7">
+      Toda esta programación es complementaria — no es producción propia del CAD. Los eventos aparecen en el cronograma en color verde diferenciado para indicar que son espacios y programadores invitados. Fechas y horarios a confirmar según programación definitiva de noviembre 2026.
+    </span>
   </div>
 </section>
 
-<!-- ── ESPACIOS ALTERNATIVOS ─────────────────────────────────── -->
-<section class="seccion alternativos">
-  <div class="seccion-header">
-    <span class="seccion-numero">07 ——</span>
-    <h2 class="seccion-titulo">Espacios<br>alternativos</h2>
-    <span class="seccion-numero" style="text-align:right">Privados y gestión federal</span>
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ── RESUMEN DE ACTIVIDADES ─────────────────────────── -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section style="background:var(--negro);padding:64px 48px">
+  <div style="border-bottom:1px solid #222;padding-bottom:20px;margin-bottom:40px">
+    <span style="font-family:'Space Mono',monospace;font-size:9px;color:#555;letter-spacing:.15em">11 ——</span>
+    <h2 style="font-family:'Space Mono',monospace;font-size:clamp(28px,4vw,48px);font-weight:700;color:#F5F2ED;margin-top:8px">Actividades<br>por cronograma</h2>
   </div>
-  <div class="alt-grid">
-
-    <div class="alt-card" style="border-color:var(--verde)">
-      <div class="alt-nombre" style="color:var(--verde)"><a href="https://artlabpro.net" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">Artlab</a></div>
-      <div class="alt-barrio">Chacarita</div>
-      <div class="alt-cap" style="color:var(--verde)">200</div>
-      <div class="alt-cap-unit">personas</div>
-      <div class="alt-separador"></div>
-      <div class="alt-pros">✓ Hi-Fi · arte digital · Aloja festival MUTEK entre otros festivales digitales y fiestas de música electrónica</div>
-      <div class="alt-contras">○ Capacidad pequeña · técnica excelente</div>
-      <div class="alt-uso" style="color:var(--verde)">Eventos nocturnos jue y sáb</div>
-    </div>
-
-    <div class="alt-card" style="border-color:var(--grisMed)">
-      <div class="alt-nombre" style="color:var(--grisMed)"><a href="http://teatropera.com" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(136,136,128,.3)">Opera</a></div>
-      <div class="alt-barrio">Corrientes</div>
-      <div class="alt-cap" style="color:var(--grisMed)">2.500</div>
-      <div class="alt-cap-unit">personas</div>
-      <div class="alt-separador"></div>
-      <div class="alt-pros">Teatro · buena accesibilidad · buen sistema de sonido y acústica (mejor que Rex)</div>
-      <div class="alt-contras">○ Poca disponibilidad</div>
-      <div class="alt-uso" style="color:var(--grisMed)">Evento de cierre — opción B</div>
-    </div>
-
-    <div class="alt-card" style="border-color:var(--azul)">
-      <div class="alt-nombre" style="color:var(--azul)"><a href="https://www.granrex.com.ar" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(58,143,212,.3)">Gran Rex</a></div>
-      <div class="alt-barrio">Corrientes</div>
-      <div class="alt-cap" style="color:var(--azul)">3.000</div>
-      <div class="alt-cap-unit">personas</div>
-      <div class="alt-separador"></div>
-      <div class="alt-pros">✓ Teatro · accesibilidad total</div>
-      <div class="alt-contras">○ Costo alto · seguro de sala · agenda ocupada</div>
-      <div class="alt-uso" style="color:var(--azul)">Evento de cierre — opción B</div>
-    </div>
-
-    <div class="alt-card" style="border-color:#5B4FCF">
-      <div class="alt-nombre" style="color:#5B4FCF"><a href="https://www.konex.org" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(91,79,207,.3)">Konex</a></div>
-      <div class="alt-barrio">Almagro</div>
-      <div class="alt-cap" style="color:#5B4FCF">4.000</div>
-      <div class="alt-cap-unit">personas</div>
-      <div class="alt-separador"></div>
-      <div class="alt-pros">Buena accesibilidad · varios espacios disponibles · espacio adecuado para eventos masivos</div>
-      <div class="alt-contras">○ Buen acuerdo 80/20</div>
-      <div class="alt-uso" style="color:#5B4FCF">Evento de cierre — opción B</div>
-    </div>
-
+  <div class="header">
+  <div>
+    <div class="header-meta">GELATINA · CAD 2026 · DOCUMENTO INTERNO</div>
+    <div class="header-titulo">Actividades por cronograma</div>
+    <div class="header-sub">Comparativa Versión A vs Versión B · borrador</div>
   </div>
-</section>
+</div>
 
-<!-- ── PROVINCIAS ────────────────────────────────────────────── -->
-<section class="seccion provincias">
-  <div class="seccion-header">
-    <span class="seccion-numero">08 ——</span>
-    <h2 class="seccion-titulo">Actividades<br>descentralizadas</h2>
-    <span class="seccion-numero" style="text-align:right">200–800 pax · ver referencia técnica</span>
-  </div>
-  <div class="prov-grid">
+<div class="versiones">
 
-    <div class="prov-card" style="border-color:var(--verde)">
-      <div class="prov-nombre" style="color:var(--verde)">La Plata</div>
-      
-      <div class="prov-venues-label">Venues posibles</div>
-      <div class="prov-venue"><a href="https://www.teatroargentino.gba.gov.ar" target="_blank">Teatro Argentino</a><span class="prov-cap">2.200 pax.</span></div>
-      <div class="prov-venue"><a href="https://unlp.edu.ar" target="_blank">UNLP · facultades</a><span class="prov-cap">~400 pax.</span></div>
-      <div class="prov-venue"><a href="https://cultura.laplata.gob.ar/espacios/islas-malvinas/" target="_blank">CC Islas Malvinas</a><span class="prov-cap">~300 pax.</span></div>
-    </div>
+  <!-- ── VERSIÓN A ── -->
+  <div class="version">
+    <div class="version-label" style="color:var(--violeta)">Versión A</div>
+    <div class="version-titulo">4 jornadas · múltiples venues</div>
+    <div class="version-desc">Jue 13 → Dom 16 · San Martín + Usina + CC Recoleta + CC San Martín</div>
 
-    <div class="prov-card" style="border-color:var(--coral)">
-      <div class="prov-nombre" style="color:var(--coral)">Rosario</div>
-      
-      <div class="prov-venues-label">Venues posibles</div>
-      <div class="prov-venue"><a href="https://www.ccpe.org.ar" target="_blank">CC Parque España</a><span class="prov-cap">422 pax.</span></div>
-      <div class="prov-venue"><a href="https://www.teatroelcirculo.com.ar" target="_blank">Teatro El Círculo</a><span class="prov-cap">1.550 pax.</span></div>
-      <div class="prov-venue"><a href="https://www.unr.edu.ar" target="_blank">UNR · campus</a><span class="prov-cap">~500 pax.</span></div>
-    </div>
-
-    <div class="prov-card" style="border-color:var(--azul)">
-      <div class="prov-nombre" style="color:var(--azul)">Córdoba</div>
-      
-      <div class="prov-venues-label">Venues posibles</div>
-      <div class="prov-venue"><a href="https://cultura.cba.gov.ar/teatro-real/" target="_blank">Teatro Real</a><span class="prov-cap">700 pax.</span></div>
-      <div class="prov-venue"><a href="https://cabildo.cba.gov.ar" target="_blank">CC Cabildo</a><span class="prov-cap">~300 pax.</span></div>
-      <div class="prov-venue"><a href="https://www.unc.edu.ar/extensi%C3%B3n/salas-pabell%C3%B3n-argentina" target="_blank">UNC · Sala de las Américas</a><span class="prov-cap">1.146 pax.</span></div>
-    </div>
-
-    <div class="prov-card" style="border-color:var(--grisMed)">
-      <div class="prov-nombre" style="color:var(--grisMed)">Mendoza</div>
-      
-      <div class="prov-venues-label">Venues posibles</div>
-      <div class="prov-venue"><a href="https://espaciocultural.ciudaddemendoza.gob.ar/?page_id=255" target="_blank">Teatro Quintanilla</a><span class="prov-cap">190 pax.</span></div>
-      <div class="prov-venue"><a href="https://cultura.mendoza.gov.ar" target="_blank">CC Municipal</a><span class="prov-cap">~500 pax.</span></div>
-      <div class="prov-venue"><a href="https://nave.uncuyo.edu.ar" target="_blank">UNCUYO · Nave Cultural</a><span class="prov-cap">~500 pax.</span></div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- ── CRONOGRAMA ────────────────────────────────────────────── -->
-<section class="seccion cronograma">
-  <div class="seccion-header">
-    <span class="seccion-numero" style="color:rgba(0,0,0,.4)">09 ——</span>
-    <h2 class="seccion-titulo">Cronograma<br>borrador</h2>
-    <span class="seccion-numero" style="color:rgba(0,0,0,.4);text-align:right">Para revisión</span>
-  </div>
-  <p class="crono-intro">
-    Cuatro jornadas durante el mes de noviembre 2026. Jue–Vie desde las 18h (para que no interceda con el horario laboral). Sáb–Dom desde las 16h (puede llegar a ser antes). Máximo 2 eventos simultáneos por franja. El domingo cierra con evento nocturno.
-  </p>
-  <div class="crono-dias">
     <!-- JUE -->
-    <div class="crono-dia">
-      <div class="crono-dia-nombre">Jue 13<br>nov</div>
-      <div class="crono-dia-subtitulo">Apertura del CAD</div>
-
-      <div class="crono-horario">18:00</div>
-      <div class="crono-evento">
-        <div class="crono-evento-titulo">Apertura del CAD — charla inaugural</div>
-        <div class="crono-evento-lugar">Sala Martín Coronado · San Martín</div>
+    <div class="jornada">
+      <div class="jornada-header">
+        <div>
+          <div class="jornada-dia">Jue 13 nov</div>
+          <div class="jornada-nombre">Apertura del CAD · desde 18h</div>
+        </div>
+        <div style="text-align:right">
+          <div class="jornada-count" style="color:var(--violeta)">4</div>
+          <div class="jornada-count-label">actividades</div>
+        </div>
       </div>
-
-      <div class="crono-horario">20:00</div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">Geopolítica digital y el sur</div>
-        <div class="crono-evento-lugar">CC San Martín</div>
-      </div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">Periodismo e IA</div>
-        <div class="crono-evento-lugar">CC Recoleta · Villa Villa</div>
-      </div>
-
-      <div class="crono-horario">22:00</div>
-      <div class="crono-evento">
-        <div class="crono-evento-titulo">Evento de apertura</div>
-        <div class="crono-evento-lugar">Usina del Arte · Sala Sinfónica<br><span style="opacity:.6">o Artlab · Chacarita</span></div>
+      <div class="jornada-slots">
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">18:00</span>
+          <span class="slot-desc">Apertura del CAD — charla inaugural</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">20:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Geopolítica digital / Periodismo e IA</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">22:00</span>
+          <span class="slot-desc">Evento de apertura · Usina / Artlab</span>
+        </div>
       </div>
     </div>
 
     <!-- VIE -->
-    <div class="crono-dia">
-      <div class="crono-dia-nombre">Vie 14<br>nov</div>
-      <div class="crono-dia-subtitulo">Política, personas y arte</div>
-
-      <div class="crono-horario">18:00</div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">Política, redes y democracia</div>
-        <div class="crono-evento-lugar">Hall Alfredo Alcón · San Martín</div>
+    <div class="jornada">
+      <div class="jornada-header">
+        <div>
+          <div class="jornada-dia">Vie 14 nov</div>
+          <div class="jornada-nombre">Política, personas y arte · desde 18h</div>
+        </div>
+        <div style="text-align:right">
+          <div class="jornada-count" style="color:var(--violeta)">5</div>
+          <div class="jornada-count-label">actividades</div>
+        </div>
       </div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">Escritura en la era de la IA</div>
-        <div class="crono-evento-lugar">CC Recoleta</div>
-      </div>
-
-      <div class="crono-horario">20:00</div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">Obra de teatro: Alejandra</div>
-        <div class="crono-evento-lugar">Sala Cunill Cabanellas · San Martín</div>
-      </div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">Historia y tecnología</div>
-        <div class="crono-evento-lugar">CC San Martín</div>
-      </div>
-
-      <div class="crono-horario">22:00</div>
-      <div class="crono-evento">
-        <div class="crono-evento-titulo">Ciclo de cine — sesión 1</div>
-        <div class="crono-evento-lugar">Sala Leopoldo Lugones · San Martín</div>
+      <div class="jornada-slots">
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">18:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Política, redes / Escritura e IA</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">20:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Obra de teatro: Alejandra* / Historia y tecnología</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">22:00</span>
+          <span class="slot-desc">Ciclo de cine — sesión 1</span>
+        </div>
       </div>
     </div>
 
     <!-- SAB -->
-    <div class="crono-dia">
-      <div class="crono-dia-nombre">Sáb 15<br>nov</div>
-      <div class="crono-dia-subtitulo">Futuro, ciencia y economía</div>
-
-      <div class="crono-horario">16:00</div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">¿Qué es la IA, de verdad?</div>
-        <div class="crono-evento-lugar">Hall Alfredo Alcón · San Martín</div>
+    <div class="jornada">
+      <div class="jornada-header">
+        <div>
+          <div class="jornada-dia">Sáb 15 nov</div>
+          <div class="jornada-nombre">Futuro, ciencia y economía · desde 14h</div>
+        </div>
+        <div style="text-align:right">
+          <div class="jornada-count" style="color:var(--violeta)">8</div>
+          <div class="jornada-count-label">actividades</div>
+        </div>
       </div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">Trabajo, educación y tecnología</div>
-        <div class="crono-evento-lugar">CC San Martín</div>
-      </div>
-
-      <div class="crono-horario">18:00</div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">Ciencia, ambiente y digitalidad</div>
-        <div class="crono-evento-lugar">CC Recoleta · Villa Villa</div>
-      </div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">Ciclo de cine — sesión 2</div>
-        <div class="crono-evento-lugar">Sala Leopoldo Lugones</div>
-      </div>
-
-      <div class="crono-horario">20:00</div>
-      <div class="crono-evento">
-        <div class="crono-evento-titulo">Economía digital: quién gana, quién pierde</div>
-        <div class="crono-evento-lugar">Sala Casacuberta · San Martín</div>
-      </div>
-
-      <div class="crono-horario">22:00</div>
-      <div class="crono-evento">
-        <div class="crono-evento-titulo">Evento nocturno</div>
-        <div class="crono-evento-lugar">Usina del Arte · Sala de Cámara<br><span style="opacity:.6">o Artlab · Chacarita</span></div>
+      <div class="jornada-slots">
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">14:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Apertura del día / Panel a definir</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">16:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">¿Qué es la IA? / Trabajo y educación</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">18:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Ciencia y ambiente / Ciclo de cine</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">20:00</span>
+          <span class="slot-desc">Economía digital</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">22:00</span>
+          <span class="slot-desc">Evento nocturno · Usina / Artlab</span>
+        </div>
       </div>
     </div>
 
     <!-- DOM -->
-    <div class="crono-dia" style="background:rgba(0,0,0,.18)">
-      <div class="crono-dia-nombre">Dom 16<br>nov</div>
-      <div class="crono-dia-subtitulo">Cierre y fiesta<br><span style="font-size:9px;opacity:.6;font-weight:400">Todo en Usina del Arte</span></div>
-
-      <div class="crono-horario">16:00</div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">¿Qué tiene para decir el sur?</div>
-        <div class="crono-evento-lugar">Usina del Arte · Sala de Cámara</div>
+    <div class="jornada">
+      <div class="jornada-header">
+        <div>
+          <div class="jornada-dia">Dom 16 nov</div>
+          <div class="jornada-nombre">Cierre y fiesta · desde 14h · todo en Usina</div>
+        </div>
+        <div style="text-align:right">
+          <div class="jornada-count" style="color:var(--violeta)">6</div>
+          <div class="jornada-count-label">actividades</div>
+        </div>
       </div>
-      <div class="crono-evento">
-        <div class="crono-simul">simultáneo</div>
-        <div class="crono-evento-titulo">Comunicación y redes</div>
-        <div class="crono-evento-lugar">Usina del Arte · Nave Mayor</div>
-      </div>
-
-      <div class="crono-horario">18:00</div>
-      <div class="crono-evento">
-        <div class="crono-evento-titulo">Charla de cierre — síntesis del CAD</div>
-        <div class="crono-evento-lugar">Usina del Arte · Sala Sinfónica</div>
-      </div>
-
-      <div class="crono-horario">20:00</div>
-      <div class="crono-evento" style="background:rgba(255,255,255,.08);padding:10px;margin-top:4px">
-        <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;color:rgba(0,0,0,.5);margin-bottom:4px">CIERRE / FESTIVAL</div>
-        <div class="crono-evento-titulo" style="font-size:15px">Fiesta de cierre del CAD</div>
-        <div class="crono-evento-lugar">Usina del Arte · Plaza Verde</div>
+      <div class="jornada-slots">
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">14:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Apertura del día / Panel a definir</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">16:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">¿Qué dice el sur? / Comunicación y redes</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">18:00</span>
+          <span class="slot-desc">Charla de cierre — síntesis del CAD</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--violeta)">20:00</span>
+          <span class="slot-desc">Fiesta de cierre · Plaza Verde</span>
+        </div>
       </div>
     </div>
   </div>
-  <p class="crono-nota">
-    Borrador para revisión de Pedro y Soledad. Horarios y sedes son tentativos. Artista del cierre a definir con Marcos.
-  </p>
-  <div class="nota-orientativa">
-    <span class="nota-orientativa-icon">⚠️</span>
-    <span class="nota-orientativa-texto">Los títulos y contenidos de las charlas son orientativos. La programación definitiva la definirá Soledad con el equipo de contenidos y cada referente.</span>
-  </div>
-</section>
 
-<!-- ── AGENDA PROVINCIAL ─────────────────────────────────── -->
-<section class="seccion agenda-prov">
-  <div class="seccion-header">
-    <span class="seccion-numero">10 ——</span>
-    <h2 class="seccion-titulo">Agenda<br>descentralizada</h2>
-    <span class="seccion-numero" style="text-align:right">Sáb 15 + Dom 16 · nov</span>
-  </div>
-  <p class="agenda-prov-intro">
-    Actividades simultáneas en 4 ciudades — sábado y domingo desde las 16h. Referentes locales de cada provincia, formatos charla y panel.
-  </p>
-  <div class="nota-orientativa">
-    <span class="nota-orientativa-icon">⚠️</span>
-    <span class="nota-orientativa-texto">Los títulos y contenidos de las charlas son orientativos. La programación definitiva la definirá Soledad con el equipo de contenidos y cada referente.</span>
-  </div>
+  <!-- ── VERSIÓN B ── -->
+  <div class="version">
+    <div class="version-label" style="color:var(--verde)">Versión B</div>
+    <div class="version-titulo">3 jornadas · San Martín</div>
+    <div class="version-desc">Vie 14 → Dom 16 · Teatro San Martín + CC San Martín · Dom en Usina</div>
 
-  <div class="agenda-prov-grid">
-
-    <!-- LA PLATA -->
-    <div class="agenda-ciudad">
-      <div class="agenda-ciudad-header">
-        <div class="agenda-ciudad-nombre" style="color:var(--verde)">La Plata</div>
-        <div class="agenda-ciudad-venue">Venue a confirmar</div>
-      </div>
-
-      <div class="agenda-dia">
-        <div class="agenda-dia-label" style="color:var(--verde)">Sáb 15 nov</div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--verde)">16:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Digitalidad y educación</div>
-            <div class="agenda-evento-sub">Eje 6 · Educación y tecnología</div>
-            <div class="agenda-definir">Referente local · a definir</div>
-          </div>
+    <!-- VIE -->
+    <div class="jornada">
+      <div class="jornada-header">
+        <div>
+          <div class="jornada-dia">Vie 14 nov</div>
+          <div class="jornada-nombre">Apertura del CAD · desde 18h</div>
         </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--verde)">18:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Inteligencia artificial y producción científica</div>
-            <div class="agenda-evento-sub">Eje 1 · IA y ciencia</div>
-            <div class="agenda-definir">Referente UNLP · a definir</div>
-          </div>
-        </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--verde)">20:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Mesa abierta: trabajo y automatización</div>
-            <div class="agenda-evento-sub">Eje 6 · Trabajo</div>
-            <div class="agenda-definir">Panel local · a definir</div>
-          </div>
+        <div style="text-align:right">
+          <div class="jornada-count" style="color:var(--verde)">4</div>
+          <div class="jornada-count-label">actividades</div>
         </div>
       </div>
-
-      <div class="agenda-dia" style="margin-top:24px">
-        <div class="agenda-dia-label" style="color:var(--verde)">Dom 16 nov</div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--verde)">16:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Política en la era digital</div>
-            <div class="agenda-evento-sub">Eje 2 · Política y redes</div>
-            <div class="agenda-definir">Referente local · a definir</div>
-          </div>
+      <div class="jornada-slots">
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">18:00</span>
+          <span class="slot-desc">Apertura del CAD — charla inaugural</span>
         </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--verde)">18:00</div>
-          <div>
-            <div class="agenda-evento-titulo">¿Qué nos está haciendo internet?</div>
-            <div class="agenda-evento-sub">Eje 3 · Subjetividad y vínculos</div>
-            <div class="agenda-definir">Panel local · a definir</div>
-          </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">20:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Geopolítica digital / Periodismo e IA</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">22:00</span>
+          <span class="slot-desc">Evento de apertura · Hall Alcón / Artlab</span>
         </div>
       </div>
     </div>
 
-    <!-- ROSARIO -->
-    <div class="agenda-ciudad">
-      <div class="agenda-ciudad-header">
-        <div class="agenda-ciudad-nombre" style="color:var(--coral)">Rosario</div>
-        <div class="agenda-ciudad-venue">Venue a confirmar</div>
-      </div>
-
-      <div class="agenda-dia">
-        <div class="agenda-dia-label" style="color:var(--coral)">Sáb 15 nov</div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--coral)">16:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Economía digital</div>
-            <div class="agenda-evento-sub">Eje 1 · Economía y tecnología</div>
-            <div class="agenda-definir">Referente local · a definir</div>
-          </div>
+    <!-- SAB -->
+    <div class="jornada">
+      <div class="jornada-header">
+        <div>
+          <div class="jornada-dia">Sáb 15 nov</div>
+          <div class="jornada-nombre">Política, futuro y ciencia · desde 14h</div>
         </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--coral)">18:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Medios, periodismo y plataformas</div>
-            <div class="agenda-evento-sub">Eje 1 · Plataformas e información</div>
-            <div class="agenda-definir">Referente local · a definir</div>
-          </div>
-        </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--coral)">20:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Ciencia y ambiente en la era digital</div>
-            <div class="agenda-evento-sub">Eje 6 · Ciencia y ambiente</div>
-            <div class="agenda-definir">Referente UNR · a definir</div>
-          </div>
+        <div style="text-align:right">
+          <div class="jornada-count" style="color:var(--verde)">9</div>
+          <div class="jornada-count-label">actividades</div>
         </div>
       </div>
-
-      <div class="agenda-dia" style="margin-top:24px">
-        <div class="agenda-dia-label" style="color:var(--coral)">Dom 16 nov</div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--coral)">16:00</div>
-          <div>
-            <div class="agenda-evento-titulo">El sur como perspectiva</div>
-            <div class="agenda-evento-sub">Eje 5 · Perspectiva regional</div>
-            <div class="agenda-definir">Panel local · a definir</div>
-          </div>
+      <div class="jornada-slots">
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">14:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Apertura del día / Panel a definir</span>
         </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--coral)">18:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Comunicación, redes y movimientos sociales</div>
-            <div class="agenda-evento-sub">Eje 2 · Política y comunicación</div>
-            <div class="agenda-definir">Referente local · a definir</div>
-          </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">16:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Política, redes / ¿Qué es la IA?</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">18:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Historia y tecnología / Trabajo y educación</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">20:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Economía digital / Escritura e IA*</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">22:00</span>
+          <span class="slot-desc">Evento nocturno · Hall Alcón / Artlab</span>
         </div>
       </div>
     </div>
 
-    <!-- CÓRDOBA -->
-    <div class="agenda-ciudad">
-      <div class="agenda-ciudad-header">
-        <div class="agenda-ciudad-nombre" style="color:var(--azul)">Córdoba</div>
-        <div class="agenda-ciudad-venue">Venue a confirmar</div>
-      </div>
-
-      <div class="agenda-dia">
-        <div class="agenda-dia-label" style="color:var(--azul)">Sáb 15 nov</div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--azul)">16:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Startups y tecnología digital</div>
-            <div class="agenda-evento-sub">Eje 1 · Economía digital</div>
-            <div class="agenda-definir">Referente local · a definir</div>
-          </div>
+    <!-- DOM -->
+    <div class="jornada">
+      <div class="jornada-header">
+        <div>
+          <div class="jornada-dia">Dom 16 nov</div>
+          <div class="jornada-nombre">Cierre y fiesta · desde 14h · todo en Usina</div>
         </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--azul)">18:00</div>
-          <div>
-            <div class="agenda-evento-titulo">IA en la educación</div>
-            <div class="agenda-evento-sub">Eje 6 · Educación y tecnología</div>
-            <div class="agenda-definir">Referente UNC · a definir</div>
-          </div>
-        </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--azul)">20:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Trabajo y automatización</div>
-            <div class="agenda-evento-sub">Eje 6 · Trabajo</div>
-            <div class="agenda-definir">Panel local · a definir</div>
-          </div>
+        <div style="text-align:right">
+          <div class="jornada-count" style="color:var(--verde)">6</div>
+          <div class="jornada-count-label">actividades</div>
         </div>
       </div>
-
-      <div class="agenda-dia" style="margin-top:24px">
-        <div class="agenda-dia-label" style="color:var(--azul)">Dom 16 nov</div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--azul)">16:00</div>
-          <div>
-            <div class="agenda-evento-titulo">¿Puede la política dar respuestas digitales?</div>
-            <div class="agenda-evento-sub">Eje 2 · Política y democracia</div>
-            <div class="agenda-definir">Referente local · a definir</div>
-          </div>
+      <div class="jornada-slots">
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">14:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">Apertura del día / Panel a definir</span>
         </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--azul)">18:00</div>
-          <div>
-            <div class="agenda-evento-titulo">El futuro que queremos construir, como interviene la digitalidad</div>
-            <div class="agenda-evento-sub">Eje 5 · Perspectiva regional</div>
-            <div class="agenda-definir">Panel local · a definir</div>
-          </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">16:00</span>
+          <span class="slot-simul">×2</span>
+          <span class="slot-desc">¿Qué dice el sur? / Comunicación y redes</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">18:00</span>
+          <span class="slot-desc">Charla de cierre — síntesis del CAD</span>
+        </div>
+        <div class="slot">
+          <span class="slot-hora" style="color:var(--verde)">20:00</span>
+          <span class="slot-desc">Fiesta de cierre · Plaza Verde</span>
         </div>
       </div>
     </div>
 
-    <!-- MENDOZA -->
-    <div class="agenda-ciudad">
-      <div class="agenda-ciudad-header">
-        <div class="agenda-ciudad-nombre" style="color:var(--grisMed)">Mendoza</div>
-        <div class="agenda-ciudad-venue">Venue a confirmar</div>
-      </div>
-
-      <div class="agenda-dia">
-        <div class="agenda-dia-label" style="color:var(--grisMed)">Sáb 15 nov</div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--grisMed)">16:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Tecnología y agroindustria digital</div>
-            <div class="agenda-evento-sub">Eje 6 · Economía y ambiente</div>
-            <div class="agenda-definir">Referente local · a definir</div>
-          </div>
-        </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--grisMed)">18:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Ciencia y cambio climático</div>
-            <div class="agenda-evento-sub">Eje 6 · Ciencia y ambiente</div>
-            <div class="agenda-definir">Referente UNCUYO · a definir</div>
-          </div>
-        </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--grisMed)">20:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Digitalidad y trabajo</div>
-            <div class="agenda-evento-sub">Eje 6 · Trabajo</div>
-            <div class="agenda-definir">Panel local · a definir</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="agenda-dia" style="margin-top:24px">
-        <div class="agenda-dia-label" style="color:var(--grisMed)">Dom 16 nov</div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--grisMed)">16:00</div>
-          <div>
-            <div class="agenda-evento-titulo">El sur tiene algo para decir</div>
-            <div class="agenda-evento-sub">Eje 5 · Perspectiva del sur</div>
-            <div class="agenda-definir">Panel local · a definir</div>
-          </div>
-        </div>
-        <div class="agenda-slot">
-          <div class="agenda-hora" style="color:var(--grisMed)">18:00</div>
-          <div>
-            <div class="agenda-evento-titulo">Identidad, cultura y algoritmos</div>
-            <div class="agenda-evento-sub">Eje 3 · Subjetividad e identidad</div>
-            <div class="agenda-definir">Panel local · a definir</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+    <!-- spacer para alinear con versión A -->
+    <div style="height:4px"></div>
   </div>
-</section>
 
-<!-- ── PRÓXIMOS PASOS ─────────────────────────────────────────── -->
-<section class="seccion pasos">
-  <div class="seccion-header">
-    <span class="seccion-numero" style="color:rgba(0,0,0,.35)">11 ——</span>
-    <h2 class="seccion-titulo" style="color:var(--negro)">Próximos<br>pasos</h2>
-    <span class="seccion-numero" style="color:rgba(0,0,0,.35);text-align:right">Semana 6/04</span>
-  </div>
-  <div class="pasos-grid">
-    <div>
-      <div class="pasos-bloque-titulo">Urgente</div>
-      <div class="paso-item paso-urgente" data-n="01">Confirmar fechas exactas del evento con Pedro y Soledad</div>
-      <div class="paso-item paso-urgente" data-n="02">Iniciar gestión de reserva San Martín + Usina (GCBA) — ¿qué contacto tocamos?</div>
-      <div class="paso-item paso-urgente" data-n="03">Resolver la situación de Alejandra — ¿la planteamos en el Nacional como actividad descentralizada o se piensa en otro escenario?</div>
-      <div class="paso-item paso-urgente" data-n="04">Definir referentes faltantes: Cine, Economía, Trabajo, etc.</div>
-    </div>
-    <div>
-      <div class="pasos-bloque-titulo">Con Soledad</div>
-      <div class="paso-item" data-n="——">Resto de referentes / panelistas / entrevistados</div>
-      <div class="paso-item" data-n="——">Alejandra: hablar con Martín para ver cómo encaja</div>
-      <div class="paso-item" data-n="——">Evento de cierre: ¿charla + fiesta?</div>
-      <div class="paso-item" data-n="——">¿Incorporamos GET?</div>
-      <div class="paso-item" data-n="——">Definir el espacio donde hacemos el cierre</div>
-    </div>
-    <div>
-      <div class="pasos-bloque-titulo">Con Marcos</div>
-      <div class="paso-item" data-n="——">Evento de apertura (Usina · Sala Sinfónica) — hacemos un mini evento, según lo que se requiera se puede usar un espacio u otro</div>
-      <div class="paso-item" data-n="——">Experiencia nocturna viernes (Artlab)</div>
-      <div class="paso-item" data-n="——">Evento de cierre: artista y formato</div>
-      <div class="paso-item" data-n="——">Plaza Verde vs. Konex / Rex</div>
+</div>
+
+<!-- TOTALES -->
+<div class="totales">
+  <div class="total-bloque" style="background:#0F0F0F">
+    <div class="total-num" style="color:var(--violeta)">23</div>
+    <div class="total-info">
+      <div class="total-label" style="color:var(--violeta)">Versión A · total</div>
+      <div class="total-nota">4 jornadas · jue–dom</div>
     </div>
   </div>
-</section>
-
-<!-- ── PIE ──────────────────────────────────────────────────── -->
-<footer class="pie">
-  <div class="pie-logo">GELATINA</div>
-  <div class="pie-meta">
-    CAD 2026 — Brief Interno<br>
-    Documento de trabajo / borrador<br>
-    buenos-aires.gelatina.ar
+  <div class="total-bloque" style="background:#0F0F0F">
+    <div class="total-num" style="color:var(--verde)">19</div>
+    <div class="total-info">
+      <div class="total-label" style="color:var(--verde)">Versión B · total</div>
+      <div class="total-nota">3 jornadas · vie–dom</div>
+    </div>
   </div>
+</div>
+
+<div class="nota">
+  <span class="nota-icon">⚠️</span>
+  <span class="nota-texto">
+    Todos los contenidos son orientativos — la programación definitiva la definirá Soledad con el equipo y cada referente. · Los slots marcados ×2 indican actividades simultáneas en dos salas distintas. · Las obras de teatro y escuchas no son producción propia. · * = a definir.
+  </span>
+</div>
+
+<footer>
+  <span>GELATINA · CAD 2026</span>
+  <span>Documento interno · no distribuir</span>
 </footer>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ── PRESUPUESTO DE REGISTRO ────────────────────────── -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section style="background:#0A0A0A;padding:64px 48px;border-top:2px solid #222">
+  <div style="border-bottom:1px solid #222;padding-bottom:20px;margin-bottom:40px">
+    <span style="font-family:'Space Mono',monospace;font-size:9px;color:#555;letter-spacing:.15em">12 ——</span>
+    <h2 style="font-family:'Space Mono',monospace;font-size:clamp(28px,4vw,48px);font-weight:700;color:#F5F2ED;margin-top:8px">Presupuesto<br>de registro</h2>
+  </div>
+  <div class="header">
+  <div>
+    <div class="header-meta">GELATINA · CAD 2026 · DOCUMENTO INTERNO</div>
+    <div class="header-titulo">Presupuesto de registro</div>
+    <div class="header-sub">2 charlas registradas por jornada · actividades simultáneas contempladas</div>
+  </div>
+  <div class="header-alcance">
+    <strong>Opción A</strong> — 4 jornadas · jue–dom<br>
+    <strong>Opción B</strong> — 3 jornadas · vie–dom
+  </div>
+</div>
+
+<!-- TOTALES -->
+<div class="comparativa">
+  <div class="version-total" style="background:#0F0F0F;border-top:3px solid var(--violeta)">
+    <div class="version-total-label" style="color:var(--violeta)">Opción A · 4 jornadas</div>
+    <div class="version-total-titulo">Jue 13 → Dom 16 · múltiples venues</div>
+    <div class="version-total-monto" style="color:var(--violeta)">$ 52.666.600</div>
+    <div class="version-total-usd">ARS · subtotal — + varios 3% —</div>
+  </div>
+  <div class="version-total" style="background:#0F0F0F;border-top:3px solid var(--verde)">
+    <div class="version-total-label" style="color:var(--verde)">Opción B · 3 jornadas</div>
+    <div class="version-total-titulo">Vie 14 → Dom 16 · San Martín + Usina</div>
+    <div class="version-total-monto" style="color:var(--verde)">$ 37.248.750</div>
+    <div class="version-total-usd">ARS · sin IVA</div>
+  </div>
+</div>
+
+<!-- TOTALES DETALLE -->
+<div style="background:#0F0F0F;margin-bottom:2px">
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px">
+
+    <div style="background:#111;border-top:3px solid var(--violeta);padding:32px 32px">
+      <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.15em;color:var(--violeta);margin-bottom:12px">OPCIÓN A · 4 JORNADAS</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:4px">Jue 13 → Dom 16 · múltiples venues</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:24px">Equipo técnico · equipamiento · post · catering · seguros · movilidad · varios</div>
+      <div style="font-family:var(--mono);font-size:13px;color:var(--grisMed);margin-bottom:4px;letter-spacing:.04em">Subtotal</div>
+      <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:var(--grisMed);margin-bottom:12px">—</div>
+      <div style="height:1px;background:#222;margin-bottom:12px"></div>
+      <div style="font-family:var(--mono);font-size:13px;color:var(--grisMed);margin-bottom:4px;letter-spacing:.04em">Varios 3%</div>
+      <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:var(--grisMed);margin-bottom:16px">—</div>
+      <div style="height:2px;background:#333;margin-bottom:16px"></div>
+      <div style="font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--violeta);margin-bottom:6px">GRAN TOTAL</div>
+      <div style="font-family:var(--mono);font-size:42px;font-weight:700;color:var(--violeta);letter-spacing:-.02em;line-height:1">$ 52.666.600</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--grisMed);margin-top:8px">ARS · sin IVA</div>
+    </div>
+
+    <div style="background:#111;border-top:3px solid var(--verde);padding:32px 32px">
+      <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.15em;color:var(--verde);margin-bottom:12px">OPCIÓN B · 3 JORNADAS</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:4px">Vie 14 → Dom 16 · San Martín + Usina</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:24px">Equipo técnico · equipamiento · post · catering · seguros · movilidad · varios</div>
+      <div style="font-family:var(--mono);font-size:13px;color:var(--grisMed);margin-bottom:4px;letter-spacing:.04em">Subtotal</div>
+      <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:var(--grisMed);margin-bottom:12px">—</div>
+      <div style="height:1px;background:#222;margin-bottom:12px"></div>
+      <div style="font-family:var(--mono);font-size:13px;color:var(--grisMed);margin-bottom:4px;letter-spacing:.04em">Varios 3%</div>
+      <div style="font-family:var(--mono);font-size:22px;font-weight:700;color:var(--grisMed);margin-bottom:16px">—</div>
+      <div style="height:2px;background:#333;margin-bottom:16px"></div>
+      <div style="font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--verde);margin-bottom:6px">GRAN TOTAL</div>
+      <div style="font-family:var(--mono);font-size:42px;font-weight:700;color:var(--verde);letter-spacing:-.02em;line-height:1">$ 41.522.000</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--grisMed);margin-top:8px">ARS · sin IVA · valores confirmados</div>
+    </div>
+
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 32px;border-top:1px solid #222">
+    <div style="font-family:var(--mono);font-size:10px;color:var(--grisMed);letter-spacing:.08em">Diferencia entre opciones</div>
+    <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--amarillo)">Δ $ 11.144.600</div>
+  </div>
+
+</div>
+
+<!-- ALCANCE -->
+<div class="alcance">
+  <div class="alcance-titulo">Alcance del registro</div>
+  <div class="alcance-grid">
+    <div class="alcance-item">
+      <div class="alcance-num" style="color:var(--violeta)">2–3</div>
+      <div class="alcance-desc">Actividades registradas<br>por jornada</div>
+    </div>
+    <div class="alcance-item">
+      <div class="alcance-num" style="color:var(--azul)">4</div>
+      <div class="alcance-desc">Cámaras fijas<br>(4ta al público)</div>
+    </div>
+    <div class="alcance-item">
+      <div class="alcance-num" style="color:var(--verde)">2</div>
+      <div class="alcance-desc">Plataformas de<br>distribución · YT + IG</div>
+    </div>
+    <div class="alcance-item">
+      <div class="alcance-num" style="color:var(--coral)">✓</div>
+      <div class="alcance-desc">Simultaneidad cubierta<br>por equipo técnico</div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTA -->
+<div class="nota">
+  <span class="nota-icon">⚠️</span>
+  <span class="nota-texto">
+    Opción A basada en presupuesto desglosado (4 jornadas). Opción B calculada proporcionalmente a 3 jornadas · valores aproximados. Los montos no incluyen IVA. Locación, arte y expositores no contemplados en este presupuesto. Obras de teatro y eventos musicales no se registran — no son producción propia.
+  </span>
+</div>
+
+<footer>
+  <span>GELATINA · CAD 2026 · Presupuesto de registro</span>
+  <span>Documento interno · no distribuir</span>
+</footer>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ── SPONSORS / AUSPICIANTES / ALIADOS ──────────────── -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section style="background:#0A0A0A;padding:64px 48px;border-top:2px solid #222">
+  <div style="border-bottom:1px solid #222;padding-bottom:20px;margin-bottom:48px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px">
+    <div>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;color:#555;letter-spacing:.15em">13 ——</span>
+      <h2 style="font-family:'Space Mono',monospace;font-size:clamp(28px,4vw,48px);font-weight:700;color:#F5F2ED;margin-top:8px;letter-spacing:-.02em">Posibles sponsors,<br>auspiciantes y aliados</h2>
+    </div>
+    <a href="https://docs.google.com/document/d/176tuKytFB1G6ZJWHDLFtug1e4SbXj6cv/edit?usp=sharing&ouid=118091410296163813833&rtpof=true&sd=true" target="_blank" style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;color:#0A0A0A;background:#F5F2ED;padding:12px 20px;text-decoration:none;border-radius:2px;white-space:nowrap;display:inline-flex;align-items:center;gap:8px">VER DOCUMENTO COMPLETO ↗</a>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+
+    <div style="background:#0F0F0F;padding:32px 28px;border-top:3px solid #5B4FCF">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.15em;color:#5B4FCF;margin-bottom:16px">SPONSORS</div>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:#888;line-height:2;letter-spacing:.03em">A definir</div>
+      <div style="margin-top:24px;font-family:'DM Sans',sans-serif;font-size:12px;color:#555;line-height:1.6">Empresas y marcas que apoyan el evento a cambio de visibilidad y presencia institucional.</div>
+    </div>
+
+    <div style="background:#0F0F0F;padding:32px 28px;border-top:3px solid #F05A3A">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.15em;color:#F05A3A;margin-bottom:16px">AUSPICIANTES</div>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:#888;line-height:2;letter-spacing:.03em">A definir</div>
+      <div style="margin-top:24px;font-family:'DM Sans',sans-serif;font-size:12px;color:#555;line-height:1.6">Organismos e instituciones que respaldan el CAD con apoyo económico o en especie.</div>
+    </div>
+
+    <div style="background:#0F0F0F;padding:32px 28px;border-top:3px solid #2DB87A">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.15em;color:#2DB87A;margin-bottom:16px">ALIADOS</div>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:#888;line-height:2;letter-spacing:.03em">A definir</div>
+      <div style="margin-top:24px;font-family:'DM Sans',sans-serif;font-size:12px;color:#555;line-height:1.6">Medios, organizaciones y comunidades que difunden y acompañan el CAD.</div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:2px;background:#111;border-left:3px solid #F5C842;padding:14px 20px;display:flex;align-items:flex-start;gap:12px">
+    <span style="font-size:14px;flex-shrink:0">⚠️</span>
+    <span style="font-family:'Space Mono',monospace;font-size:10px;color:#AAA;letter-spacing:.04em;line-height:1.7">
+      Los sponsors, auspiciantes y aliados son orientativos — a definir con el equipo de relaciones institucionales. Ver documento completo para el detalle actualizado.
+    </span>
+  </div>
+
+</section>
+
 
 </body>
 </html>
