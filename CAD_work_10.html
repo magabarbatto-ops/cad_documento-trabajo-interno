@@ -1,0 +1,2521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAD — Congreso Argentino de Digitalidad</title>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --negro: #0A0A0A;
+    --blanco: #F5F2ED;
+    --coral: #F05A3A;
+    --azul: #3A8FD4;
+    --verde: #2DB87A;
+    --arena: #E8E0D0;
+    --gris: #3A3A3A;
+    --gris-medio: #888888;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--negro);
+    color: var(--blanco);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* ── PORTADA ─────────────────────────────────────────────── */
+  .portada {
+    background: var(--negro);
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 48px;
+    border-bottom: 1px solid #222;
+  }
+
+  .portada-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gris-medio);
+    letter-spacing: .08em;
+  }
+
+  .portada-centro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0 40px;
+  }
+
+  .portada-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .2em;
+    color: var(--gris-medio);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .portada-titulo {
+    font-family: var(--mono);
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 700;
+    line-height: .95;
+    letter-spacing: -.02em;
+    color: var(--blanco);
+    margin-bottom: 48px;
+  }
+
+  .portada-titulo span {
+    display: block;
+  }
+
+  .portada-subtitulo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--gris-medio);
+    letter-spacing: .06em;
+    max-width: 420px;
+    line-height: 1.8;
+  }
+
+  .portada-pie {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gris-medio);
+    letter-spacing: .1em;
+    padding-top: 40px;
+    border-top: 1px solid #222;
+  }
+
+  .fecha-bloque {
+    font-family: var(--mono);
+    font-size: clamp(20px, 3vw, 32px);
+    font-weight: 700;
+    color: var(--blanco);
+    letter-spacing: -.01em;
+  }
+
+  /* ── SECCIONES ───────────────────────────────────────────── */
+  .seccion {
+    padding: 80px 48px;
+    border-bottom: 1px solid #222;
+  }
+
+  .seccion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 64px;
+  }
+
+  .seccion-numero {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gris-medio);
+    letter-spacing: .2em;
+  }
+
+  .seccion-titulo {
+    font-family: var(--mono);
+    font-size: clamp(28px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -.02em;
+    color: var(--blanco);
+    flex: 1;
+    padding: 0 40px;
+  }
+
+  /* ── BLOQUE QUÉ ES ───────────────────────────────────────── */
+  .que-es {
+    background: var(--blanco);
+    color: var(--negro);
+  }
+
+  .que-es .seccion-titulo { color: var(--negro); }
+  .que-es .seccion-numero { color: var(--gris-medio); }
+
+  .que-es-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .que-es-texto {
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--negro);
+    max-width: 520px;
+  }
+
+  .que-es-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .dato-grande {
+    border-top: 2px solid var(--negro);
+    padding-top: 20px;
+  }
+
+  .dato-numero {
+    font-family: var(--mono);
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--negro);
+  }
+
+  .dato-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .15em;
+    color: var(--gris-medio);
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* ── EJES ────────────────────────────────────────────────── */
+  .ejes {
+    background: var(--negro);
+  }
+
+  .ejes-lista {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+  }
+
+  .eje-item {
+    border-top: 1px solid #333;
+    padding: 20px 24px 20px 0;
+  }
+
+  .eje-item:nth-child(2),
+  .eje-item:nth-child(3),
+  .eje-item:nth-child(5),
+  .eje-item:nth-child(6) {
+    padding-left: 24px;
+    padding-right: 24px;
+    border-left: 1px solid #333;
+  }
+
+  .eje-item:nth-child(3),
+  .eje-item:nth-child(6) {
+    padding-right: 0;
+  }
+
+  .eje-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gris-medio);
+    letter-spacing: .15em;
+    margin-bottom: 12px;
+  }
+
+  .eje-pregunta {
+    font-family: var(--mono);
+    font-size: clamp(14px, 1.6vw, 20px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--blanco);
+    margin-bottom: 10px;
+    letter-spacing: -.01em;
+  }
+
+  .eje-desc {
+    font-family: var(--sans);
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--gris-medio);
+  }
+
+  
+  .referentes {
+    background: var(--coral);
+    color: var(--negro);
+  }
+
+  .referentes .seccion-titulo { color: var(--negro); }
+  .referentes .seccion-numero { color: rgba(0,0,0,.4); }
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  /* ── FORMATO ─────────────────────────────────────────────── */
+  .formato {
+    background: var(--negro);
+  }
+
+  .formato-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .formato-bloque {
+    border-top: 1px solid #333;
+    padding-top: 28px;
+  }
+
+  .formato-titulo {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blanco);
+    letter-spacing: .08em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+
+  .formato-texto {
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--gris-medio);
+  }
+
+  .formato-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: .08em;
+    border: 1px solid #444;
+    padding: 4px 10px;
+    color: var(--blanco);
+  }
+
+  /* ── CRONOGRAMA ──────────────────────────────────────────── */
+  .cronograma {
+    background: var(--azul);
+    color: var(--negro);
+  }
+
+  .cronograma .seccion-titulo { color: var(--negro); }
+  .cronograma .seccion-numero { color: rgba(0,0,0,.4); }
+
+  .crono-intro {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: rgba(0,0,0,.6);
+    letter-spacing: .05em;
+    margin-bottom: 48px;
+    max-width: 600px;
+    line-height: 1.7;
+  }
+
+  .crono-dias {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+
+  .crono-dia {
+    background: rgba(0,0,0,.08);
+    padding: 28px 24px;
+  }
+
+  .crono-dia-nombre {
+    font-family: var(--mono);
+    font-size: clamp(16px, 2vw, 22px);
+    font-weight: 700;
+    color: var(--negro);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .crono-dia-subtitulo {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(0,0,0,.45);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .crono-horario {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--negro);
+    letter-spacing: .05em;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    opacity: .6;
+  }
+
+  .crono-evento {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+  }
+
+  .crono-evento:last-child {
+    border-bottom: none;
+  }
+
+  .crono-evento-titulo {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--negro);
+    line-height: 1.3;
+    margin-bottom: 2px;
+  }
+
+  .crono-evento-lugar {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(0,0,0,.5);
+    letter-spacing: .04em;
+  }
+
+  .crono-simul {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .1em;
+    background: var(--negro);
+    color: var(--blanco);
+    padding: 2px 6px;
+    display: inline-block;
+    margin-bottom: 4px;
+  }
+
+  .crono-nota {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(0,0,0,.5);
+    letter-spacing: .05em;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0,0,0,.15);
+    line-height: 1.6;
+  }
+
+  /* ── REGISTRO ────────────────────────────────────────────── */
+  .registro {
+    background: var(--negro);
+  }
+
+  .registro-setup {
+    background: #1A1A1A;
+    padding: 32px;
+    margin-bottom: 48px;
+    border-left: 3px solid var(--verde);
+  }
+
+  .registro-setup-titulo {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--verde);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .registro-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .registro-item {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--blanco);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .registro-item::before {
+    content: '——';
+    color: var(--verde);
+    font-size: 11px;
+  }
+
+  .registro-escalas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .escala-bloque {
+    background: #111;
+    padding: 28px;
+  }
+
+  .escala-tipo {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blanco);
+    margin-bottom: 6px;
+  }
+
+  .escala-pax {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gris-medio);
+    letter-spacing: .08em;
+    margin-bottom: 16px;
+  }
+
+  .escala-linea {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--gris-medio);
+    margin-bottom: 4px;
+  }
+
+  .escala-edicion {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--verde);
+    font-style: italic;
+    margin-top: 10px;
+  }
+
+  .escala-no {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #555;
+    font-style: italic;
+    margin-top: 10px;
+  }
+
+  /* ── COMUNIDAD ───────────────────────────────────────────── */
+  .comunidad {
+    background: var(--verde);
+    color: var(--negro);
+  }
+
+  .comunidad .seccion-titulo { color: var(--negro); }
+  .comunidad .seccion-numero { color: rgba(0,0,0,.4); }
+
+  .com-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+  }
+
+  .com-bloque {
+    background: rgba(255,255,255,.15);
+    padding: 32px 28px;
+  }
+
+  .com-fase {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    color: var(--negro);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .com-fase::before {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 2px;
+    background: var(--negro);
+    opacity: .4;
+  }
+
+  .com-item {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--negro);
+    line-height: 1.5;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+  }
+
+  .com-item:last-child { border-bottom: none; }
+
+  /* ── ENTRADAS ────────────────────────────────────────────── */
+  .entradas {
+    background: var(--negro);
+  }
+
+  .entradas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .entrada-bloque {
+    padding: 40px;
+  }
+
+  .entrada-bloque.libre {
+    background: #111;
+    border-top: 3px solid var(--verde);
+  }
+
+  .entrada-bloque.paga {
+    background: #111;
+    border-top: 3px solid var(--coral);
+  }
+
+  .entrada-tipo {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .libre .entrada-tipo { color: var(--verde); }
+  .paga .entrada-tipo { color: var(--coral); }
+
+  .entrada-titulo {
+    font-family: var(--mono);
+    font-size: clamp(20px, 2.5vw, 32px);
+    font-weight: 700;
+    color: var(--blanco);
+    margin-bottom: 32px;
+    line-height: 1.1;
+  }
+
+  .entrada-lista {
+    list-style: none;
+  }
+
+  .entrada-lista li {
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--gris-medio);
+    padding: 10px 0;
+    border-bottom: 1px solid #222;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .entrada-lista li::before {
+    content: '——';
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #444;
+    flex-shrink: 0;
+  }
+
+  .paga-evento {
+    margin-bottom: 16px;
+    padding: 16px;
+    background: #1A1A1A;
+  }
+
+  .paga-nombre {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blanco);
+    margin-bottom: 4px;
+  }
+
+  .paga-nota {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gris-medio);
+    font-style: italic;
+  }
+
+  .accesibilidad {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--coral);
+    margin-top: 20px;
+    font-style: italic;
+  }
+
+  /* ── PRÓXIMOS PASOS ──────────────────────────────────────── */
+  .pasos {
+    background: var(--arena);
+    color: var(--negro);
+  }
+
+  .pasos .seccion-titulo { color: var(--negro); }
+  .pasos .seccion-numero { color: rgba(0,0,0,.4); }
+
+  .pasos-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+  }
+
+  .pasos-bloque-titulo {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--negro);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--negro);
+  }
+
+  .paso-item {
+    font-family: var(--sans);
+    font-size: 14px;
+    color: var(--negro);
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    line-height: 1.5;
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+  }
+
+  .paso-item::before {
+    content: attr(data-n);
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gris-medio);
+    flex-shrink: 0;
+    letter-spacing: .05em;
+  }
+
+  .paso-urgente::before { color: var(--coral); }
+
+  /* ── PIE ─────────────────────────────────────────────────── */
+  .pie {
+    background: var(--negro);
+    padding: 40px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .pie-logo {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blanco);
+    letter-spacing: .05em;
+  }
+
+  .pie-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gris-medio);
+    letter-spacing: .1em;
+    text-align: right;
+  }
+
+  /* ── DIVIDER ─────────────────────────────────────────────── */
+  .div-seccion {
+    background: var(--negro);
+    padding: 40px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid #222;
+  }
+
+  .div-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gris-medio);
+    letter-spacing: .2em;
+  }
+
+  .div-nombre {
+    font-family: var(--mono);
+    font-size: clamp(24px, 3.5vw, 42px);
+    font-weight: 700;
+    color: var(--blanco);
+    letter-spacing: -.02em;
+  }
+
+  .div-sub {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gris-medio);
+    letter-spacing: .06em;
+  }
+
+  @media (max-width: 768px) {
+    .portada, .seccion, .div-seccion { padding: 32px 24px; }
+    .que-es-grid, .ejes-lista, .crono-dias, .formato-grid,
+    .com-grid, .entradas-grid, .pasos-grid, .registro-escalas { grid-template-columns: 1fr; }
+    .eje-item:nth-child(even) { border-left: none; padding-left: 0; }
+  }
+
+
+  /* ── AGENDA PROVINCIAL ───────────────────────────────── */
+  .agenda-prov {
+    background: var(--negro);
+    border-top: 1px solid #1A1A1A;
+  }
+
+  .agenda-prov-intro {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--grisMed);
+    letter-spacing: .06em;
+    max-width: 700px;
+    margin-bottom: 48px;
+    line-height: 1.7;
+  }
+
+  .agenda-prov-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+
+  .agenda-ciudad {
+    background: #0F0F0F;
+    padding: 32px 28px;
+  }
+
+  .agenda-ciudad-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #222;
+  }
+
+  .agenda-ciudad-nombre {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blanco);
+    letter-spacing: -.01em;
+  }
+
+  .agenda-ciudad-venue {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .06em;
+    font-style: italic;
+  }
+
+  .agenda-dia {
+    margin-top: 20px;
+  }
+
+  .agenda-dia-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #1A1A1A;
+  }
+
+  .agenda-slot {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 0 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #151515;
+    align-items: start;
+  }
+
+  .agenda-slot:last-child { border-bottom: none; }
+
+  .agenda-hora {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    padding-top: 2px;
+  }
+
+  .agenda-evento-titulo {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blanco);
+    line-height: 1.3;
+    margin-bottom: 3px;
+  }
+
+  .agenda-evento-sub {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .03em;
+  }
+
+  .agenda-definir {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: #444;
+    letter-spacing: .08em;
+    font-style: italic;
+    margin-top: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .agenda-prov-grid { grid-template-columns: 1fr; }
+  }
+
+
+  .nota-orientativa {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #141414;
+    border: 1px solid #2A2A2A;
+    border-left: 3px solid #F5C842;
+    padding: 14px 18px;
+    margin-top: 24px;
+    border-radius: 2px;
+  }
+  .nota-orientativa-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .nota-orientativa-texto {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #AAAAAA;
+    letter-spacing: .04em;
+    line-height: 1.7;
+  }
+
+
+  /* ── CRONOGRAMA VERSIONES ────────────────────────────────── */
+  .crono-tabs {
+    display: flex;
+    gap: 2px;
+    margin-bottom: 28px;
+  }
+  .crono-tab {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    padding: 10px 20px;
+    cursor: pointer;
+    border: none;
+    background: #E0D8C8;
+    color: #888;
+    transition: all .15s;
+  }
+  .crono-tab.activo {
+    background: var(--negro);
+    color: var(--blanco);
+  }
+  .crono-tab:hover:not(.activo) { background: #D0C8B8; color: #555; }
+  .crono-version { display: none; }
+  .crono-version.activa { display: block; }
+  .crono-version-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: rgba(0,0,0,.4);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+
+  
+  
+  
+  
+  
+  
+  
+
+
+  /* ── REFERENTES ────────────────────────────────────────── */
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0;
+  }
+
+  .ref-item {
+    border-top: 1px solid rgba(0,0,0,.15);
+    padding: 18px 16px 18px 0;
+  }
+
+  .ref-area {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: rgba(0,0,0,.4);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+
+  .ref-nombre {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--negro);
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+
+  .ref-notas {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-top: 1px solid rgba(0,0,0,.08);
+    padding-top: 8px;
+  }
+
+  .ref-notas li {
+    font-family: var(--sans);
+    font-size: 10px;
+    color: rgba(0,0,0,.4);
+    line-height: 1.5;
+    padding: 2px 0;
+  }
+
+  .ref-notas li::before {
+    content: "— ";
+    color: rgba(0,0,0,.2);
+  }
+
+  .ref-actividades {
+    margin-top: 12px;
+  }
+  .ref-act-linea {
+    height: 1px;
+    background: rgba(0,0,0,.1);
+    margin-bottom: 6px;
+    width: 100%;
+  }
+  .ref-act-corta { width: 55%; }
+
+  @media (max-width: 600px) {
+    .ref-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  @media print {
+    body { background: white; color: black; }
+    .portada { min-height: auto; break-after: page; }
+    .seccion { break-inside: avoid; }
+  }
+
+
+  /* ── ESPACIOS GCBA ───────────────────────────────────────── */
+  .espacios { background: var(--negro); }
+
+  .espacios-intro {
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--grisMed);
+    max-width: 640px;
+    margin-bottom: 56px;
+  }
+
+  .venue-bloque {
+    margin-bottom: 56px;
+    border-top: 1px solid #222;
+    padding-top: 32px;
+  }
+
+  .venue-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    margin-bottom: 24px;
+  }
+
+  .venue-nombre {
+    font-family: var(--mono);
+    font-size: clamp(20px, 2.5vw, 30px);
+    font-weight: 700;
+    color: var(--blanco);
+    letter-spacing: -.02em;
+  }
+
+  .venue-direccion {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grisMed);
+    letter-spacing: .06em;
+    text-align: right;
+  }
+
+  .venue-salas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+  }
+
+  .sala-card {
+    background: #111;
+    padding: 20px 22px;
+    border-left: 3px solid transparent;
+  }
+
+  .sala-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  .sala-nombre {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--blanco);
+  }
+
+  .sala-cap {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--blanco);
+    letter-spacing: -.02em;
+    white-space: nowrap;
+  }
+
+  .sala-cap-unit {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--grisMed);
+    display: block;
+    text-align: right;
+    letter-spacing: .08em;
+  }
+
+  .sala-tecnica {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    line-height: 1.6;
+    margin-bottom: 6px;
+    letter-spacing: .02em;
+  }
+
+  .sala-uso {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-style: italic;
+    letter-spacing: .03em;
+  }
+
+  .venue-nota {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    font-style: italic;
+    margin-top: 16px;
+    letter-spacing: .04em;
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .venue-nota.urgente { color: var(--coral); }
+
+  /* ── ESPACIOS ALTERNATIVOS ───────────────────────────────── */
+  .alternativos { background: var(--grisOsc); }
+  .alternativos .seccion-titulo { color: var(--blanco); }
+  .alternativos .seccion-numero { color: var(--grisMed); }
+
+  .alt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 2px;
+  }
+
+  .alt-card {
+    background: #111;
+    padding: 28px 24px;
+    border-top: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .alt-nombre {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blanco);
+    margin-bottom: 3px;
+    letter-spacing: -.01em;
+  }
+
+  .alt-barrio {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .08em;
+    margin-bottom: 16px;
+  }
+
+  .alt-cap {
+    font-family: var(--mono);
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .alt-cap-unit {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .08em;
+    margin-bottom: 20px;
+  }
+
+  .alt-separador {
+    height: 1px;
+    background: #222;
+    margin-bottom: 16px;
+  }
+
+  .alt-pros, .alt-contras {
+    font-family: var(--sans);
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+
+  .alt-pros { color: var(--blanco); }
+  .alt-contras { color: var(--grisMed); font-style: italic; }
+
+  .alt-uso {
+    margin-top: auto;
+    padding-top: 16px;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    border-top: 1px solid #1A1A1A;
+  }
+
+  /* ── PROVINCIAS ──────────────────────────────────────────── */
+  .provincias { background: var(--negro); }
+
+  .prov-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+
+  .prov-card {
+    background: #0F0F0F;
+    padding: 28px 22px;
+    border-top: 3px solid #333;
+  }
+
+  .prov-nombre {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blanco);
+    margin-bottom: 4px;
+    letter-spacing: -.01em;
+  }
+
+  .prov-dist {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .06em;
+    margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .prov-venues-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--grisMed);
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .prov-venue {
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--grisMed);
+    padding: 7px 0;
+    border-bottom: 1px solid #1A1A1A;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    justify-content: space-between;
+  }
+
+  .prov-venue:last-child { border-bottom: none; }
+
+  .prov-cap {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #666;
+    margin-left: auto;
+    letter-spacing: .02em;
+    white-space: nowrap;
+    text-align: right;
+  }
+  .prov-venue a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid #333;
+    transition: border-color .15s, color .15s;
+  }
+
+  .prov-tec {
+    font-size: 13px;
+    margin-right: 4px;
+  }
+  .prov-leyenda {
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid #1A1A1A;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .06em;
+    line-height: 1.8;
+  }
+  .prov-leyenda span {
+    margin-right: 20px;
+    white-space: nowrap;
+  }
+
+  .prov-venue a:hover {
+    border-bottom-color: currentColor;
+    color: var(--blanco);
+  }
+  .prov-venue::before {
+    content: '——';
+    font-family: var(--mono);
+    font-size: 9px;
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .venue-salas, .alt-grid, .prov-grid { grid-template-columns: 1fr; }
+  }
+
+</style>
+<style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --negro:   #0A0A0A;
+    --blanco:  #F5F2ED;
+    --coral:   #F05A3A;
+    --azul:    #3A8FD4;
+    --verde:   #2DB87A;
+    --arena:   #E8E0D0;
+    --gris:    #3A3A3A;
+    --grisMed: #888888;
+    --grisOsc: #1A1A1A;
+    --violeta: #5B4FCF;
+    --amarillo:#F5C842;
+    --mono: 'Space Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  body {
+    background: var(--negro);
+    color: var(--blanco);
+    font-family: var(--sans);
+    min-height: 100vh;
+    padding: 48px;
+  }
+
+  .header {
+    border-bottom: 1px solid #222;
+    padding-bottom: 24px;
+    margin-bottom: 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .header-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .12em;
+    margin-bottom: 8px;
+  }
+
+  .header-titulo {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--blanco);
+    letter-spacing: -.01em;
+  }
+
+  .header-sub {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--grisMed);
+    margin-top: 4px;
+  }
+
+  /* ── VERSIONES ──────────────────────────────────────── */
+  .versiones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-bottom: 2px;
+  }
+
+  .version {
+    padding: 32px 28px;
+    background: #0F0F0F;
+  }
+
+  .version-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    font-weight: 700;
+  }
+
+  .version-titulo {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--blanco);
+    margin-bottom: 6px;
+    letter-spacing: -.01em;
+  }
+
+  .version-desc {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    margin-bottom: 28px;
+    letter-spacing: .04em;
+  }
+
+  /* ── JORNADAS ───────────────────────────────────────── */
+  .jornada {
+    margin-bottom: 4px;
+    background: var(--grisOsc);
+  }
+
+  .jornada-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid #222;
+  }
+
+  .jornada-dia {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--blanco);
+  }
+
+  .jornada-nombre {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .04em;
+  }
+
+  .jornada-count {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .jornada-count-label {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: var(--grisMed);
+    letter-spacing: .1em;
+    text-align: right;
+  }
+
+  .jornada-slots {
+    padding: 10px 16px 12px;
+  }
+
+  .slot {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    padding: 5px 0;
+    border-bottom: 1px solid #151515;
+    font-size: 12px;
+  }
+
+  .slot:last-child { border-bottom: none; }
+
+  .slot-hora {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 42px;
+    flex-shrink: 0;
+  }
+
+  .slot-desc {
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--grisMed);
+    line-height: 1.4;
+  }
+
+  .slot-simul {
+    font-family: var(--mono);
+    font-size: 8px;
+    background: #2A2A2A;
+    color: var(--grisMed);
+    padding: 2px 5px;
+    letter-spacing: .06em;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  /* ── TOTAL ──────────────────────────────────────────── */
+  .totales {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 2px;
+  }
+
+  .total-bloque {
+    padding: 24px 28px;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+  }
+
+  .total-num {
+    font-family: var(--mono);
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: 1;
+  }
+
+  .total-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .total-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+
+  .total-nota {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+  }
+
+  /* ── NOTA ───────────────────────────────────────────── */
+  .nota {
+    margin-top: 2px;
+    background: #111;
+    border-left: 3px solid var(--amarillo);
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .nota-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+
+  .nota-texto {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #AAA;
+    letter-spacing: .04em;
+    line-height: 1.7;
+  }
+
+  footer {
+    margin-top: 48px;
+    padding-top: 20px;
+    border-top: 1px solid #1A1A1A;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--grisMed);
+    letter-spacing: .06em;
+  }
+
+
+  @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --negro:#0A0A0A; --blanco:#F5F2ED; --coral:#F05A3A; --azul:#3A8FD4;
+    --verde:#2DB87A; --arena:#E8E0D0; --gris:#3A3A3A; --grisMed:#888888;
+    --grisOsc:#1A1A1A; --violeta:#5B4FCF; --amarillo:#F5C842;
+    --mono:'Space Mono',monospace; --sans:'DM Sans',sans-serif;
+  }
+  body { background:var(--negro); color:var(--blanco); font-family:var(--sans); min-height:100vh; padding:48px; }
+
+  .header { border-bottom:1px solid #222; padding-bottom:24px; margin-bottom:48px; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:16px; }
+  .header-meta { font-family:var(--mono); font-size:10px; color:var(--grisMed); letter-spacing:.12em; margin-bottom:8px; }
+  .header-titulo { font-family:var(--mono); font-size:24px; font-weight:700; color:var(--blanco); }
+  .header-sub { font-family:var(--mono); font-size:11px; color:var(--grisMed); margin-top:4px; letter-spacing:.04em; }
+  .header-alcance { font-family:var(--mono); font-size:11px; color:var(--grisMed); text-align:right; line-height:1.8; }
+  .header-alcance strong { color:var(--blanco); font-weight:700; }
+
+  .comparativa { display:grid; grid-template-columns:1fr 1fr; gap:2px; margin-bottom:2px; }
+  .version-total { padding:28px 32px; }
+  .version-total-label { font-family:var(--mono); font-size:9px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; margin-bottom:6px; }
+  .version-total-titulo { font-family:var(--mono); font-size:14px; color:var(--grisMed); margin-bottom:16px; letter-spacing:.02em; }
+  .version-total-monto { font-family:var(--mono); font-size:36px; font-weight:700; letter-spacing:-.02em; line-height:1; }
+  .version-total-usd { font-family:var(--mono); font-size:10px; color:var(--grisMed); margin-top:6px; letter-spacing:.06em; }
+
+  .rubros-wrap { margin-bottom:2px; }
+  .rubros-header { display:grid; grid-template-columns:2.8fr 1.1fr 1.1fr 1fr; gap:0; padding:10px 20px; background:#0F0F0F; border-bottom:1px solid #2A2A2A; }
+  .col-label { font-family:var(--mono); font-size:9px; color:var(--grisMed); letter-spacing:.15em; text-transform:uppercase; }
+  .col-label:not(:first-child) { text-align:right; }
+  .rubro { border-bottom:1px solid #151515; }
+  .rubro-row { display:grid; grid-template-columns:2.8fr 1.1fr 1.1fr 1fr; gap:0; padding:16px 20px; align-items:center; }
+  .rubro-nombre-wrap { display:flex; align-items:flex-start; gap:12px; }
+  .rubro-icono { width:30px; height:30px; border-radius:2px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; margin-top:2px; }
+  .rubro-nombre { font-family:var(--mono); font-size:13px; font-weight:700; color:var(--blanco); }
+  .rubro-desc { font-family:var(--sans); font-size:11px; color:var(--grisMed); margin-top:3px; line-height:1.5; }
+  .rubro-sub { font-family:var(--mono); font-size:10px; color:#444; margin-top:6px; letter-spacing:.03em; }
+  .rubro-monto { font-family:var(--mono); font-size:12px; text-align:right; font-weight:700; }
+  .rubro-barra-wrap { display:flex; justify-content:flex-end; align-items:center; gap:8px; }
+  .rubro-pct { font-family:var(--mono); font-size:11px; color:var(--grisMed); text-align:right; min-width:32px; }
+  .rubro-barra { width:60px; height:3px; background:#2A2A2A; border-radius:1px; overflow:hidden; }
+  .rubro-barra-fill { height:100%; border-radius:1px; }
+
+  .total-row { display:grid; grid-template-columns:2.8fr 1.1fr 1.1fr 1fr; gap:0; padding:20px 20px; background:#0F0F0F; border-top:2px solid #333; align-items:baseline; }
+  .total-label { font-family:var(--mono); font-size:10px; font-weight:700; color:var(--grisMed); letter-spacing:.15em; text-transform:uppercase; }
+  .total-monto-a { font-family:var(--mono); font-size:18px; font-weight:700; color:var(--violeta); text-align:right; }
+  .total-monto-b { font-family:var(--mono); font-size:18px; font-weight:700; color:var(--verde); text-align:right; }
+  .total-diff { font-family:var(--mono); font-size:10px; color:var(--grisMed); text-align:right; }
+
+  .varios-row { display:grid; grid-template-columns:2.8fr 1.1fr 1.1fr 1fr; gap:0; padding:12px 20px; background:#0F0F0F; border-top:1px solid #222; align-items:center; }
+  .varios-label { font-family:var(--mono); font-size:10px; color:var(--grisMed); letter-spacing:.06em; font-style:italic; }
+  .varios-monto { font-family:var(--mono); font-size:11px; color:var(--grisMed); text-align:right; }
+
+  .alcance { background:#0F0F0F; padding:28px 28px; margin-bottom:2px; }
+  .alcance-titulo { font-family:var(--mono); font-size:9px; color:var(--grisMed); letter-spacing:.15em; text-transform:uppercase; margin-bottom:16px; }
+  .alcance-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; }
+  .alcance-item { background:var(--grisOsc); padding:16px 18px; }
+  .alcance-num { font-family:var(--mono); font-size:26px; font-weight:700; letter-spacing:-.02em; line-height:1; margin-bottom:4px; }
+  .alcance-desc { font-family:var(--mono); font-size:9px; color:var(--grisMed); letter-spacing:.06em; line-height:1.6; }
+
+  .nota { background:#111; border-left:3px solid var(--amarillo); padding:16px 20px; display:flex; align-items:flex-start; gap:12px; margin-bottom:2px; }
+  .nota-icon { font-size:14px; flex-shrink:0; margin-top:1px; }
+  .nota-texto { font-family:var(--mono); font-size:10px; color:#AAA; letter-spacing:.04em; line-height:1.7; }
+
+  footer { margin-top:32px; padding-top:20px; border-top:1px solid #1A1A1A; display:flex; justify-content:space-between; font-family:var(--mono); font-size:10px; color:var(--grisMed); letter-spacing:.06em; }
+
+</style>
+</head>
+<body>
+
+<!-- ── PORTADA ──────────────────────────────────────────────── -->
+<section class="portada">
+  <div class="portada-meta">
+    <span>GELATINA — DOCUMENTO DE TRABAJO</span>
+    <span>NOVIEMBRE 2026 / BUENOS AIRES</span>
+  </div>
+  <div class="portada-centro">
+    <p class="portada-label">Congreso Argentino de Digitalidad</p>
+    <h1 class="portada-titulo">
+      <span>CAD</span>
+      <span>——</span>
+      <span>Brief</span>
+      <span>Interno</span>
+    </h1>
+    <p class="portada-subtitulo">
+      Un espacio de intercambio de ideas sobre el fenómeno digital y sus cruces con la política, la cultura, el arte, la economía, la ciencia y la historia. Pensado desde Argentina, para el público general.
+    </p>
+  </div>
+  <div class="portada-pie">
+    <div class="fecha-bloque">13 ———— 16.11<br>2026</div>
+    <div>
+      <div style="color:var(--blanco);font-family:var(--mono);font-size:11px;letter-spacing:.1em">PRIMERA EDICIÓN</div>
+      <div style="margin-top:4px;font-family:var(--mono);font-size:11px;letter-spacing:.06em">buenos-aires / argentina</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUÉ ES ────────────────────────────────────────────────── -->
+<section class="seccion que-es">
+  <div class="seccion-header">
+    <span class="seccion-numero">01 ——</span>
+    <h2 class="seccion-titulo">¿Qué es<br>el CAD?</h2>
+    <span class="seccion-numero" style="text-align:right">Presentación</span>
+  </div>
+  <div class="que-es-grid">
+    <div>
+      <p class="que-es-texto">
+        El Congreso Argentino de Digitalidad es un evento de alcance nacional que Gelatina organiza por primera vez en noviembre de 2026. Es un espacio de intercambio de ideas sobre el fenómeno digital y sus cruces con la política, la cultura, el arte, la economía, la ciencia y la historia.
+      </p>
+      <p class="que-es-texto" style="margin-top:24px">
+        Pensado desde Argentina y para el público general, con la misma vocación de masividad y profundidad que define a Gelatina: <strong>accesible pero riguroso, entretenido pero serio.</strong>
+      </p>
+      <p class="que-es-texto" style="margin-top:24px">
+        La mayoría de las actividades se realizan en CABA, con actividades descentralizadas en La Plata, Rosario, Córdoba y Mendoza. Todas las actividades, salvo eventos y obras de teatro, se registran y publican en los canales de Gelatina.
+      </p>
+    </div>
+    <div class="que-es-aside">
+      <div class="dato-grande">
+        <div class="dato-numero">3</div>
+        <div class="dato-label">Jornadas — Jue · Vie · Sáb</div>
+      </div>
+      <div class="dato-grande">
+        <div class="dato-numero">6</div>
+        <div class="dato-label">Ejes temáticos</div>
+      </div>
+      <div class="dato-grande">
+        <div class="dato-numero">+20</div>
+        <div class="dato-label">Actividades en CABA</div>
+      </div>
+      <div class="dato-grande">
+        <div class="dato-numero" style="font-size:40px">Primera<br>edición</div>
+        <div class="dato-label">Argentina · 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── POR QUÉ AHORA ─────────────────────────────────────────── -->
+<section class="seccion" style="background:var(--negro)">
+  <div class="seccion-header">
+    <span class="seccion-numero">02 ——</span>
+    <h2 class="seccion-titulo">¿Por qué<br>ahora?</h2>
+    <span class="seccion-numero" style="text-align:right">Contexto</span>
+  </div>
+  <div style="max-width:720px;margin:0 auto">
+    <p style="font-family:var(--sans);font-size:clamp(18px,2.5vw,26px);line-height:1.6;color:var(--blanco);font-weight:300">
+      Estamos en medio de una revolución tecnológica que transforma al mismo tiempo cómo producimos, cómo nos informamos, cómo nos relacionamos y cómo nos pensamos a nosotros mismos.
+    </p>
+    <p style="font-family:var(--sans);font-size:17px;line-height:1.7;color:var(--gris-medio);margin-top:32px">
+      Y sin embargo, el debate público sobre este fenómeno en Argentina es escaso, fragmentado y casi siempre importado. El CAD propone una reflexión propia, situada, con perspectiva popular y mirada desde el sur. Por eso convoca no solo a referentes argentinos sino también a voces de América Latina y del mundo.
+    </p>
+    <div style="margin-top:48px;padding:28px;border-left:3px solid var(--coral);background:#111">
+      <p style="font-family:var(--mono);font-size:15px;font-weight:700;color:var(--blanco);line-height:1.4">
+        Se trata de una conversación global con anclaje regional.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── EJES ──────────────────────────────────────────────────── -->
+<section class="seccion ejes">
+  <div class="seccion-header">
+    <span class="seccion-numero">03 ——</span>
+    <h2 class="seccion-titulo">Los seis<br>ejes</h2>
+    <span class="seccion-numero" style="text-align:right">Programa temático</span>
+  </div>
+  <div class="ejes-lista">
+    <div class="eje-item">
+      <div class="eje-num">01 ——</div>
+      <div class="eje-pregunta">¿Quién es dueño<br>del futuro?</div>
+      <div class="eje-desc">Poder, plataformas, inteligencia artificial, geopolítica, economía digital y concentración de capital. ¿Quién decide cómo se desarrolla la tecnología y para quién?</div>
+    </div>
+    <div class="eje-item">
+      <div class="eje-num">02 ——</div>
+      <div class="eje-pregunta">¿Qué le está<br>pasando a la política?</div>
+      <div class="eje-desc">Representación, redes y democracia, información y movimientos sociales en la era digital. ¿Puede la política dar respuestas a esta época?</div>
+    </div>
+    <div class="eje-item">
+      <div class="eje-num">03 ——</div>
+      <div class="eje-pregunta">¿Qué le está<br>pasando a las personas?</div>
+      <div class="eje-desc">Subjetividad, salud mental, cuerpo, deseo, identidad y vínculos en la era digital. ¿Qué nos está haciendo esta transformación?</div>
+    </div>
+  </div>
+  <div class="ejes-lista" style="margin-top:0">
+    <div class="eje-item">
+      <div class="eje-num">04 ——</div>
+      <div class="eje-pregunta">¿Qué puede<br>hacer el arte?</div>
+      <div class="eje-desc">Cine, series, música, teatro y literatura frente a la revolución tecnológica. El arte como forma de conocimiento y resistencia.</div>
+    </div>
+    <div class="eje-item">
+      <div class="eje-num">05 ——</div>
+      <div class="eje-pregunta">¿Cómo se piensa<br>el sur?</div>
+      <div class="eje-desc">Perspectiva regional: voces latinoamericanas e internacionales. ¿Qué tiene para decir el sur en esta conversación global?</div>
+    </div>
+    <div class="eje-item">
+      <div class="eje-num">06 ——</div>
+      <div class="eje-pregunta">¿Cómo vamos<br>a vivir?</div>
+      <div class="eje-desc">Trabajo, educación, ciencia y medio ambiente. ¿Qué transformaciones concretas trae la digitalidad a la vida cotidiana?</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── REFERENTES ────────────────────────────────────────────── -->
+<section class="seccion referentes">
+  <div class="seccion-header">
+    <span class="seccion-numero" style="color:rgba(0,0,0,.4)">04 ——</span>
+    <h2 class="seccion-titulo">Los<br>referentes</h2>
+    <span class="seccion-numero" style="color:rgba(0,0  <div style="display:inline-flex;align-items:center;gap:8px;background:#F05A3A;color:#F5F2ED;font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.1em;padding:8px 16px;margin-bottom:32px">
+    ✏ A DEFINIR POR CONTENIDOS · EN BASE A ESTO SE TERMINA DE PRESUPUESTAR
+  </div>
+
+  <p class="ref-intro">
+    El CAD convoca a referentes que co-programan las actividades de su área junto al equipo de Gelatina. Cada uno propone entre 2 y 4 actividades.
+  </p>
+
+  <div class="ref-grid">
+    <div class="ref-item">
+      <div class="ref-area">Política</div>
+      <div class="ref-nombre">Pedro Rosemblat</div>
+      <ul class="ref-notas">
+        <li>Conversaciones con Daniel Hadad, Mario Pergolini, Nicolás Occhiato, Jon Hernández</li>
+        <li>Función especial de GET</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Periodismo</div>
+      <div class="ref-nombre">Nicolás Guthmann</div>
+      <ul class="ref-notas">
+        <li>Panel tipo Intratables — comunicadores digitales de distintos sectores</li>
+        <li>Mano a mano serio con figura periodística</li>
+        <li>Panel: periodista, editor, dueño de medio, Google News — posible auspicio</li>
+        <li>Mano a mano con Myriam Bregman</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Literatura · Filosofía · Sociología</div>
+      <div class="ref-nombre">Michel Nieva<br>Juan Ruocco<br>Flavia Costa<br>R. Chuit Roganovich</div>
+      <ul class="ref-notas">
+        <li>Referentes e invitados a definir con contenidos</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Arte visual · IA</div>
+      <div class="ref-nombre">Tomás García</div>
+      <ul class="ref-notas">
+        <li>Taller de prompteo</li>
+        <li>Panel, mesa, entrevista o exposición — a definir con García</li>
+        <li>CyberCirujas — instalaciones artísticas-tecnológicas con chatarra digital</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Música</div>
+      <div class="ref-nombre">Marcos Aramburu</div>
+      <ul class="ref-notas">
+        <li>Debate: músico, productor musical y representante de Spotify (posible auspicio)</li>
+        <li>Programar bandas o artistas que puedan tocar en el evento, cerrar las jornadas idealmente.</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Tecnología</div>
+      <div class="ref-nombre">Santiago Siri</div>
+      <ul class="ref-notas">
+        <li>Charla de empresarios tech — Ariel Sbdar, Santiago Maratea</li>
+        <li>Cobertura del mundo cripto</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Historia</div>
+      <div class="ref-nombre">Julia Rosemberg</div>
+      <ul class="ref-notas">
+        <li>Actividades a definir con referente</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Educación</div>
+      <div class="ref-nombre">Ofelia Fernández</div>
+      <ul class="ref-notas">
+        <li>Articulación con Fundación Vía Libre — capacitaciones en escuelas para educación digital e IA</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Economía</div>
+      <div class="ref-nombre">Emmanuel Álvarez Agis</div>
+      <ul class="ref-notas">
+        <li>Cecilia Rikap — economista, Caja Negra, Londres — posible financiamiento Heinrich Böll</li>
+        <li>Panel sobre fondos de inversión y economía global</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Cine</div>
+      <div class="ref-nombre">Lucrecia Martel<br>Jorge Pinarello</div>
+      <ul class="ref-notas">
+        <li>Ciclo de cine con curaduría de Pinarello — conversa con directores y actores</li>
+        <li>Clase magistral de Lucrecia Martel</li>
+        <li>¿Cómo se hizo El Eternauta? (posible auspicio Netflix)</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Ciencia</div>
+      <div class="ref-nombre">El Gato y la Caja</div>
+      <ul class="ref-notas">
+        <li>Articulación con Ciencias de la Computación — Exactas UBA</li>
+        <li>Clase magistral de Alberto Kornblihtt</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Ambiente</div>
+      <div class="ref-nombre">Heinrich Böll<br>Jóvenes por el Clima</div>
+      <ul class="ref-notas">
+        <li>El impacto ambiental de la IA</li>
+        <li>¿Qué es el hub de IA que propone Milei? Energía nuclear, data centers</li>
+        <li>Panel con Demian Reidel + desarrollistas + ambientalistas</li>
+        <li>CyberCirujas. Militantes contra la obsolescencia programada y por el software libre. Pueden hacer talleres para aprender a arreglar aparatos y vencer al sistema.</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Geopolítica</div>
+      <div class="ref-nombre">Kevin Bryan</div>
+      <ul class="ref-notas">
+        <li>Articular con Cabaret Voltaire, Brindis TV y Facultad Libre — Rosario</li>
+      </ul>
+    </div>
+    <div class="ref-item">
+      <div class="ref-area">Trabajo</div>
+      <div class="ref-nombre">Juan Manuel Ottaviano</div>
+      <ul class="ref-notas">
+        <li>Panel: economía de plataformas — repartidores, choferes, sindicalismo digital</li>
+        <li>Juan Grabois — digitalidad y el futuro del trabajo</li>
+        <li>Posible cruce con Martín Yeza</li>
+      </ul>
+    </div>
+  </div>
+
+  <p style="font-family:var(--mono);font-size:11px;color:rgba(0,0,0,.4);margin-top:32px;font-style:italic">
+    Otros nombres posibles: Tomás Rebord · Carlos Maslatón. El CAD también convoca personalidades de América Latina y del mundo.
+  </p>
+</section>
+
+<!-- ── FORMATO ───────────────────────────────────────────────── -->
+<section class="seccion formato">
+  <div class="seccion-header">
+    <span class="seccion-numero">05 ——</span>
+    <h2 class="seccion-titulo">Formato<br>y registro</h2>
+    <span class="seccion-numero" style="text-align:right">Registro y distribución</span>
+  </div>
+  <div class="formato-grid">
+    <div class="formato-bloque">
+      <div class="formato-titulo">Estructura de actividades</div>
+      <p class="formato-texto">
+        Cada referente propone entre tres y cinco actividades dentro de su área. Una actividad principal de mayor escala y convocatoria, y otras de formato más íntimo o experimental.
+      </p>
+      <div class="formato-tags">
+        <span class="tag">Charlas</span>
+        <span class="tag">Paneles</span>
+        <span class="tag">Entrevistas</span>
+        <span class="tag">Talleres</span>
+        <span class="tag">Ciclos de cine</span>
+        <span class="tag">Eventos</span>
+        <span class="tag">Teatro</span>
+      </div>
+    </div>
+    <div class="formato-bloque">
+      <div class="formato-titulo">Registro y distribución</div>
+      <p class="formato-texto">
+        Todas las actividades, salvo eventos y obras de teatro, se registran y publican en los canales de Gelatina.
+      </p>
+      <p class="formato-texto" style="margin-top:16px">
+        <strong style="color:var(--blanco)">El CAD no termina el día que termina:</strong> su contenido se convierte en material editorial para los meses siguientes.
+      </p>
+    </div>
+    <div class="formato-bloque">
+      <div class="formato-titulo">Entradas</div>
+      <p class="formato-texto">La mayoría de las actividades son de entrada libre y gratuita.</p>
+      <p class="formato-texto" style="margin-top:12px">Eventos con producción artística específica (obras de teatro, eventos en sala, experiencias nocturnas, fiesta de cierre) tienen entrada paga.</p>
+      <p style="font-family:var(--mono);font-size:11px;color:var(--coral);margin-top:12px;font-style:italic">
+        Precios a definir con criterio de accesibilidad.
+      </p>
+    </div>
+    <div class="formato-bloque">
+      <div class="formato-titulo">Setup audiovisual base</div>
+      <p class="formato-texto">4 cámaras fijas (la 4ta enfocada al público) · 1 operador · sonido extraído de consola. Post producción de imagen y sonido con finish para plataformas YT e IG.</p>
+      <p class="formato-texto" style="margin-top:12px">Eventos y obras de teatro no se registran.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── ESPACIOS GCBA ─────────────────────────────────────────── -->
+<section class="seccion espacios">
+  <div class="seccion-header">
+    <span class="seccion-numero">06 ——</span>
+    <h2 class="seccion-titulo">Espacios<br>CABA</h2>
+    <span class="seccion-numero" style="text-align:right">Gestión GCBA</span>
+  </div>
+
+  <div class="sticker sticker-amarillo">★ REQUIERE CONTACTO PARA AVANZAR</div>
+
+  <p class="espacios-intro">
+    Los venues principales del CAD son el CC San Martín y el Teatro General San Martín — ambos sobre el eje Corrientes, bajo gestión GCBA. La Usina del Arte y el CC Recoleta quedan como opciones para eventos especiales o de cierre.
+  </p>
+
+  <div style="font-family:var(--mono);font-size:9px;color:rgba(0,0,0,.4);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px">Venues principales</div>
+
+  <div class="venue-bloque" style="margin-bottom:32px">
+    <div class="venue-info">
+      <div class="venue-nombre"><a href="https://elculturalsanmartin.ar/" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid #333">CC San Martín</a></div>
+      <div class="venue-dir">Sarmiento 1551 · CABA</div>
+      <div class="venue-desc">Centro cultural de gestión GCBA. Múltiples salas de distintas capacidades. Espacio principal para las actividades regulares del CAD.</div>
+    </div>
+    <div class="venue-salas">
+      <div class="sala-card" style="border-color:#3A8FD4">
+        <div class="sala-top">
+          <div class="sala-nombre">Sala Cine</div>
+          <div><div class="sala-cap" style="color:#3A8FD4">200</div><span class="sala-cap-unit">pax.</span></div>
+        </div>
+      </div>
+      <div class="sala-card" style="border-color:#3A8FD4">
+        <div class="sala-top">
+          <div class="sala-nombre">Salas varias</div>
+          <div><div class="sala-cap" style="color:#3A8FD4">400</div><span class="sala-cap-unit">pax.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="venue-bloque" style="margin-bottom:48px">
+    <div class="venue-info">
+      <div class="venue-nombre" style="display:flex;align-items:baseline;gap:16px">
+        <a href="https://complejoteatral.gob.ar/teatro-san-martin" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid #333">Teatro General San Martín</a>
+        <a href="https://drive.google.com/file/d/1c9EIfmt9jZU1s5DNGRzxwegoUAAX00Ho/view?usp=sharing" target="_blank" style="font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.1em;color:var(--negro);background:#5B4FCF;padding:4px 10px;text-decoration:none;border-radius:2px;white-space:nowrap">SALAS ↗</a>
+      </div>
+      <div class="venue-dir">Corrientes 1530 · CABA</div>
+      <div class="venue-desc">5 salas de distintas capacidades. Para eventos de mayor escala y centralidad del CAD.</div>
+    </div>
+    <div class="venue-salas">
+      <div class="sala-card" style="border-color:#5B4FCF">
+        <div class="sala-top">
+          <div class="sala-nombre">Hall Alfredo Alcón</div>
+          <div><div class="sala-cap" style="color:#5B4FCF">2.000</div><span class="sala-cap-unit">pax.</span></div>
+        </div>
+      </div>
+      <div class="sala-card" style="border-color:#5B4FCF">
+        <div class="sala-top">
+          <div class="sala-nombre">Sala Martín Coronado</div>
+          <div><div class="sala-cap" style="color:#5B4FCF">1.000</div><span class="sala-cap-unit">pax.</span></div>
+        </div>
+      </div>
+      <div class="sala-card" style="border-color:#5B4FCF">
+        <div class="sala-top">
+          <div class="sala-nombre">Sala Casacuberta</div>
+          <div><div class="sala-cap" style="color:#5B4FCF">650</div><span class="sala-cap-unit">pax.</span></div>
+        </div>
+      </div>
+      <div class="sala-card" style="border-color:#5B4FCF">
+        <div class="sala-top">
+          <div class="sala-nombre">Sala Leopoldo Lugones</div>
+          <div><div class="sala-cap" style="color:#5B4FCF">280</div><span class="sala-cap-unit">pax.</span></div>
+        </div>
+      </div>
+      <div class="sala-card" style="border-color:#5B4FCF">
+        <div class="sala-top">
+          <div class="sala-nombre">Sala Cunill Cabanellas</div>
+          <div><div class="sala-cap" style="color:#5B4FCF">200</div><span class="sala-cap-unit">pax.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="font-family:var(--mono);font-size:9px;color:rgba(0,0,0,.4);letter-spacing:.12em;text-transform:uppercase;margin-bottom:12px">Otras opciones · gestión GCBA</div>
+
+  <div class="venue-bloque" style="opacity:.7;margin-bottom:16px">
+    <div class="venue-info">
+      <div class="venue-nombre"><a href="https://www.buenosaires.gob.ar/cultura/usina-del-arte" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid #333">Usina del Arte</a></div>
+      <div class="venue-dir">Av. Caffarena 1 · La Boca · CABA</div>
+      <div class="venue-desc">4 espacios · 280 a 2.300 pax. Opción para eventos especiales o cierre del CAD.</div>
+    </div>
+  </div>
+
+  <div class="venue-bloque" style="opacity:.7">
+    <div class="venue-info">
+      <div class="venue-nombre"><a href="http://www.centroculturalrecoleta.org/" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid #333">CC Recoleta</a></div>
+      <div class="venue-dir">Junín 1930 · Recoleta · CABA</div>
+      <div class="venue-desc">Sala Villa Villa 350 pax · Patios 600 pax. Opción para actividades especiales.</div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ── PROGRAMACIÓN COMPLEMENTARIA ──────────────────────────── -->
+<section class="seccion" style="background:var(--grisOsc)">
+  <div class="seccion-header">
+    <span class="seccion-numero" style="color:var(--grisMed)">07 ——</span>
+    <h2 class="seccion-titulo" style="color:var(--blanco)">Programación<br>complementaria</h2>
+    <span class="seccion-numero" style="text-align:right;color:var(--grisMed)">Espacios y programadores invitados</span>
+  </div>
+
+  <p style="font-family:var(--sans);font-size:14px;color:var(--grisMed);max-width:680px;margin-bottom:40px;line-height:1.7">
+    Espacios, festivales e instituciones cuya programación de noviembre se articula con los ejes del CAD. No son producción propia — seleccionamos lo que encaja y lo sumamos al calendario como programación invitada.
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:2px">
+
+    <!-- 1. ARTLAB -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--verde)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--verde);letter-spacing:.12em;margin-bottom:8px">MÚSICA · ARTE DIGITAL · NOCHE</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://artlabpro.net" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">Artlab</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Chacarita · Hi-Fi · Arte digital</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:6px">Círculo de sonido · vie · 23h</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:12px">Escucha Hi-Fi · sáb · 21h</div>
+      <a href="https://artlabpro.net/iastudio/" target="_blank" style="font-family:var(--mono);font-size:11px;color:var(--verde);text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">IA Studio ↗</a>
+    </div>
+
+    <!-- 2. TEATRO EL NACIONAL -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid #BA7517">
+      <div style="font-family:var(--mono);font-size:9px;color:#BA7517;letter-spacing:.12em;margin-bottom:8px">TEATRO</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px">Teatro El Nacional</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Corrientes · CABA</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:6px">Obra de Rechimuzzi · ~21h</div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Estimado — no programada aún. A confirmar.</div>
+    </div>
+
+    <!-- 3. MAMBA -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--verde)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--verde);letter-spacing:.12em;margin-bottom:8px">EXHIBICIÓN · MUSEO</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://www.mamba.org.ar" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(45,184,122,.3)">MAMBA · Bosques Umbral</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Curaduria: Onome Ekeh · franja horaria amplia</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Artistas argentinos que exploran diseño, ciencia ficción e IA. Al ser museo funciona con franja horaria amplia.</div>
+    </div>
+
+    <!-- 4. CETC -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--coral)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--coral);letter-spacing:.12em;margin-bottom:8px">ARTES ESCÉNICAS · MÚSICA</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px"><a href="https://teatrocolon.org.ar/centro-de-experimentacion-del-teatro-colon/" target="_blank" style="color:inherit;text-decoration:none;border-bottom:1px solid rgba(240,90,58,.3)">CETC · Sala Gerardo Gandini</a></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px">Centro de Experimentación · Teatro Colón</div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--blanco);margin-bottom:6px">Escuchas musicales performáticas I y II</div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Espacio de creación de nuevas obras de artes escénicas en el subsuelo del Colón.</div>
+    </div>
+
+    <!-- 5. DOMO ARTE LATAM -->
+    <div style="background:#111;padding:28px 24px;border-top:3px solid var(--grisMed)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--grisMed);letter-spacing:.12em;margin-bottom:8px">EXPERIENCIAS INMERSIVAS · FULLDOME</div>
+      <div style="font-family:var(--mono);font-size:16px;font-weight:700;color:var(--blanco);margin-bottom:4px">Domo Arte Latam</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:16px"><a href="https://planetario.buenosaires.gob.ar" target="_blank" style="color:var(--grisMed);text-decoration:none;border-bottom:1px solid #333">+ Planetario Galileo Galilei ↗</a></div>
+      <div style="height:1px;background:#222;margin-bottom:16px"></div>
+      <div style="font-family:var(--sans);font-size:11px;color:var(--grisMed)">Arte digital inmersivo en domos y planetarios. El Planetario de Buenos Aires: 360°, 8K, 360 butacas.</div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:2px;background:#111;border-left:3px solid var(--amarillo);padding:14px 20px;display:flex;align-items:flex-start;gap:12px">
+    <span style="font-size:14px;flex-shrink:0">⚠️</span>
+    <span style="font-family:var(--mono);font-size:10px;color:#AAA;letter-spacing:.04em;line-height:1.7">
+      Programación invitada — no es producción propia del CAD. Fechas y horarios a confirmar según programación definitiva de noviembre 2026.
+    </span>
+  </div>
+
+</section>
+
+<!-- ── CRONOGRAMA ────────────────────────────────────────────── -->
+<section class="seccion cronograma">
+  <div class="seccion-header">
+    <span class="seccion-numero">08 ——</span>
+    <h2 class="seccion-titulo">Cronograma<br>borrador</h2>
+    <span class="seccion-numero" style="text-align:right">Jue 13 · Vie 14 · Sáb 15 nov</span>
+  </div>
+
+  <div class="crono-tabs">
+    <button class="crono-tab activo" style="cursor:default">Jue 13 · Vie 14 · Sáb 15 · nov 2026 · CC San Martín + Teatro San Martín</button>
+  </div>
+
+  <p class="crono-intro">
+    Jueves y viernes desde las 18h. Sábado desde las 14h. Máximo 2 actividades simultáneas por franja. CC San Martín para actividades regulares · Teatro San Martín para eventos de mayor capacidad.
+  </p>
+
+  <div class="crono-dias">
+
+    <!-- JUE -->
+    <div class="crono-dia">
+      <div class="crono-dia-nombre">Jue 13<br>nov</div>
+      <div class="crono-dia-subtitulo">Apertura del CAD · desde 18h</div>
+
+      <div class="crono-horario">18:00</div>
+      <div class="crono-evento">
+        <div class="crono-evento-titulo">Apertura del CAD — charla inaugural</div>
+        <div class="crono-evento-lugar">Sala Martín Coronado · Teatro San Martín</div>
+      </div>
+      
+
+      <div class="crono-horario">20:00</div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">Geopolítica digital y el sur</div>
+        <div class="crono-evento-lugar">CC San Martín</div>
+      </div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">Digitalidad y algoritmos · Nicolás Andjel</div>
+        <div class="crono-evento-lugar">CC San Martín<br><span style="font-family:var(--mono);font-size:9px;color:var(--amarillo)">Posible auspicio: YouTube</span></div>
+      </div>
+
+      <div class="crono-horario">22:00</div>
+      <div class="crono-evento complementaria">
+        <div class="crono-comp-label">programación complementaria</div>
+        <div class="crono-evento-titulo">Círculo de sonido · Artlab</div>
+        <div class="crono-evento-lugar">Artlab · Chacarita · 23h</div>
+      </div>
+    </div>
+
+    <!-- VIE -->
+    <div class="crono-dia">
+      <div class="crono-dia-nombre">Vie 14<br>nov</div>
+      <div class="crono-dia-subtitulo">Política, personas y arte · desde 18h</div>
+
+      <div class="crono-horario">18:00</div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">Política, redes y democracia</div>
+        <div class="crono-evento-lugar">Sala Martín Coronado · Teatro San Martín</div>
+      </div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">IA especialista · Hernández Jon</div>
+        <div class="crono-evento-lugar">CC San Martín<br><span style="font-family:var(--mono);font-size:9px;color:var(--amarillo)">Posible auspicio: CECODE</span></div>
+      </div>
+
+      <div class="crono-horario">20:00</div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">Historia y tecnología</div>
+        <div class="crono-evento-lugar">CC San Martín</div>
+      </div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">Panel: IA en cine y series</div>
+        <div class="crono-evento-lugar">Sala Casacuberta · Teatro San Martín<br><span style="font-family:var(--mono);font-size:9px;color:var(--amarillo)">Posible auspicio: Netflix</span></div>
+      </div>
+      
+
+      <div class="crono-horario">22:00</div>
+      <div class="crono-evento complementaria">
+        <div class="crono-comp-label">programación complementaria</div>
+        <div class="crono-evento-titulo">Obra · Rechimuzzi · Teatro El Nacional</div>
+        <div class="crono-evento-lugar">Teatro El Nacional · ~21h · a confirmar</div>
+      </div>
+      <div class="crono-evento complementaria">
+        <div class="crono-comp-label">programación complementaria</div>
+        <div class="crono-evento-titulo">Escuchas musicales performáticas · CETC</div>
+        <div class="crono-evento-lugar">Sala Gerardo Gandini · Teatro Colón</div>
+      </div>
+    </div>
+
+    <!-- SAB -->
+    <div class="crono-dia">
+      <div class="crono-dia-nombre">Sáb 15<br>nov</div>
+      <div class="crono-dia-subtitulo">Futuro, ciencia y economía · desde 14h</div>
+
+      <div class="crono-horario">14:00</div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">Apertura del día / Panel a definir</div>
+        <div class="crono-evento-lugar">CC San Martín</div>
+      </div>
+      <div class="crono-evento complementaria">
+        <div class="crono-comp-label">programación complementaria · museo</div>
+        <div class="crono-evento-titulo">Bosques Umbral · MAMBA</div>
+        <div class="crono-evento-lugar">MAMBA · franja horaria amplia</div>
+      </div>
+
+      <div class="crono-horario">16:00</div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">¿Qué es la IA, de verdad?</div>
+        <div class="crono-evento-lugar">Hall Alfredo Alcón · Teatro San Martín</div>
+      </div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">Trabajo, educación y tecnología</div>
+        <div class="crono-evento-lugar">CC San Martín</div>
+      </div>
+
+      <div class="crono-horario">18:00</div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">Ciencia y ambiente en la era digital</div>
+        <div class="crono-evento-lugar">Sala Martín Coronado · Teatro San Martín</div>
+      </div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">Escritura en la era de la IA</div>
+        <div class="crono-evento-lugar">CC San Martín</div>
+      </div>
+
+      <div class="crono-horario">20:00</div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">Economía digital: quién gana, quién pierde</div>
+        <div class="crono-evento-lugar">Sala Martín Coronado · Teatro San Martín</div>
+      </div>
+      <div class="crono-evento">
+        <div class="crono-simul">simultáneo</div>
+        <div class="crono-evento-titulo">Trabajo y automatización</div>
+        <div class="crono-evento-lugar">CC San Martín</div>
+      </div>
+      
+
+      <div class="crono-horario">22:00</div>
+      <div class="crono-evento">
+        <div class="crono-evento-titulo">Evento nocturno de cierre</div>
+        <div class="crono-evento-lugar">Hall Alfredo Alcón · Teatro San Martín<br><span style="opacity:.6">o Artlab · Chacarita</span></div>
+      </div>
+      <div class="crono-evento complementaria">
+        <div class="crono-comp-label">programación complementaria</div>
+        <div class="crono-evento-titulo">Escucha Hi-Fi · Artlab</div>
+        <div class="crono-evento-lugar">Artlab · Chacarita · 21h</div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="crono-nota">
+    Borrador para revisión de Pedro y Soledad. Horarios y sedes son tentativos. Artista del cierre a definir con Marcos.
+  </p>
+  <div class="nota-orientativa">
+    <span class="nota-orientativa-icon">📺</span>
+    <span class="nota-orientativa-texto">Esa semana habrá programación en el vivo de Gelatina relacionada con el CAD.</span>
+  </div>
+  <div class="nota-orientativa" style="margin-top:4px">
+    <span class="nota-orientativa-icon">⚠️</span>
+    <span class="nota-orientativa-texto">Los títulos y contenidos de las charlas son orientativos. La programación definitiva la definirá Soledad con el equipo de contenidos y cada referente.</span>
+  </div>
+
+</section>
+
+<!-- ── AGENDA PROVINCIAL ─────────────────────────────────── -->
+<section class="seccion" style="background:var(--negro)">
+  <div class="seccion-header">
+    <span class="seccion-numero" style="color:var(--grisMed)">09 ——</span>
+    <h2 class="seccion-titulo" style="color:var(--blanco)">Actividades<br>descentralizadas</h2>
+    <span class="seccion-numero" style="text-align:right;color:var(--grisMed)">Sáb 15 · nov</span>
+  </div>
+
+  <p style="font-family:var(--sans);font-size:14px;color:var(--grisMed);max-width:680px;margin-bottom:40px;line-height:1.7">
+    Actividades simultáneas en 4 o más ciudades. Día sábado desde las 16h. Referentes locales, formatos charla y panel.
+  </p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:2px">
+
+    <div style="background:#0F0F0F;padding:28px 24px;border-top:3px solid var(--verde)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--verde);letter-spacing:.12em;margin-bottom:8px">CIUDAD</div>
+      <div style="font-family:var(--mono);font-size:20px;font-weight:700;color:var(--blanco);margin-bottom:8px">Rosario</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:12px">Venue a confirmar</div>
+      <div style="height:1px;background:#222;margin-bottom:12px"></div>
+      <div style="font-family:var(--sans);font-size:12px;color:var(--grisMed);line-height:1.6">Cabaret Voltaire · Facultad Libre</div>
+    </div>
+
+    <div style="background:#0F0F0F;padding:28px 24px;border-top:3px solid var(--azul)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--azul);letter-spacing:.12em;margin-bottom:8px">CIUDAD</div>
+      <div style="font-family:var(--mono);font-size:20px;font-weight:700;color:var(--blanco);margin-bottom:8px">Córdoba</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:12px">Venue a confirmar</div>
+      <div style="height:1px;background:#222;margin-bottom:12px"></div>
+      <div style="font-family:var(--sans);font-size:12px;color:var(--grisMed);line-height:1.6">Matías Mowszet</div>
+    </div>
+
+    <div style="background:#0F0F0F;padding:28px 24px;border-top:3px solid var(--coral)">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--coral);letter-spacing:.12em;margin-bottom:8px">CIUDAD</div>
+      <div style="font-family:var(--mono);font-size:20px;font-weight:700;color:var(--blanco);margin-bottom:8px">La Plata</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:12px">Venue a confirmar</div>
+      <div style="height:1px;background:#222;margin-bottom:12px"></div>
+      <div style="font-family:var(--sans);font-size:12px;color:var(--grisMed);line-height:1.6">Referente local · a definir</div>
+    </div>
+
+    <div style="background:#0F0F0F;padding:28px 24px;border-top:3px solid var(--grisMed);opacity:.6">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--grisMed);letter-spacing:.12em;margin-bottom:8px">CIUDAD</div>
+      <div style="font-family:var(--mono);font-size:20px;font-weight:700;color:var(--blanco);margin-bottom:8px">Ushuaia</div>
+      <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:12px">Venue a confirmar</div>
+      <div style="height:1px;background:#222;margin-bottom:12px"></div>
+      <div style="font-family:var(--sans);font-size:12px;color:var(--grisMed);line-height:1.6">Referente local · a definir</div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:2px;background:#111;border-left:3px solid var(--amarillo);padding:14px 20px;display:flex;align-items:flex-start;gap:12px">
+    <span style="font-size:14px;flex-shrink:0">⚠️</span>
+    <span style="font-family:var(--mono);font-size:10px;color:#AAA;letter-spacing:.04em;line-height:1.7">
+      Los títulos y contenidos son orientativos — la programación definitiva la definirá Soledad con el equipo y cada referente.
+    </span>
+  </div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- ── PRESUPUESTO DE REGISTRO ────────────────────────── -->
+<section class="seccion" style="background:#0A0A0A">
+  <div class="seccion-header">
+    <span class="seccion-numero" style="color:var(--grisMed)">10 ——</span>
+    <h2 class="seccion-titulo" style="color:var(--blanco)">Presupuesto<br>de registro</h2>
+    <span class="seccion-numero" style="text-align:right;color:var(--grisMed)">3 jornadas · Jue–Sáb</span>
+  </div>
+
+  <p style="font-family:var(--sans);font-size:14px;color:var(--grisMed);max-width:680px;margin-bottom:40px;line-height:1.7">
+    2 charlas registradas por jornada · actividades simultáneas contempladas.
+  </p>
+
+  <div style="background:#111;border-top:3px solid var(--verde);padding:40px;margin-bottom:2px">
+    <div style="font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:.15em;color:var(--verde);margin-bottom:12px">3 JORNADAS · JUE–SÁB</div>
+    <div style="font-family:var(--mono);font-size:13px;color:var(--grisMed);margin-bottom:8px">Jue 13 → Sáb 15 · San Martín</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-bottom:24px">Incluye: equipo técnico · equipamiento (4 cámaras + monitoreo + sonido) · edición y post producción · cobertura de redes · fotografía · catering · seguros · movilidad</div>
+    <div style="font-family:var(--mono);font-size:48px;font-weight:700;color:var(--verde);letter-spacing:-.02em;line-height:1">$ 37.248.750</div>
+    <div style="font-family:var(--mono);font-size:11px;color:var(--grisMed);margin-top:10px">ARS · sin IVA · Gandhi es un posible sponsor — este costo puede reducirse</div>
+  </div>
+
+  <!-- NOTA: COSAS QUE FALTAN PARA COMPLETAR EL PRESUPUESTO -->
+  <div style="background:#111;border:1px solid #2A2A2A;padding:32px;margin-bottom:2px">
+    <div style="font-family:var(--mono);font-size:9px;color:var(--grisMed);letter-spacing:.15em;text-transform:uppercase;margin-bottom:20px">Para continuar realizando costos, se necesita definir:</div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:28px">
+
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <span style="font-family:var(--mono);font-size:11px;color:var(--grisMed);min-width:20px">01</span>
+        <div>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--blanco);font-weight:700;margin-bottom:4px">Venue o venues</div>
+          <div style="font-family:var(--sans);font-size:12px;color:var(--grisMed);line-height:1.6">Hacer el congreso en 1 o 2 salas contiguas (ej. Teatro San Martín) difiere presupuestariamente de un esquema en 2 o 3 venues diferentes o alejados.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <span style="font-family:var(--mono);font-size:11px;color:var(--grisMed);min-width:20px">02</span>
+        <div>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--blanco);font-weight:700;margin-bottom:4px">Cantidad de charlas, paneles y eventos</div>
+          <div style="font-family:var(--sans);font-size:12px;color:var(--grisMed);line-height:1.6">La variedad de formatos y el número final de actividades impacta directamente en equipamiento, equipo técnico y logística.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <span style="font-family:var(--mono);font-size:11px;color:var(--grisMed);min-width:20px">03</span>
+        <div>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--blanco);font-weight:700;margin-bottom:4px">Honorarios de referentes y ponentes</div>
+          <div style="font-family:var(--sans);font-size:12px;color:var(--grisMed);line-height:1.6">Para actividades <strong style="color:#CCCCCC">sin corte de ticket</strong>: no se propone honorario, salvo casos muy excepcionales. Para actividades <strong style="color:#CCCCCC">con corte de ticket</strong>: se contempla honorario para ponentes o artistas.</div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <span style="font-family:var(--mono);font-size:11px;color:var(--grisMed);min-width:20px">04</span>
+        <div>
+          <div style="font-family:var(--mono);font-size:12px;color:var(--blanco);font-weight:700;margin-bottom:4px">Logística general</div>
+          <div style="font-family:var(--sans);font-size:12px;color:var(--grisMed);line-height:1.6">Con el esquema definido se puede armar un estimado que comprenda: movilidades, viáticos, seguros, permisos, hospitalidad, etc.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="border-top:2px solid #F5C842;padding-top:20px;margin-top:8px">
+      <div style="font-family:'Space Mono',monospace;font-size:22px;font-weight:700;color:#F5C842;letter-spacing:-.01em">¡Definir, por favor!</div>
+      <div style="font-family:var(--sans);font-size:13px;color:var(--grisMed);margin-top:8px;line-height:1.6">Con la definición de estos puntos se puede continuar realizando el presupuesto completo del CAD.</div>
+    </div>
+  </div>
+
+  <div style="background:#111;border-left:3px solid var(--amarillo);padding:14px 20px;display:flex;align-items:flex-start;gap:12px">
+    <span style="font-size:14px;flex-shrink:0">⚠️</span>
+    <span style="font-family:var(--mono);font-size:10px;color:#AAA;letter-spacing:.04em;line-height:1.7">
+      Valores orientativos · sin IVA. Obras de teatro y eventos musicales no se registran — no son producción propia.
+    </span>
+  </div>
+
+</section>
+
+<!-- ── SPONSORS / AUSPICIANTES / ALIADOS ──────────────── -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section style="background:#0A0A0A;padding:64px 48px;border-top:2px solid #222">
+  <div style="border-bottom:1px solid #222;padding-bottom:20px;margin-bottom:48px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px">
+    <div>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;color:#555;letter-spacing:.15em">13 ——</span>
+      <h2 style="font-family:'Space Mono',monospace;font-size:clamp(28px,4vw,48px);font-weight:700;color:#F5F2ED;margin-top:8px;letter-spacing:-.02em">Posibles sponsors,<br>auspiciantes y aliados</h2>
+    </div>
+    <a href="https://docs.google.com/document/d/176tuKytFB1G6ZJWHDLFtug1e4SbXj6cv/edit?usp=sharing&ouid=118091410296163813833&rtpof=true&sd=true" target="_blank" style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.08em;color:#0A0A0A;background:#F5F2ED;padding:12px 20px;text-decoration:none;border-radius:2px;white-space:nowrap;display:inline-flex;align-items:center;gap:8px">VER DOCUMENTO COMPLETO ↗</a>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+
+    <div style="background:#0F0F0F;padding:32px 28px;border-top:3px solid #5B4FCF">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.15em;color:#5B4FCF;margin-bottom:16px">SPONSORS</div>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:#888;line-height:2;letter-spacing:.03em">A definir</div>
+      <div style="margin-top:24px;font-family:'DM Sans',sans-serif;font-size:12px;color:#555;line-height:1.6">Empresas y marcas que apoyan el evento a cambio de visibilidad y presencia institucional.</div>
+    </div>
+
+    <div style="background:#0F0F0F;padding:32px 28px;border-top:3px solid #F05A3A">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.15em;color:#F05A3A;margin-bottom:16px">AUSPICIANTES</div>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:#888;line-height:2;letter-spacing:.03em">A definir</div>
+      <div style="margin-top:24px;font-family:'DM Sans',sans-serif;font-size:12px;color:#555;line-height:1.6">Organismos e instituciones que respaldan el CAD con apoyo económico o en especie.</div>
+    </div>
+
+    <div style="background:#0F0F0F;padding:32px 28px;border-top:3px solid #2DB87A">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:.15em;color:#2DB87A;margin-bottom:16px">ALIADOS</div>
+      <div style="font-family:'Space Mono',monospace;font-size:12px;color:#888;line-height:2;letter-spacing:.03em">A definir</div>
+      <div style="margin-top:24px;font-family:'DM Sans',sans-serif;font-size:12px;color:#555;line-height:1.6">Medios, organizaciones y comunidades que difunden y acompañan el CAD.</div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:2px;background:#111;border-left:3px solid #F5C842;padding:14px 20px;display:flex;align-items:flex-start;gap:12px">
+    <span style="font-size:14px;flex-shrink:0">⚠️</span>
+    <span style="font-family:'Space Mono',monospace;font-size:10px;color:#AAA;letter-spacing:.04em;line-height:1.7">
+      Los sponsors, auspiciantes y aliados son orientativos — a definir con el equipo de relaciones institucionales. Ver documento completo para el detalle actualizado.
+    </span>
+  </div>
+
+</section>
+
+
+</body>
+</html>
